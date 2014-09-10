@@ -1,104 +1,56 @@
-#Template TCC FGA-UnB
+Nos ultimos anos, a utilização de dispositivos móveis inteligentes se mostra cada vez mais presente no dia a dia das pessoas, ao ponto de substituir computadores na maioria das funções básicas. Com isso, vem surgindo projetos cada vez mais inovadores que aproveitam da presença constante desses dispositivos, modificando a forma que vemos e executamos várias tarefas cotidianas. Vem crescendo também a utilização de sistemas livres e de código aberto, a exemplo da plataforma Android que atualmente detém extensa fatia do mercado de dispositivos móveis. Ocupando papel fundamental na criação dessas novas aplicações, a engenharia de software traz conceitos de engenharia ao desenvolvimento e manutenção de produtos de software, tornando o processo de desenvolvimento mais organizado e eficiente, sempre com o objetivo de melhorar a qualidade do produto. O objetivo desse trabalho é trazer os fundamentos da engenharia de software para o desenvolvimento de um aplicativo para o sistema Android, aplicando atividades de requisito, desenho, construção, teste e manutenção, bem como o gerenciamento do desenvolvimento como um todo. Como estudo de caso, será utilizado o biodyn, um dispositivo de controle para exercícios físicos com elástico, tendo como foco a construção de um aplicativo de código aberto para comunicação direta e recepção de dados, gerando feedback sobre os exercícios realizados.
 
-Template para Trabalhos de Conclusão de Cursos (TCC) na Faculdade do
-Gama (FGA) em Latex.
+----------------------------------------------------------------------------
 
-Licenciado em Creative Commons Atribuição 3.0:
-http://creativecommons.org/licenses/by/3.0/
+Ideias de capítulos/topicos
 
-Desenvolvido e adaptado pelo professor Edson Alves <edsomjr@gmail.com>.
 
-## Instalando o abnTeX2
+Android OS
 
-### Ubuntu 12.10 ou superior
+	- falar da plataforma em geral
+	- mercado android e da variabilidade e limitação de vários dispositivos (necessdade de manter compatibilidade)
+	- play store e divulgação de aplicativos
+	- segurança apps
 
-Uma vez que a versão recomendada do Tex Live é a 2012 ou superior, o processo de
-instalação via apt-get funciona apenas a partir da versão 7.0 do Debian (também 
-conhecida como Wheezy) e suas derivadas, como por exemplo Ubuntu 12.10 (também 
-conhecida como Quantal Quetzal), Linux Mint 14, entre outras.
+Software livre
 
-Para instalar o abnTeX2 (e as respectivas dependências, como o próprio TeXLive) 
-em uma distribuição Debian ou derivada, utilize a instalação via apt-get (ou 
-outro gerenciador de pacotes que preferir):
+	- descrição geral e suas implicações
 
-Adicione a seguinte linha ao arquivo /etc/apt/sources.list:
-	
-	deb http://distrib.abntex2.googlecode.com/hg/debian/ testing main
+Engenharia de software
 
-Opcionalmente, adicione a linha abaixo caso deseje baixar os fontes:
+	- conceitos gerais e processos
+	- swebok
+		requisitos
+		desenho
+		codificação
+		teste
+		mantutenção
+		gerencia....
 
-	deb-src http://distrib.abntex2.googlecode.com/hg/debian/ testing main
+Engenharia de software na construção de aplicativo android
 
-Adicione a chave pública ao chaveiro do apt:
+	- explicitar atividades que variam/não variam quando comparando desenvolvimento web/desktop/embarcado do desenvolvimento para smart phone com Android OS
+	- implicações dos componentes android na arquitetura do sistema 
+		(design em geral usando componentes do android)
+	- atividades de teste e ferramentas específicas para desenvolvimento android
 
-	$ wget -O - http://distrib.abntex2.googlecode.com/hg/debian/89C55467.asc|sudo apt-key add - 
+Estudo de caso
 
-Instale o abntex2:
+	- detalhamento do projeto
+	- especificação dos requisitos
+	- apresentação do design
+		justificar utilização de determinadas tecnologias
+	- Métricas de acompanhamento do desenvolvimento (controle de qualidade)
+	- metodologia de testes
+	- gerencia e coordenação de equipe de desenvolvimento
+		metodologia de desenvolvimento
+	- especificar ambiente de desenvolvimento (incluindo versionamento e gilab) e ambiente de produção (onde o app irá rodar)
+	- criar manual do usário (será??)
+	- validação e testes de aceitação do produto parcial desenvolvido até o fim do semestre
 
-	$ sudo apt-get update && sudo apt-get install abntex2
+Resultados
 
-Para atualizar uma instalação já existente, feita a partir do repositório:
-	
-	$ sudo apt-get update && sudo apt-get upgrade
-
-Após o processo de instalação, você poderá ler os manuais e testar os exemplos 
-que estarão disponíveis nos diretórios /usr/share/doc/abntex2/pdf e 
-/usr/share/doc/abntex2/latex respectivamente.
-
-Fonte: https://code.google.com/p/abntex2/wiki/InstalacaoLinux
-
-### Ubuntu 12.04 ou inferior
-
-Conforme consta na página de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_autom%C3%A1tica_do_TeX_Live_e_do_abnTeX2_(recomendado)
-, a instalação via apt-get funciona apenas a partir da versão 12.10 do Ubuntu, 
-pois é nela que está disponível a versão 2012 do Tex Live, que é a recomendada 
-para utilização com o abnTeX2.
-
-Para instalar o abnTeX2 no Ubuntu 12.04 é necessário, pelo menos, atualizar o 
-Tex Live. Uma das formas possíveis é utilizando os pacotes existentes no 
-repositório [texlive-backports](https://launchpad.net/~texlive-backports/+archive/ppa)
-, conforme orientações abaixo.
-
-Adicione o repositório texlive-backports, digitando o seguinte em um terminal:
-
-	$ sudo add-apt-repository ppa:texlive-backports/ppa
-
-Caso o pacote texlive do Ubuntu 12.04 já esteja instalado digite:
-	
-	$ sudo apt-get update && sudo apt-get upgrade
-
-Caso o pacote texlive do Ubuntu 12.04 ainda não esteja instalado digite:
-
-	$ sudo apt-get update && sudo apt-get install texlive
-
-Outra forma de atualizar o Tex Live é manualmente, conforme descrito na página 
-de [instalação do abnTeX2 em distribuições GNU/Linux](https://code.google.com/p/abntex2/wiki/InstalacaoLinux#Instala%C3%A7%C3%A3o_manual_a_partir_do_instalador_do_TUG)
-
-Fonte: https://code.google.com/p/abntex2/wiki/FAQ#Por_que_eu_não_consigo_instalar_o_abnTeX2_no_Ubuntu_12.04_via_a
-
-### Outras distribuições linux
-
-Informações para instalar o abnTeX2 em outras distribuições linux:
-
-https://code.google.com/p/abntex2/wiki/InstalacaoLinux
-
-### Windows
-
-Informações para instalar o abnTeX2 no Windows:
-
-https://code.google.com/p/abntex2/wiki/InstalacaoWindows
-
-### Mac OS
-
-Informações para instalar o abnTeX2 no Mac OS X:
-
-https://code.google.com/p/abntex2/wiki/InstalacaoMac
-
-## Compilando
-
-Para compilar o texto através do Makefile digite:
-
-	$ make clean
-	$ make
-
+	- resultados do desenvolvimento
+	- avaliação das ferramentas disponíveis para esse tipo de desenvolvimento (android)
+	- apresentação de telas e explicação das funcionalidades desenvolvidas
 
