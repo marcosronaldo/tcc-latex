@@ -1,7 +1,7 @@
 \chapter{Android OS}
 \label{cap:android-os}
 
-O Android é um sistema operacional para dispositivos móveis com base em kernel linux modificado, com várias bibliotecas modificadas ou refeitas, de forma a deixar o sistema tão eficiente quanto possível para hardware limitado que os dispositivos alvo apresentam. A exemplo disso está a biblioteca C Bionic, que foi desenvolvida para menor consumo de espaço físico, memória e poder de processamento que as bibliotecas padrão C como a GNU C (glibc) [ Devos, Mathieu 2013]. 
+O Android é um sistema operacional para dispositivos móveis com base em kernel linux modificado, com várias bibliotecas modificadas ou refeitas, de forma a deixar o sistema tão eficiente quanto possível para hardware limitado que os dispositivos alvo apresentam. A exemplo disso está a biblioteca C Bionic, que foi desenvolvida para menor consumo de espaço físico, memória e poder de processamento que as bibliotecas padrão C como a GNU C (glibc) \cite{devos2014}. 
 
 Aplicações desenvolvidas para Android são feitas essencialmente em linguagem Java, com a possibilidade de utilizar outras linguagens como C e C++ através da Java native interface (JNI). 
 
@@ -39,7 +39,7 @@ A interface gráfica no android é construída em xml, e tem um padrão de naveg
 
 Da mesma forma, devido a diversa variedade de modelos e fabricantes de hardware, é preciso ficar atento aos recursos de hardware disponíveis para cada dispositivo. Alguns sensores hoje mais comuns aos novos dispositivos sendo lançados no mercado não existiam em modelos mais antigos. O desenvolvedor pode especificar no android manifest os recursos necessários para o funcionamento completo de sua aplicação, de forma que a mesma seja apenas instalada em dispositivos que os apresentarem. Também pode ser feita uma checagem em tempo de execução e apenas desativar uma funcionalidade do aplicativo caso algum recurso de hardware não esteja disponível no dispositivo, se isso for o desejo do desenvolvedor. De forma geral, é relativamente simples a forma com que o desenvolvedor especifica os dispositivos alvo para sua aplicação, tornando essa grande diversidade de dispositivos mais vantajosa do que dispendiosa. 
 
-Android é um sistema livre, que pode ser utilizado em modificado e utilizado segundo a licença apache versão 2.2. [Shanker, Abhyudai; 2011] apresenta alguns tópicos relacionados a portabilidade do sistema Android em um novo hardware. Embora não seja discutida nesse documento, a relativamente fácil portabilidade do sistema para vários tipos de hardware foi uma das razões que levaram seu rápido crescimento, fazendo com que várias fabricantes possam fazer uso do mesmo sistema e lançar vários tipos de dispositivos distintos no mercado, com diferentes features e preços, alcançando parcelas do mercado que possuem condições de aquisição muito variadas.
+Android é um sistema livre, que pode ser utilizado em modificado e utilizado segundo a licença apache versão 2.2. \citeonline{shanker2011} apresenta alguns tópicos relacionados a portabilidade do sistema Android em um novo hardware. Embora não seja discutida nesse documento, a relativamente fácil portabilidade do sistema para vários tipos de hardware foi uma das razões que levaram seu rápido crescimento, fazendo com que várias fabricantes possam fazer uso do mesmo sistema e lançar vários tipos de dispositivos distintos no mercado, com diferentes features e preços, alcançando parcelas do mercado que possuem condições de aquisição muito variadas.
 
 
 
