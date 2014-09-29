@@ -13,15 +13,18 @@ Para interagir com determinados serviços do sistema bem como outras aplicaçõe
 
 Aplicações no android são construídas a partir de quatro tipos de componentes principais: Activities, Services, Broadcast Receivers, e Content Providers. 
 
-Uma activity é basicamente o código para uma tarefa bem específica a ser realizada pelo usuário. Geralmente apresenta uma interface gráfica(Graphic User Interface) para a realização dessa tarefa. 
+\begin{enumerate}
+\item Uma activity é basicamente o código para uma tarefa bem específica a ser realizada pelo usuário. Geralmente apresenta uma interface gráfica(Graphic User Interface) para a realização dessa tarefa. 
 
-Services são tarefas que são executadas em background, sem interação com o usuário. Services podem funcionar no processo principal de uma aplicação ou no seu próprio processo. Um bom exemplo de services são os tocadores de músicas. Mesmo que sua interface gráfica não esteja mais visível, é esperado que a música continue a tocar, mesmo se o usuário estiver interagindo com outro aplicativo. 
+\item Services são tarefas que são executadas em background, sem interação com o usuário. Services podem funcionar no processo principal de uma aplicação ou no seu próprio processo. Um bom exemplo de services são os tocadores de músicas. Mesmo que sua interface gráfica não esteja mais visível, é esperado que a música continue a tocar, mesmo se o usuário estiver interagindo com outro aplicativo. 
 
-Broadcast Receiver é um componente que é chamado quando um Intent é criado por alguma aplicação ou pelo sistema. Intents são mecanismos para comunicação entre processos, podendo informar algum evento, ou transmitir dados de um para o outro.
+\item Broadcast Receiver é um componente que é chamado quando um Intent é criado por alguma aplicação ou pelo sistema. Intents são mecanismos para comunicação entre processos, podendo informar algum evento, ou transmitir dados de um para o outro.
 Um aplicativo pode receber um Intent criado por outro aplicativo, ou mesmo receber intents do próprio sistema, como por exemplo informação de que a bateria está fraca ou de que uma busca por dispositivos bluetooth previamente requisitada foi concluída. 
 
-Content providers são componentes que gerenciam o acesso a um conjunto de dados. São utilizados para criar um ponto de acesso a determinada informação para outras aplicações. Para os contatos do sistema, por exemplo, existe um Content Provider responsável por gerenciar leitura e escrita desses contatos. 
- 
+\item Content providers são componentes que gerenciam o acesso a um conjunto de dados. São utilizados para criar um ponto de acesso a determinada informação para outras aplicações. Para os contatos do sistema, por exemplo, existe um Content Provider responsável por gerenciar leitura e escrita desses contatos. 
+\end{enumerate}
+
+
 Cada um desses componentes pode funcionar independente dos demais. O sistema android foi desenvolvido dessa forma para que uma tarefa mais complexa seja concluída com a ajuda e interação de vários desses componentes independente da aplicação a qual eles pertencem, não necessitando que um desenvolvedor apenas crie mecanismos para todas as etapas de uma atividade mais longa do usuário.  
 
 Para executar a tarefa de ler um e-mail, por exemplo, um usuário instala um aplicativo de gerenciamento de e-mails. Então ele deseja abrir um anexo de um e-mail que está em formato PDF. O aplicativo de e-mail não precisa necessariamente prover um leitor de PDF para que o usuário consiga ter acesso a esse anexo. Ele pode mandar ao sistema a intenção de abrir um arquivo PDF a partir de um Intent, e então o sistema encontra um outro componente que pode fazer isso, e o instancia. Caso mais de um seja encontrado, o sistema pergunta para o usuário qual é o componente que ele deseja utilizar. O sistema então invoca uma Activity de um outro aplicativo para abrir esse arquivo. Continuando no mesmo exemplo, o usuário clica em um link dentro do arquivo pdf. Esse aplicativo, por sua vez, pode enviar ao sistema a intenção de abrir um endereço web, que mais uma vez encontra um aplicativo capaz de o fazer.  
