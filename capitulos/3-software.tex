@@ -3,7 +3,6 @@
 
 Engenharia de software é definida pela \citeonline{swebok} como aplicação de uma abordagem sistemática, disciplinada e mensurável ao desenvolvimento, operação e mautenção de software. \citeonline{swebok} é um documento bastante consolidado que reúne diversos conceitos relacionados a engenharia de software, e foi um marco para o reconhecimento da engenharia de software como engenharia de fato. Embora sem muitos detalhes, as seções seguintes citam alguns dos processos da engenharia de software que são importantíssimos em todo o ciclo de vida do produto de software, que inclui desde a concepção do produto até a manutenção do mesmo em ambiente de produção.
 
-
 \section{Requisitos}
 
 Área de conhecimento em requisitos de software é responsável pela elicitação, analise, especificação e validação de requisitos de software, bem como a manutenção gerenciamento desses requisitos durante todo o ciclo de vida do produto \cite{swebok}.
@@ -12,19 +11,19 @@ Requisitos de software representam as necessidades de um produto, condições qu
 
 Requisitos de software geralmente tem como fonte o próprio cliente que contrata o serviço do desenvolvimento de sofwate, e são estraídos da descrição de como esse cliente vê o uso do sistema. Todo esse processo é muitas vezes chamado de "engenharia de requisitos".
 
+Requisitos de software podem ser representados de diversas formas, sendo possível a utilização de vários modelos distintos. Na metodologia ágil scrum, por exemplo, os requistos normalmente são registrados na forma de User Stories, onde são geralmente descritos na visão do usuário do sistema. Em outros contextos, podem ser descritos em casos de uso, com descrições e diagramas, ou mesmo outras formas de representação.
+
 \section{Desenho de software}
 
 Desenho de software é o processo de definição da arquitetura, componentes, interfaces, e outras características de um sistema ou um componente \cite{swebok}. É durante o desenho de software que os requisitos são traduzidos na estrutura que dará base ao software sendo desenvolvido. As necessidades então são traduzidas em modelos, que descrevem os componentes e as interfaces entre os componentes. A partir desses modelos é possível avaliar a validade da solução desenhada e as restrições associadas a mesma, sendo possível avaliar diferentes soluções antes da implementação do software. A partir do design da arquitetura, é possível prever se alguns requisitos elicitados podem ou não ser atingidos com determinada solução, e mudá-la conforme necessário com pouco ou mesmo nenhum custo adicional.
 
-Diferentemente da área de requisitos, a área de desenho de software pode variar conforme a tecnologia sendo utilizada. A arquitetura do sistema pode variar conforme o sistema operacional alvo, ou mesmo conforme a linguagem de programação que se está utilizando no desenvolvimento. Existem vários princípios de design de software amplamente conhecidos que se aplicam a uma imensidade de situações, sempre com o intuito de encontrar a melhor solução para cada situação e deixar o software modularizado e manutenível.
+A área de desenho de software pode variar conforme a tecnologia sendo utilizada. A arquitetura do sistema pode variar conforme o sistema operacional alvo, ou mesmo conforme a linguagem de programação que se está utilizando no desenvolvimento. Existem vários princípios de design de software amplamente conhecidos que se aplicam a uma imensidade de situações, sempre com o intuito de encontrar a melhor solução para cada situação e deixar o software modularizado e manutenível.
 
 \section{Construção de software}
 
 Essa área de conhecimento é responsável pela codificação do software, por transformar a arquitetura desenhada e seus modelos em código fonte. A construção de software está extremamente ligada ao desenho e às atividades de teste, partindo do primeiro e gerando insumo para o segundo \cite{swebok}.
 
 Várias medidas podem ser coletadas do próprio código pra auxiliar a avaliação da qualidade do produto sendo construído e gerar insumo para o próprio desenvolvedor reavaliar sua implementação antes da fase de testes.
-
-Assim como o desenho, essa área é dependente da tecnologia a ser utilizada. A codificação varia bastante de uma linguagem para outra, e de um sistema operacional para outro.
 
 \section{Testes}
 
