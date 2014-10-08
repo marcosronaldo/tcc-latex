@@ -41,3 +41,17 @@ Revisões de código e esforços com manutenibilidade também podem ser consider
 
 A manutenção de software acontece por período mais longo que as demais fases do desenvolvimento do software citadas nos tópicos anteriores, ocupando a maior parte do ciclo de vida do produto.
 
+\chapter{ESW e Android}
+\label{cap:eswandroid}
+
+%corrigir citações
+
+\section{Arquitetura}
+
+Android provê um framework para desenvolver aplicativos baseado nos componentes descritos no capítulo 1 (citar aqui). Os aplicativos são construídos com qualquer combinação desses componentes, que podem ser utilizados individualmente, sem a presença dos demais. Cada um dos componentes pode ser uma entrada para o aplicativo sendo desenvolvido.
+
+A comunicação entre os componentes de cada aplicativo é feita por meio de Intents. Como descrito no capítulo 1 (citar aqui), Intents são geralmente recebidos por receivers que estão registrados para recebê-los. Entretanto, activities e services também utilizam desse mecanismo para ser iniciados e finalizados. Quando um Intent é enviado ao sistema via broadcast, ele é recebido pelo sistema, que seleciona o melhor componente para tratá-lo, e então inicia o componente que o recebeu independente da aplicação a que ele pertença. Assim como já descrito, permissões podem ser criadas para restringir essa comunicação global, mas a principio qualquer componente pode receber um intent de qualquer outra. 
+
+De forma geral, para desenhar uma arquitetura para sistema android deve-se levar em conta todos esses componentes e conhecer bem sua aplicabilidade. Se for necessário ter algum processo em background independente de feedback do usuário, por exemplo, deve-se utilizar do componente service. Caso contrário, quando o usuário fechar a interface gráfica do aplicativo, o aplicativo terá sua execução pausada e seu estado salvo para retorno posterior, deixando de executar alguma tarefa que não deveria ter sido interrompida. Como um exemplo mais paupável, o aplicativo do facebook precisa necessariamente utilizar de um serviço para que, mesmo quando não estiver em execução, notificações de mensagens e atualizações de status cheguem na tela do usuário.
+
+Embora pareça restringir o design de aplicativos, o uso desses componentes unifica a forma com que os aplicativos são desenvolvidos. A API do android já disponibiliza acesso a vários recursos de hardware do sistema na foram de componentes, e assim como é possível utilizar os componentes do sistema, é possível utilizar componentes de qualquer outra aplicação da mesma maneira - se a permissão for concedida- , e criar os seus próprios componentes para uso de terceiros de forma padronizada. Em suma, é tão fácil usar componentes criados por alguma aplicação qualquer quanto componentes internos do sistema graças ao framework de desenvolvimento android.
