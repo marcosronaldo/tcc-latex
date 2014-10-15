@@ -1,7 +1,9 @@
-\chapter{Engenharia de Software}
-\label{cap:software}
+\chapter{ESW e Android}
+\label{cap:eswandroid}
 
 Engenharia de software é definida pela \citeonline{swebok} como aplicação de uma abordagem sistemática, disciplinada e mensurável ao desenvolvimento, operação e mautenção de software. \citeonline{swebok} é um documento bastante consolidado que reúne diversos conceitos relacionados a engenharia de software, e foi um marco para o reconhecimento da engenharia de software como engenharia de fato. Embora sem muitos detalhes, as seções seguintes citam alguns dos processos da engenharia de software que são importantíssimos em todo o ciclo de vida do produto de software, que inclui desde a concepção do produto até a manutenção do mesmo em ambiente de produção.
+
+%escrever intro android p/ capitulo
 
 \section{Requisitos}
 
@@ -13,13 +15,43 @@ Requisitos de software geralmente tem como fonte o próprio cliente que contrata
 
 Requisitos de software podem ser representados de diversas formas, sendo possível a utilização de vários modelos distintos. Na metodologia ágil scrum, por exemplo, os requistos normalmente são registrados na forma de User Stories, onde são geralmente descritos na visão do usuário do sistema. Em outros contextos, podem ser descritos em casos de uso, com descrições e diagramas, ou mesmo outras formas de representação.
 
+%escrever algo sobre requisitos com contexto android
+
 \section{Desenho de software}
 
 Desenho de software é o processo de definição da arquitetura, componentes, interfaces, e outras características de um sistema ou um componente \cite{swebok}. É durante o desenho de software que os requisitos são traduzidos na estrutura que dará base ao software sendo desenvolvido. As necessidades então são traduzidas em modelos, que descrevem os componentes e as interfaces entre os componentes. A partir desses modelos é possível avaliar a validade da solução desenhada e as restrições associadas a mesma, sendo possível avaliar diferentes soluções antes da implementação do software. A partir do design da arquitetura, é possível prever se alguns requisitos elicitados podem ou não ser atingidos com determinada solução, e mudá-la conforme necessário com pouco ou mesmo nenhum custo adicional.
 
 A área de desenho de software pode variar conforme a tecnologia sendo utilizada. A arquitetura do sistema pode variar conforme o sistema operacional alvo, ou mesmo conforme a linguagem de programação que se está utilizando no desenvolvimento. Existem vários princípios de design de software amplamente conhecidos que se aplicam a uma imensidade de situações, sempre com o intuito de encontrar a melhor solução para cada situação e deixar o software modularizado e manutenível.
 
+Aplicativos para o sistema Android são construídos em módulos, utilizando os componentes da API, embora possam ser criadas classes em java puro sem a utilização de nenhum recurso da API do sistema, e utilizá-las nos componentes assim como em uma aplicação java padrão desenvolvida para desktop. Classes de modelo em uma arquitetura MVC, por exemplo, possivelmente serão criadas em java puro.
+
+%citar MVC no android
+
+\subsection{Componentes Android}
+
+%verificar se pode ser adicionado algum detalhe
+
+Android provê um framework para desenvolver aplicativos baseado nos componentes descritos no capítulo~\ref{cap:android-os}. Os aplicativos são construídos com qualquer combinação desses componentes, que podem ser utilizados individualmente, sem a presença dos demais. Cada um dos componentes pode ser uma entrada para o aplicativo sendo desenvolvido.
+
+A comunicação entre os componentes de cada aplicativo é feita por meio do Binder\footnote{\url{http://developer.android.com/guide/components/bound-services.html}}, mecanismo de comunicação entre processos. O Binder comunica processos através da troca de mensagens (chamadas parcels), que podem referenciar dados primitivos e objetos da API assim como referencias para outros objetos binder. De forma geral, um service no android pode ter sua interface definida em AIDL (Android interface definition language), e uma aplicação que tiver referencia para o binder desse service pode executar chamadas de procedimento remoto RPC (remote procedure calls) para qualquer método definido nessa interface AIDL. Embora essa forma de comunicação entre processoes seja recomendada, o sistema android também suporta mecanismos de comunicação padrões do linux como sockets e pipes \cite{heuser2014}. Embora o binder apresente acesso direto para alguns componentes, essa comunicação pode ser feita de forma indireta utilizando Intents. Como descrito no capítulo~\ref{cap:android-os}, Intents são geralmente recebidos por receivers que estão registrados para recebê-los. Esse registro é feito por meio de Intent Filters. Entretanto, activities e services também podem utilizar desse mecanismo para ser iniciados e finalizados. Quando um Intent é enviado ao sistema via broadcast, ele é recebido pelo sistema e resolvidos pelo Activity Manager Service (AMS), que seleciona o melhor componente para tratá-lo, e então inicia o componente que o recebeu independente da aplicação a que ele pertença. Assim como já descrito, permissões podem ser criadas para restringir essa comunicação global, mas a principio qualquer componente pode receber um intent de qualquer outra. 
+
+Embora os componentes sejam geralmente registrados no sistema, através do AndroidManifest.xml, BroadcastReceivers podem ser registrados dinamicamente dentro do ciclo de vida da aplicação. Isso quer dizer que é possível criar um receiver projetado para funcionar apenas enquanto a aplicação estiver em execução. Esse BroadcastReceiver então é registrado por linha de comando da API e desativado quando requisitado, criando uma janela onde se deseja que esse componente funcione.
+
+De forma geral, para desenhar uma arquitetura para sistema android deve-se levar em conta todos esses componentes e conhecer bem sua aplicabilidade e a comunicação entre os mesmos. Se for necessário ter algum processo em background independente de feedback do usuário, por exemplo, deve-se utilizar do componente service. Caso contrário, quando o usuário fechar a interface gráfica do aplicativo, o aplicativo terá sua execução pausada e seu estado salvo para retorno posterior, deixando de executar alguma tarefa que não deveria ter sido interrompida. Como um exemplo mais paupável, o aplicativo do facebook precisa necessariamente utilizar de um serviço para que, mesmo quando não estiver em execução, notificações de mensagens e atualizações de status cheguem na tela do usuário.
+
+Embora pareça restringir o design de aplicativos, o uso desses componentes unifica a forma com que os aplicativos são desenvolvidos. A API do android já disponibiliza acesso a vários recursos de hardware do sistema na forma de componentes, e assim como é possível utilizar os componentes do sistema, é possível utilizar componentes de qualquer outra aplicação da mesma maneira - se a permissão for concedida- , e criar os seus próprios componentes para uso de terceiros de forma padronizada. Em suma, é tão fácil usar componentes criados por alguma aplicação qualquer quanto componentes internos do sistema graças ao framework de desenvolvimento android.
+
+\subsection{Interface de usuário}
+
+A base da interface de usuário no Android é construída em cima da classe View, sendo que todos os elementos visíveis na tela, e alguns não visíveis, são derivados dessa classe \cite{androidarch2010}. O sistema android disponibiliza vários componentes gráficos como botões, caixas de texto, imagens, caixas de seleção de dados, calendário, componentes de mídia (audio e video), entre outros, e a interface gráfica é construída em cima desses componentes gráficos, que podem ser customizados para um comportamento ou aparência um pouco diferente se assim for desejado, extendendo e customizando suas respectivas classes em java. Existe também um padrão de design\footnote{\url{https://developer.android.com/design/get-started/principles.html}} que é recomndado que seja seguido.
+
+A interface gráfica do usuário é construída geralmente em formato xml utilizando esses componentes gráficos já disponibilizados na API. Esses arquivos xml são então carregados pela API em java quando necessário, e podem ser editados dinamicamente através da API, em linguagem java.
+
+Todo projeto de aplicativo android possui um arquivo em java R auto-gerado que contém identificação os recursos do aplicativo. Cada componente gráfico disponibilizado na API e utilizado nos arquivos xml pode ser identificado de qualquer local do aplicativo pelo seu ID atribuído no arquivo xml. Dessa forma, é possível localizar facilmente dentro de sua Activity (componente para interface gráfica) cada componente para ser carregado, modificado e utilizado.
+
 \section{Construção de software}
+
+%escrever algo sobre construção e ambientes de desenvolvimento para o android (incluindo SDK)
 
 Essa área de conhecimento é responsável pela codificação do software, por transformar a arquitetura desenhada e seus modelos em código fonte. A construção de software está extremamente ligada ao desenho e às atividades de teste, partindo do primeiro e gerando insumo para o segundo \cite{swebok}.
 
@@ -27,54 +59,27 @@ Várias medidas podem ser coletadas do próprio código pra auxiliar a avaliaç�
 
 \section{Testes}
 
+%falar mais sobre testes no android
+
 Testes de software consistem em verificar se o produto de software se comporta da forma esperada em um determinado conjunto de casos específicos, selecionados com o intuito de representar o maior número de situações diferentes que podem ocorrer durante o uso do sistema, com o software em execução. Os testes têm que ser projetados para checar se o software está de acordo com as necessidades do usuário, procedimento conhecido como validação, e para verificar se as funcionalidades estão de acordo com a especificação, procedimento conhecido como verificação \cite{swebok}. Testes podem ser realzados em vários níveis, desde o teste de pequenos trechos de código até a interação entre componentes e o teste da interface gráfica do usuário.
 
 Existem vários tipos de testes aplicáveis a determinados tipos de sistema. De acordo com as necessidades e o ambiente onde o sistema irá funcionar, vários testes podem ser ou não necessários para garantir o funcionamento do sistema sob diversas condições. Sistemas web podem exigir testes de carga e stress para avaliar a quantidade de usuários simultaneos suportados, por exemplo. Sistemas críticos já também necessitam de testes de recuperação, para avaliar a capacidade do sistema de restaurar seu funcionamento após algum tipo de falta.
 
 Ter uma boa suite de testes é de grande valia para a manutenção de um produto de software, uma vez que sempre que uma modificação precisar ser feita no sistema, é possível verificar de forma automatizada se algum comportamento foi indevidamente alterado pela modificação realizada.
 
+O sistema Android então provê um framework para testes\footnote{\url{http://developer.android.com/tools/testing/testing\_android.html}} , com várias ferramentas que ajudam a testar o aplicativo sendo desenvolvido em vários níveis, de testes unitários a testes realacionados ao framework de desenvolvimento de aplicativos. 
+
+Podem existir classes em java puro que não utilizam a API de desenvolvimento do Android. Conseguir fazer essa separação de classes que utilizam o framework e classes em java puro pode significar uma maior facilidade em testar determinadas partes da aplicação, uma vez que podem ser diretamente utilizados os já bem difundidos JUnit tests para essas classes. Entretanto, muitas classes são construídas através dos componentes, e o funcionamento das mesmas também precisa ser testado.
+
+As suites de teste são baseadas em JUnit, então da mesma forma que é possível utilizar JUnit para desenvolver testes para classes que não utilizam a API android, é possível utilizar as extensões do JUnit criadas especificamente para testar cada componente do aplicativo sendo desenvolvido. Existem extensões JUnit específicas para cada componente do android, e essas classes contém métodos auxiliares para criar "Mock Objects". Estes são criados para simular outros objetos do contexto de execução real do aplicativo.
+
+
 \section{Manutenção}
+
+%falar sobre manutenibilidade da separação de componentes
 
 A manutenção de software trata dos esforços de desenvolvimento com o software já em produção, isto é, em funcionamento no seu devdo ambiente. Problemas que passaram despercebidos durante as fases de construção e testes são encontrados e corrigidos durante a manutenção do sistema. Da mesma forma, o usuário pode requisitar novas funcionalidades que ele não havia pensado antes do uso do sistema, e o desenvolvimento dessas novas funcionalidades é também tratado como manutenção uma vez que o software já se encontra em produção, num processo conhecido como evolução de software. 
 
 Revisões de código e esforços com manutenibilidade também podem ser consideradas atividades de manutenção, embora possam acontecer antes do sistema entrar em produção.
 
 A manutenção de software acontece por período mais longo que as demais fases do desenvolvimento do software citadas nos tópicos anteriores, ocupando a maior parte do ciclo de vida do produto.
-
-\chapter{ESW e Android}
-\label{cap:eswandroid}
-
-%corrigir citações
-
-\section{Arquitetura}
-
-O sistema Android é construído utilizando os componentes da API, embora possam ser criadas classes em java puro sem a utilização de nenhum recurso da API do sistema, e utilizá-las nos componentes assim como em uma aplicação java padrão desenvolvida para desktop. Classes de modelo em uma arquitetura MVC, por exemplo, possivelmente serão criadas em java puro.
-
-\subsection{Componentes e sua comunicação}
-
-Android provê um framework para desenvolver aplicativos baseado nos componentes descritos no capítulo 1 (citar aqui). Os aplicativos são construídos com qualquer combinação desses componentes, que podem ser utilizados individualmente, sem a presença dos demais. Cada um dos componentes pode ser uma entrada para o aplicativo sendo desenvolvido.
-
-A comunicação entre os componentes de cada aplicativo é feita por meio do Binder\footnote{http://developer.android.com/guide/components/bound-services.html}, mecanismo de comunicação entre processos. O Binder comunica processos através da troca de mensagens (chamadas parcels), que podem referenciar dados primitivos e objetos da API assim como referencias para outros objetos binder. De forma geral, um service no android pode ter sua interface definida em AIDL (Android interface definition language), e uma aplicação que tiver referencia para o binder desse service pode executar chamadas de procedimento remoto RPC (remote procedure calls) para qualquer método definido nessa interface AIDL. Embora essa forma de comunicação entre processoes seja recomendada, o sistema android também suporta mecanismos de comunicação padrões do linux como sockets e pipes \cite{heuser2014}. Embora o binder apresente acesso direto para alguns componentes, essa comunicação pode ser feita de forma indireta utilizando Intents. Como descrito no capítulo 1, Intents são geralmente recebidos por receivers que estão registrados para recebê-los. Esse registro é feito por meio de Intent Filters. Entretanto, activities e services também podem utilizar desse mecanismo para ser iniciados e finalizados. Quando um Intent é enviado ao sistema via broadcast, ele é recebido pelo sistema e resolvidos pelo Activity Manager Service (AMS), que seleciona o melhor componente para tratá-lo, e então inicia o componente que o recebeu independente da aplicação a que ele pertença. Assim como já descrito, permissões podem ser criadas para restringir essa comunicação global, mas a principio qualquer componente pode receber um intent de qualquer outra. 
-
-Embora os componentes sejam geralmente registrados no sistema, através do AndroidManifest.xml, BroadcastReceivers podem ser registrados dinamicamente dentro do ciclo de vida da aplicação. Isso quer dizer que é possível criar um receiver projetado para funcionar apenas enquanto a aplicação estiver em execução. Esse BroadcastReceiver então é registrado por linha de comando da API e desativado quando requisitado, criando uma janela onde se deseja que esse componente funcione.
-
-De forma geral, para desenhar uma arquitetura para sistema android deve-se levar em conta todos esses componentes e conhecer bem sua aplicabilidade e a comunicação entre os mesmos. Se for necessário ter algum processo em background independente de feedback do usuário, por exemplo, deve-se utilizar do componente service. Caso contrário, quando o usuário fechar a interface gráfica do aplicativo, o aplicativo terá sua execução pausada e seu estado salvo para retorno posterior, deixando de executar alguma tarefa que não deveria ter sido interrompida. Como um exemplo mais paupável, o aplicativo do facebook precisa necessariamente utilizar de um serviço para que, mesmo quando não estiver em execução, notificações de mensagens e atualizações de status cheguem na tela do usuário.
-
-Embora pareça restringir o design de aplicativos, o uso desses componentes unifica a forma com que os aplicativos são desenvolvidos. A API do android já disponibiliza acesso a vários recursos de hardware do sistema na foram de componentes, e assim como é possível utilizar os componentes do sistema, é possível utilizar componentes de qualquer outra aplicação da mesma maneira - se a permissão for concedida- , e criar os seus próprios componentes para uso de terceiros de forma padronizada. Em suma, é tão fácil usar componentes criados por alguma aplicação qualquer quanto componentes internos do sistema graças ao framework de desenvolvimento android.
-
-\subsection{Interface de usuário}
-
-A base da interface de usuário no Android é construída em cima da classe View, sendo que todos os elementos visíveis na tela, e alguns não visíveis, são derivados dessa classe \cite{androidarch2010}. O sistema android disponibiliza vários componentes gráficos como botões, caixas de texto, imagens, caixas de seleção de dados, calendário, componentes de mídia (audio e video), entre outros, e a interface gráfica é construída em cima desses componentes gráficos, que podem ser customizados para um comportamento ou aparência um pouco diferente se assim for desejado, extendendo e customizando suas respectivas classes em java. Existe também um padrão de design\footnote{https://developer.android.com/design/get-started/principles.html} que é recomndado que seja seguido.
-
-A interface gráfica do usuário é construída geralmente em formato xml utilizando esses componentes gráficos já disponibilizados na API. Esses arquivos xml são então carregados pela API em java quando necessário, e podem ser editados dinamicamente através da API, em linguagem java.
-
-Todo projeto de aplicativo android possui um arquivo em java R auto-gerado que contém identificação os recursos do aplicativo. Cada componente gráfico disponibilizado na API e utilizado nos arquivos xml pode ser identificado de qualquer local do aplicativo pelo seu ID atribuído no arquivo xml. Dessa forma, é possível localizar facilmente dentro de sua Activity (componente para interface gráfica) cada componente para ser carregado, modificado e utilizado.
-
-\section{Testes}
-
-Como dito na seção anterior, podem existir classes em java puro que não utilizam a API de desenvolvimento do Android. Conseguir fazer essa separação pode significar uma maior facilidade em testar determinadas partes da aplicação, uma vez que podem ser diretamente utilizados os já bem difundidos JUnit tests para essas classes. Entretanto, muitas classes são construídas através dos componentes, e o funcionamento das mesmas também precisa ser testado.
-
-O sistema Android então provê um framework para testes\footnote{http://developer.android.com/tools/testing/testing\_android.html} , com várias ferramentas que ajudam a testar o aplicativo sendo desenvolvido em vários níveis, de testes unitários a testes realacionados ao framework de desenvolvimento de aplicativos. 
-
-As suites de teste são baseadas em JUnit, então da mesma forma que é possível utilizar JUnit para desenvolver testes para classes que não utilizam a API android, é possível utilizar as extensões do JUnit criadas especificamente para testar cada componente do aplicativo sendo desenvolvido. Existem extensões JUnit específicas para cada componente do android, e essas classes contém métodos auxiliares para criar "Mock Objects". Estes são criados para simular outros objetos do contexto de execução real do aplicativo.
-
