@@ -16,13 +16,22 @@ Segundo \citeonline{eswissues} alguns aspectos devem ser pensados quando desenvo
 \item Consumo de energia
 \end{enumerate}
 
-Todos esses tópicos mencionados são muito importantes para o desenvolvimento em várias plataformas móveis, incluindo o Android, e modificam a forma com que várias atividades da engenharia de software devem ser abordadas.
+Todos esses tópicos mencionados são muito importantes para o desenvolvimento em várias plataformas móveis, e modificam a forma com que várias atividades da engenharia de software devem ser abordadas.
 
-%escrever intro android p/ capitulo
+\citeonline{platformchoice} propõe 3 critérios para seleção de plataformas móveis para a escolha de desenvolvedores:
+\begin{enumerate}
+\item Remuneração - Relacionado ao número de potenciais clientes que podem adquirir o produto. Plataforma com grande número de usuários e crescimento constante é de grande valia para desenvolvedores. Um ponto centralizado de venda de aplicativos também é um atrativo para a comercialização dos softwares desenvolvidos.
+\item Carreira - As oportunidades que o desenvolvimento para a plataforma pode gerar. A possibilidade de trabalhar para grandes e renomadas empresas no mercado pode ser um fator decisivo para a escolha da plataforma. Para aumentar sua credibilidade na comunidade de desenvolvedores e ganhar visibilidade no mercado, \citeonline{platformchoice} sugere que o desenvolvedor participe de projetos de software livre, o que é facilitado quando a própria plataforma móvel é aberta.
+\item Liberdade - Liberdade criativa para desenvolver. O programador deve sentir que na plataforma ele programar o que quiser. Uma plataforma consolidada com excelentes kits de desenvolvimento e dispositivos atrativos do ponto de vista de hardware e sistema operacional atraem muitos desenvolvedores. Plataformas fechadas e com muitas restrições tendem a afastar desenvolvedores que querem essa liberdade, enquanto plataformas abertas apresentam maior liberdade para desenvolvimento.
+\end{enumerate}
+
+Com seu grande crescimento e consequente tomada da maior fatia do mercado de dispositivos móveis, a plataforma Android consegue ser bastante atrativa no ponto de vista primeiro tópico, em contraste com as demais plataformas do mercado, como WindowsPhone~\footnote{\url{http://www.windowsphone.com/}} e iOS~\footnote{\url{https://www.apple.com/br/ios/}}. Mais e mais empresas aparecem no contexto do Android tanto em desenvolvimento de hardware quanto software, e as oportunidades de trabalho crescem juntamente com o crescimento da própria plataforma, como sugerido no segundo tópico. Por ser aberto, a plataforma Android também permite que desenvolvedores enviem suas contribuições e correções de bugs ao próprio sistema operacional, aumentando sua visibilidade. Da mesma forma, o Android também apresenta um sistema totalmente aberto e com kits de desenvolvimento consolidados e extensiva documentação disponível online~\footnote{\url{http://developer.android.com/}}, no mínimo se equiparando ao seu principal concorrente iOS em liberdade de desenvolvimento na data de escrita desse documento.
+
+Tomando os critérios apresentados como base, a escolha da plataforma Android para desenvolvimento neste trabalho se apresenta clara.
 
 \section{Requisitos}
 
-Área de conhecimento em requisitos de software é responsável pela elicitação, analise, especificação e validação de requisitos de software, bem como a manutenção gerenciamento desses requisitos durante todo o ciclo de vida do produto \cite{swebok}.
+Área de conhecimento em requisitos de software é responsável pela elicitação, análise, especificação e validação de requisitos de software, bem como a manutenção gerenciamento desses requisitos durante todo o ciclo de vida do produto \cite{swebok}.
 
 Requisitos de software representam as necessidades de um produto, condições que ele deve cumprir para resolver um problema do mundo real que o software pretende atacar. Essas necessidades podem ser funcionalidades que o software deve apresentar para o usuário, chamados requisitos funcionais, ou outras condições que restringem as funcionalidades de alguma forma, seja por exemplo sobre tempo de execução, requisitos de segurança ou outras restrições, conhecidas como requisitos não funcionais.
 
@@ -42,9 +51,15 @@ Desenho de software é o processo de definição da arquitetura, componentes, in
 
 A área de desenho de software pode variar conforme a tecnologia sendo utilizada. A arquitetura do sistema pode variar conforme o sistema operacional alvo, ou mesmo conforme a linguagem de programação que se está utilizando no desenvolvimento. Existem vários princípios de design de software amplamente conhecidos que se aplicam a uma imensidade de situações, sempre com o intuito de encontrar a melhor solução para cada situação e deixar o software modularizado e manutenível.
 
-Aplicativos para o sistema Android são construídos em módulos, utilizando os componentes da API, embora possam ser criadas classes em java puro sem a utilização de nenhum recurso da API do sistema, e utilizá-las nos componentes assim como em uma aplicação java padrão desenvolvida para desktop. Classes de modelo em uma arquitetura MVC, por exemplo, possivelmente serão criadas em java puro.
+Aplicativos para o sistema Android são construídos em módulos, utilizando os componentes da API, embora possam ser criadas classes em java puro sem a utilização de nenhum recurso da API do sistema, e utilizá-las nos componentes assim como em uma aplicação java padrão desenvolvida para desktop. Várias classes de modelo em uma arquitetura MVC (Model-View-Controller), por exemplo, possivelmente serão criadas em java puro.
 
-%citar MVC no android
+O Android não impõe nenhuma arquitetura específica no desenvolvimento de aplicações, deixando livre para o desenvolvedor fazer suas escolhas.
+
+\citeonline{androidmvc} apresenta alguns tipos de arquitetura derivados do bem difundido MVC, e demonstra uma possibilidade de adaptação do MVC ao Android. Embora a arquitetura MVC possa ser utilizada no Android, ela não é fácilmente identificada, e não é intuitiva de ser implementada. Activities são os componentes mais difíceis de serem encaixados na arquitetura MVC padrão, embora sejam bem adaptadas às necessidades do desenvolvedor. Por padrão elas tem responsabilidades correspondentes ao Controller e ao View, são interpretadas de forma diferente por vários desenvolvedores.
+
+Neste trabalho será utilizada uma arquitetura semelhante a arquitetura "Android Passive MVC" apresentada em \citeonline{androidmvc}, com o intuito básico de separar a lógica de negócio da apresentação de dados, objetivo principal da arquitetura MVC. Mais detalhes serão apresentados nos capítulos seguintes.
+
+\cite{androidmvc}
 
 \subsection{Componentes Android}
 
@@ -72,15 +87,21 @@ Todo projeto de aplicativo android possui um arquivo em java R auto-gerado que c
 
 \section{Construção de software}
 
-%escrever algo sobre construção e ambientes de desenvolvimento para o android (incluindo SDK)
-
 Essa área de conhecimento é responsável pela codificação do software, por transformar a arquitetura desenhada e seus modelos em código fonte. A construção de software está extremamente ligada ao desenho e às atividades de teste, partindo do primeiro e gerando insumo para o segundo \cite{swebok}.
 
 Várias medidas podem ser coletadas do próprio código pra auxiliar a avaliação da qualidade do produto sendo construído e gerar insumo para o próprio desenvolvedor reavaliar sua implementação antes da fase de testes.
 
-\section{Testes}
+Para construção de aplicativos para a plataforma Android, o Google disponibiliza um kit de desenvolvimento de aplicativos chamado Android SDK~\footnote{url{https://developer.android.com/sdk}} (Software Development Kit). Ele provê as bibliotecas da API e as ferramentas necessárias para cronstuir, testar e debugar aplicativos. Android SDK está disponível para os sistemas operacionais Linux, MAC e Windows.
 
-%falar mais sobre testes no android
+Embora exista uma ferramenta em desenvolvimento (em fase Beta na data de escrita deste documento) para a construção de aplicativos chamada Android Studio~\footnote{url{https://developer.android.com/sdk/installing/studio.html}}, o android SDK é distribuido por padrão com a IDE Eclipse, juntamente com plugin ADT (Android Development Tools), incluindo as ferramentas de visualização de interface em xml, ferramentas de debug de código, análise de arquitetura, níveis de hierarquia de componentes gráficos, testes de desempenho, acesso a memória flash e outros recursos do dispositivo via IDE, entre outras funcionalidades.
+
+Após fazer o download do Eclipse ADT Bundle, que contém todas as ferramentas mencionadas, basta fazer o download das API's desejadas e utilizar do recurso da própria IDE para criar um projeto Android~\footnote{url{https://developer.android.com/tools/projects/index.html}}, que já vem com uma estrutura pronta para ser trabalhada, separando e categorizando código fonte e outros recursos utilizados no desenvolvimento.
+
+É necessário especificar a versão alvo do sistema para o qual se está desenvolvendo. Para manter a compatibilidade, geralmente desenvolvedores utilizam como versão mínima a 2.3 ou anterior, embora para utilizar alguns recursos seja necessário utilizar uma API mínima mais recente. Todas as API's utilizadas precisam ser baixadas pela própria ferramenta de download do SDK. Para desenvolver para android kitkat 4.4.2 com compatibilidade com android 2.3 por exemplo, deve-se obter ambas API's.
+
+Juntamente com o SDK, o desenvolvedor tém acesso a uma ferramenta de criação de dispositivos virtuais AVD (Android Virtual Devices) para poder executar as aplicações sendo desenvolvidoas sem a necessidade de um dispositivo físico disponível para esse fim.
+
+\section{Testes}
 
 Testes de software consistem em verificar se o produto de software se comporta da forma esperada em um determinado conjunto de casos específicos, selecionados com o intuito de representar o maior número de situações diferentes que podem ocorrer durante o uso do sistema, com o software em execução. Os testes têm que ser projetados para checar se o software está de acordo com as necessidades do usuário, procedimento conhecido como validação, e para verificar se as funcionalidades estão de acordo com a especificação, procedimento conhecido como verificação \cite{swebok}. Testes podem ser realzados em vários níveis, desde o teste de pequenos trechos de código até a interação entre componentes e o teste da interface gráfica do usuário.
 
@@ -88,12 +109,13 @@ Existem vários tipos de testes aplicáveis a determinados tipos de sistema. De 
 
 Ter uma boa suite de testes é de grande valia para a manutenção de um produto de software, uma vez que sempre que uma modificação precisar ser feita no sistema, é possível verificar de forma automatizada se algum comportamento foi indevidamente alterado pela modificação realizada.
 
-O sistema Android então provê um framework para testes\footnote{\url{http://developer.android.com/tools/testing/testing\_android.html}} , com várias ferramentas que ajudam a testar o aplicativo sendo desenvolvido em vários níveis, de testes unitários a testes realacionados ao framework de desenvolvimento de aplicativos. 
+O sistema Android provê um framework para testes\footnote{\url{http://developer.android.com/tools/testing/testing\_android.html}} , com várias ferramentas que ajudam a testar o aplicativo sendo desenvolvido em vários níveis, de testes unitários a testes realacionados ao framework de desenvolvimento de aplicativos. Todas as ferramentas necessárias para utilizar a API de testes disponível no framework de desenvolvimento android são disponibiizadas juntamente com o android SDK.
 
 Podem existir classes em java puro que não utilizam a API de desenvolvimento do Android. Conseguir fazer essa separação de classes que utilizam o framework e classes em java puro pode significar uma maior facilidade em testar determinadas partes da aplicação, uma vez que podem ser diretamente utilizados os já bem difundidos JUnit tests para essas classes. Entretanto, muitas classes são construídas através dos componentes, e o funcionamento das mesmas também precisa ser testado.
 
-As suites de teste são baseadas em JUnit, então da mesma forma que é possível utilizar JUnit para desenvolver testes para classes que não utilizam a API android, é possível utilizar as extensões do JUnit criadas especificamente para testar cada componente do aplicativo sendo desenvolvido. Existem extensões JUnit específicas para cada componente do android, e essas classes contém métodos auxiliares para criar "Mock Objects". Estes são criados para simular outros objetos do contexto de execução real do aplicativo.
+As suites de teste são baseadas em JUnit, e então da mesma forma que é possível utilizar JUnit para desenvolver testes para classes que não utilizam a API android, é possível utilizar as extensões do JUnit criadas especificamente para testar cada componente do aplicativo sendo desenvolvido. Existem extensões JUnit específicas para cada componente do android, e essas classes contém métodos auxiliares para criar "Mock Objects". Estes são criados para simular outros objetos do contexto de execução real do aplicativo.
 
+O kit de desenvolvimento para a plataforma Android inclui ferramentas automatizadas de teste de interface gráfica. O robotium, por exemplo, realiza testes de caixa preta em cima da interface gráfica do aplicativo. São criadas rotinas de teste em java semelhantes ao JUnit, com asserts para validar os resultados. Com ele é possível criar rotinas robustas de testes para validar critérios de aceitação pré definidos, simulando interações do usuário com uma ou várias activities. Existe a ferramenta monkeyrunner, onde se cria scripts em python para instalar e executar algum aplicativo, enviando comandos e cliques para o mesmo, e salvando screenshots do dispositivo no computador com resultados. Há também a ferramenta Monkey, que é utilizada para fazer testes de stress no aplicativo gerando inputs pseudo-aleatórios.
 
 \section{Manutenção}
 
