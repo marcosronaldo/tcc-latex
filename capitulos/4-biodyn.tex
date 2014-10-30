@@ -1,10 +1,27 @@
-\chapter{e-lastic}
+\chapter{Estudo de Caso}
+
+\section{E-Lastic}
 O E-lastic é um sistema eletrônico que monitora e controla a execução de exercícios físicos realizados com equipamento que impõe sobrecarga à movimentação de segmentos corporais por meio de resistência elástica. Geralmente o controle de sobrecarga gerada por elementos elásticos é baseado na percepção subjetiva do esforço, com base na sensação de fadiga experimentada durante o exercício, e portanto o praticante não têm controle do esforço aplicado no exercício.
 
-O produto em desenvolvimento apresenta um aparelho portátil, voltado para o controle de atividades físicas em ambientes fechados ou abertos. Trata-se de um sistema eletrônico embarcado que realiza o processamento digital do sinal originado num sensor de força e associa essas informações com variáveis de espaço e tempo, de forma a gerar informações suficientes para o controle e prescrição de exercícios resistidos. Esse sistema eletrônico permite a acoplagem do implemento elástico para a realização do exercício a ser monitorado, e interfaceia com o usuário por meio de um aplicativo desenvolvido para um dispositivo móvel. De forma geral, durante o exercício físico, a força aplicada pelo usuário ao elemento elástico é calculada no microcontrolador e enviada juntamente com as demais informações via Bluetooth para um dispositivo móvel com o e-lastic app, que contém opções de controle para a realização do exercício físico.
+O produto em desenvolvimento apresenta um aparelho portátil, voltado para o controle de atividades físicas em ambientes fechados ou abertos. Trata-se de um sistema eletrônico embarcado que realiza o processamento digital do sinal originado num sensor de força e associa essas informações com variáveis de espaço e tempo, de forma a gerar informações suficientes para o controle e prescrição de exercícios resistidos. O sensor de força será fornecido calibrado juntamente com a central de processamento. Esse sistema eletrônico permite a acoplagem do implemento elástico para a realização do exercício a ser monitorado, e interfaceia com o usuário por meio de um aplicativo desenvolvido para um dispositivo móvel. De forma geral, durante o exercício físico, a força aplicada pelo usuário ao elemento elástico é calculada no microcontrolador e enviada juntamente com as demais informações via Bluetooth para um dispositivo móvel com o e-lastic app, que contém opções de controle para a realização do exercício físico.
 
+Para a utilização do aparelho, o usuário deve selecionar o implemento elástico mais adequado ao exercício que será praticado, com resistência elástica compatível com o esforço que será aplicado. Um sensor de força compatível é acoplado ao implemento elástico e ligado ao módulo de processamento por uma entrada específica. O usuário então seleciona via aplicativo móvel um dos três modos de execução de exercício: dinâmico, isométrico e potência. Seleciona em seguida a configuração da sua rotina de treino, com os parâmetros de controle para o exercício específico. A partir daí o exercício pode ser iniciado, e informações precisas de controle são apresentadas na tela do dispositivo móvel em tempo real. Vibração do dispositivo, estímulos sonoros e outros tipos de sinais podem ser utilizados para dar biofeedback ao usuário sobre o exercício em curso. Após a realização do exercício, é apresentado um resumo da seção de treino executada. É possível que se apresente um histórico de treinamento dos indivíduos que realizam suas atividades utilizando o e-lastic.
 
+Os parâmetros para controle podem variar de exercício para exercício, porém em todos eles será selecionado um intervalo de intensidade, isto é, carga máxima e mínima em quilogramas, em que o exercício será trabalhado. As opções de exercícios são espécies de rotinas pré programadas, modos de utilização da resistência elástica para o exercício físico:
 
- 
+\begin{enumerate}
+\item Modo dinâmico - Realização de movimentos cíclicos em velocidade lenta e cadência controlada. Os parâmetros de controle para esse exercício são número de séries de exercícios, número de repetições por série e a duração do descanso entre as séries.
+\item Modo isométrico - Contrações estáticas em que o usuário mantém uma posição e sustenta a sobrecarga elástica nessa posição por um determinado tempo. Semelhante ao modo dinâmico, no modo isométrico o usuário seleciona os parâmetros de números de contrações realizadas (repetições do exercício), e duração do tempo de intervalo entre as séries, com adição da duração de cada contração, isto é, o tempo em que o esforço deve ser mantido para que uma repetição seja contabilizada.
+\item Modo potência - Semelhante ao modo dinâmico, estes são exercícios cíclicos, porém com a maior velocidade possível. Os parâmetros para esse exercício são os mesmos do modo dinâmico, porém aqui a velocidade do movimento faz parte dos parâmetros de controle.
+\end{enumerate}
 
+\section{Metodologia Desenvolvimento}
+%reunioes da equipe, reunioes com "clientes" (fernanda e gabriela), levantamento de requisitos baseados em prototipos anteriores.
+	\subsection{Ciclo de desenvolvimento}
+%	sprints, planejmentos ate o fim do semestre, citar velocity da equipe, disciplina de MES, repositorio e merge requests
+	\subsection{Equipe}
+%	descricao no nivel da equipe (falar de dojos e exp com android) + meu papel na equipe e contribuiçoes
 
+\section{Estado do desenvolvimento}
+%arquitetura atual do app. Componentes e sua comunicaçao indireta (possibilidade de modulo wifi no futuro em vez do bluettooth). Comparaçao da arquitetura ao MVC. Testes e suas dificuldades. gitlab, codigo aberto a forks e pull requests de qualquer um.
+	
