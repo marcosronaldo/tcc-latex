@@ -22,7 +22,7 @@ EDITAVEIS_SOURCES = informacoes.tex errata.tex dedicatoria.tex \
 EDITAVEIS_FILES = $(addprefix $(EDITAVEIS_DIR)/, $(EDITAVEIS_SOURCES))
 
 CHAPTERS_DIR = capitulos
-CHAPTERS_SOURCES = 1-introducao.tex 2-android.tex 3-software.tex \
+CHAPTERS_SOURCES = 1-introducao.tex 1,5-metodologia.tex 2-android.tex 3-software.tex \
 					4-biodyn.tex 5-consideracoes-finais.tex
 
 CHAPTERS_FILES = $(addprefix $(CHAPTERS_DIR)/, $(CHAPTERS_SOURCES))
