@@ -23,7 +23,7 @@ EDITAVEIS_FILES = $(addprefix $(EDITAVEIS_DIR)/, $(EDITAVEIS_SOURCES))
 
 CHAPTERS_DIR = capitulos
 CHAPTERS_SOURCES = introducao.tex android.tex software.tex metodologia.tex \
-					biodyn.tex consideracoes-finais.tex
+					biodyn.tex consideracoes-finais.tex metricas.tex
 
 CHAPTERS_FILES = $(addprefix $(CHAPTERS_DIR)/, $(CHAPTERS_SOURCES))
 
