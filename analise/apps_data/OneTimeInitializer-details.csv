@@ -1,0 +1,3 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/onetimeinitializer/OneTimeInitializerReceiver.java,com::android::onetimeinitializer::OneTimeInitializerReceiver,0,1,4,0,2,0,0,0,0,0,0,0,0,1,0,0,0,1,4,0,4,1,0,1,0,1,0,0,0,2,0,0,0,0,0,0,0
+src/com/android/onetimeinitializer/OneTimeInitializerService.java,com::android::onetimeinitializer::OneTimeInitializerService,0,3,14.6666666666667,0,0.333333333333333,0,0,0,0,0,0,0,0,1,0,0,0,2,88,0,55,7,0,6,0,2,0,0,0,20,0,0,0,0,0,0,0

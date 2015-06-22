@@ -1,0 +1,16 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+canon/src/com/android/apps/tagcanon/TagCanon.java,com::android::apps::tagcanon::TagCanon,0,1.2,14.6,0,2,0,0,0,0,1,0,0,0,1,0,0,0,1,73,0,23,3,0,5,0,4,0,0,0,11,0,0,0,1,0,0,0
+canon/src/com/android/apps/tagcanon/TagCanon.java,com::android::apps::tagcanon::TagCanon::TagDescription,1,1.33333333333333,5,0,1.33333333333333,0,0,0,0,1,0,0,0,0,0,0,0,1,15,0,8,2,0,3,1,3,0,0,0,8,0,0,0,1,0,0,0
+src/com/android/apps/tag/message/NdefMessageParser.java,com::android::apps::tag::message::NdefMessageParser,0,2.75,7,0,0.75,0,0,0,0,1,0,0,0,0,0,0,0,3,28,0,21,0,0,4,0,3,0,0,0,5,0,0,0,3,0,0,0
+src/com/android/apps/tag/message/ParsedNdefMessage.java,com::android::apps::tag::message::ParsedNdefMessage,1,2.66666666666667,12,0,1,0,0,0,0,2,0,0,0,0,0,0,0,1,36,0,30,1,0,3,0,3,0,0,0,7,0,0,0,2,0,0,0
+src/com/android/apps/tag/record/ImageRecord.java,com::android::apps::tag::record::ImageRecord,0,1.6,7.4,0,1.6,0,0,0,0,2,0,0,0,1,0,0,0,2,37,0,15,2,0,5,1,4,0,0,0,9,0,0,0,4,0,0,0
+src/com/android/apps/tag/record/MimeRecord.java,com::android::apps::tag::record::MimeRecord,1,1,3.625,0,1.5,0,0,0,0,2,0,0,0,1,0,0,0,3,29,0,5,2,0,8,0,7,0,0,0,15,0,0,0,6,0,0,0
+src/com/android/apps/tag/record/ParsedNdefRecord.java,com::android::apps::tag::record::ParsedNdefRecord,9,1,2,0,3,0,0,0,0,2,0,0,0,0,0,0,0,2,4,0,3,0,7,2,0,2,0,0,0,2,0,0,0,4,0,0,0
+src/com/android/apps/tag/record/RecordUtils.java,com::android::apps::tag::record::RecordUtils,0,3.5,30.5,0,7,0,0,0,0,2,0,0,0,0,0,0,0,1,61,0,38,0,0,2,0,1,0,0,0,3,0,0,0,2,0,0,0
+src/com/android/apps/tag/record/RecordUtils.java,com::android::apps::tag::record::RecordUtils::ClickInfo,0,1,4,0,2,0,0,0,0,2,0,0,0,0,0,0,0,1,4,0,4,2,0,1,2,1,0,0,0,3,0,0,0,2,0,0,0
+src/com/android/apps/tag/record/SmartPoster.java,com::android::apps::tag::record::SmartPoster,0,1.91666666666667,8.75,0,1.66666666666667,0,0,0,0,4,0,0,0,1,0,0,0,2,105,0,17,7,0,12,0,7,0,0,0,36,0,0,0,8,0,0,0
+src/com/android/apps/tag/record/TextRecord.java,com::android::apps::tag::record::TextRecord,2,1.22222222222222,9.66666666666667,0,1.66666666666667,0,0,0,0,4,0,0,0,1,0,0,0,3,87,0,38,3,0,9,1,8,0,0,0,17,0,0,0,12,0,0,0
+src/com/android/apps/tag/record/UnknownRecord.java,com::android::apps::tag::record::UnknownRecord,0,1,5,0,4,0,0,0,0,4,0,0,0,1,0,0,0,1,5,0,5,0,0,1,0,1,0,0,0,1,0,0,0,4,0,0,0
+src/com/android/apps/tag/record/UriRecord.java,com::android::apps::tag::record::UriRecord,2,1.7,6.3,0,1.2,0,0,0,0,4,0,0,0,1,0,0,0,4,63,0,19,3,0,10,1,9,0,0,0,19,0,0,0,16,0,0,0
+src/com/android/apps/tag/record/VCardRecord.java,com::android::apps::tag::record::VCardRecord,0,1.6,9.3,0,1.1,0,0,0,0,5,0,0,0,1,0,0,0,4,93,0,28,3,0,10,1,7,0,0,0,21,0,0,0,20,0,0,0
+src/com/android/apps/tag/TagViewer.java,com::android::apps::tag::TagViewer,0,2,13.2,0,1,0,0,0,0,6,0,0,0,1,0,0,0,2,66,0,32,2,0,5,0,2,0,0,0,13,0,0,0,12,0,0,0

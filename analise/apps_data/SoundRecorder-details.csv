@@ -1,0 +1,6 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/soundrecorder/Recorder.java,com::android::soundrecorder::Recorder,13,1.9047619047619,9,0,0.619047619047619,0,0,0,0,1,0,0,0,1,0,0,0,2,189,0,52,17,0,21,7,18,0,0,0,94,0,0,0,2,0,0,0
+src/com/android/soundrecorder/Recorder.java,com::android::soundrecorder::Recorder::OnStateChangedListener,3,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,2,2,0,1,0,1,2,0,2,0,0,0,2,0,0,0,2,0,0,0
+src/com/android/soundrecorder/SoundRecorder.java,com::android::soundrecorder::RemainingTimeCalculator,2,1.42857142857143,10,0,0.428571428571429,0,0,0,0,1,0,0,0,0,0,0,0,1,70,0,47,12,0,7,3,7,0,0,0,28,0,0,0,1,0,0,0
+src/com/android/soundrecorder/SoundRecorder.java,com::android::soundrecorder::SoundRecorder,0,3.63636363636364,24.0454545454545,0,0.909090909090909,0,0,0,0,4,0,0,0,1,0,0,0,2,529,0,104,34,0,22,0,8,0,0,0,155,0,0,0,8,0,0,0
+src/com/android/soundrecorder/VUMeter.java,com::android::soundrecorder::VUMeter,1,1.6,11.8,0,1.2,0,0,0,0,4,0,0,0,1,0,0,0,1,59,0,34,10,0,5,0,3,0,0,0,23,0,0,0,4,0,0,0

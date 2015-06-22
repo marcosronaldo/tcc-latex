@@ -1,0 +1,5 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/basicsmsreceiver/BasicSmsReceiverApp.java,com::android::basicsmsreceiver::BasicSmsReceiverApp,0,1.33333333333333,8.66666666666667,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,26,0,18,4,0,3,3,3,0,0,0,8,0,0,0,0,0,0,0
+src/com/android/basicsmsreceiver/DialogSmsDisplay.java,com::android::basicsmsreceiver::DialogSmsDisplay,1,1.75,14,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,56,0,25,7,0,4,3,0,0,0,0,17,0,0,0,0,0,0,0
+src/com/android/basicsmsreceiver/SmsMessageReceiver.java,com::android::basicsmsreceiver::SmsMessageReceiver,0,1.66666666666667,18.6666666666667,0,3,0,0,0,0,0,0,0,0,1,0,0,0,1,56,0,19,1,0,3,0,1,0,0,0,7,0,0,0,0,0,0,0
+tests/src/com/android/basicsmsreceiver/DialogSmsDisplayTests.java,com::android::basicsmsreceiver::DialogSmsDisplayTests,0,2.72727272727273,19,0,0.545454545454545,0,0,0,0,1,0,0,0,1,0,0,0,1,209,0,76,10,0,11,1,6,0,0,0,48,0,0,0,1,0,0,0
