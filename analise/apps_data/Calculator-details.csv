@@ -1,0 +1,10 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/calculator2/Calculator.java,com::android::calculator2::Calculator,0,2.66666666666667,21.2,0,1,0,0,0,0,3,0,0,0,1,0,0,0,1,318,0,62,18,0,15,1,6,0,0,0,82,0,0,0,3,0,0,0
+src/com/android/calculator2/CalculatorEditText.java,com::android::calculator2::CalculatorEditText,2,1.58333333333333,8.91666666666667,0,1.41666666666667,0,0,0,0,4,0,0,0,1,0,0,0,5,107,0,23,8,0,12,0,10,0,0,0,33,0,0,0,20,0,0,0
+src/com/android/calculator2/CalculatorEditText.java,com::android::calculator2::CalculatorEditText::OnTextSizeChangeListener,2,1,1,0,2,0,0,0,0,4,0,0,0,0,0,0,0,1,1,0,1,0,1,1,0,0,0,0,0,1,0,0,0,4,0,0,0
+src/com/android/calculator2/CalculatorExpressionBuilder.java,com::android::calculator2::CalculatorExpressionBuilder,0,7,31.5,0,4,0,0,0,0,4,0,0,0,1,0,0,0,1,63,0,56,2,0,2,0,2,0,0,0,8,0,0,0,4,0,0,0
+src/com/android/calculator2/CalculatorExpressionEvaluator.java,com::android::calculator2::CalculatorExpressionEvaluator,2,2.66666666666667,13.3333333333333,0,1.66666666666667,0,0,0,0,5,0,0,0,0,0,0,0,2,40,0,33,4,0,3,0,3,0,0,0,12,0,0,0,10,0,0,0
+src/com/android/calculator2/CalculatorExpressionEvaluator.java,com::android::calculator2::CalculatorExpressionEvaluator::EvaluateCallback,2,1,1,0,3,0,0,0,0,5,0,0,0,0,0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,1,0,0,0,5,0,0,0
+src/com/android/calculator2/CalculatorExpressionTokenizer.java,com::android::calculator2::CalculatorExpressionTokenizer,4,1.66666666666667,13.3333333333333,0,1,0,0,0,0,5,0,0,0,0,0,0,0,1,40,0,28,1,0,3,0,3,0,0,0,6,0,0,0,5,0,0,0
+src/com/android/calculator2/CalculatorPadLayout.java,com::android::calculator2::CalculatorPadLayout,0,1.33333333333333,8,0,1.55555555555556,0,0,0,0,5,0,0,0,1,0,0,0,8,72,0,41,2,0,9,0,5,0,0,0,13,0,0,0,40,0,0,0
+src/com/android/calculator2/CalculatorPadViewPager.java,com::android::calculator2::CalculatorPadViewPager,0,1.33333333333333,6.66666666666667,0,1,0,0,0,0,5,0,0,0,1,0,0,0,2,20,0,9,3,0,3,0,2,0,0,0,7,0,0,0,10,0,0,0

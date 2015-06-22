@@ -19,3 +19,9 @@
 *.brf
 *.toc
 *.idx
+
+analise/data/fixed/
+analise/data/fixed/*
+
+analise/apps_data/fixed/
+analise/apps_data/fixed/*

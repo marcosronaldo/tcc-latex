@@ -1,0 +1,4 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/htmlviewer/HTMLViewerActivity.java,com::android::htmlviewer::HTMLViewerActivity,2,1.5,18,0,0.5,0,0,0,0,0,0,0,0,1,0,0,0,1,36,0,32,3,0,2,0,0,0,0,0,5,0,0,0,0,0,0,0
+src/com/android/htmlviewer/HTMLViewerActivity.java,com::android::htmlviewer::HTMLViewerActivity::ChromeClient,0,2,5,0,2,0,0,0,0,0,0,0,0,1,0,0,0,1,5,0,5,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0
+src/com/android/htmlviewer/HTMLViewerActivity.java,com::android::htmlviewer::HTMLViewerActivity::ViewClient,0,2,11,0,2,0,0,0,0,1,0,0,0,1,0,0,0,2,22,0,19,0,0,2,0,2,0,0,0,4,0,0,0,2,0,0,0

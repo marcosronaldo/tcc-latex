@@ -1,0 +1,12 @@
+filename,module,acc,accm,amloc,an,anpm,asom,auv,bd,bf,cbo,da,dbz,df,dit,dnp,dupv,fgbo,lcom4,loc,mlk,mmloc,noa,noc,nom,npa,npm,obaa,osf,pitfc,rfc,rogu,rsva,saigv,sc,ua,uaf,uav
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller,4,2.7,16.15,0,0.55,0,0,0,0,3,0,0,0,1,0,0,0,1,323,0,75,17,0,20,0,0,0,0,0,133,0,0,0,3,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::InstallCaCertsToKeyChainTask,0,2.5,9.5,0,1,0,0,0,0,4,0,0,0,1,0,0,0,2,19,0,13,0,0,2,0,0,0,0,0,4,0,0,0,8,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::MyMap,0,1,6,0,1,0,0,0,0,4,0,0,0,1,0,0,0,1,6,0,6,1,0,1,0,0,0,0,0,1,0,0,0,4,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::MyAction,7,1,1,0,1,0,0,0,0,4,0,0,0,1,0,0,0,1,1,0,1,0,3,1,0,0,0,0,0,1,0,0,0,4,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::Pkcs12ExtractAction,0,1.5,5,0,1,0,0,0,0,4,0,0,0,2,0,0,0,1,10,0,7,2,0,2,0,1,0,0,0,6,0,0,0,4,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::InstallOthersAction,0,1,4,0,1,0,0,0,0,4,0,0,0,2,0,0,0,1,4,0,4,0,0,1,0,1,0,0,0,3,0,0,0,4,0,0,0
+src/com/android/certinstaller/CertInstaller.java,com::android::certinstaller::CertInstaller::OnExtractionDoneAction,0,1,3,0,1,0,0,0,0,4,0,0,0,2,0,0,0,1,6,0,3,1,0,2,0,1,0,0,0,5,0,0,0,4,0,0,0
+src/com/android/certinstaller/CertInstallerMain.java,com::android::certinstaller::CertInstallerMain,0,4,25.25,0,2,0,0,0,0,4,0,0,0,1,0,0,0,1,101,0,52,5,0,4,0,0,0,0,0,15,0,0,0,4,0,0,0
+src/com/android/certinstaller/CredentialHelper.java,com::android::certinstaller::CredentialHelper,12,2.30769230769231,10.4230769230769,0,0.576923076923077,0,0,0,0,4,0,0,0,0,0,0,0,2,271,0,34,9,0,26,0,0,0,0,0,86,0,0,0,8,0,0,0
+src/com/android/certinstaller/Util.java,com::android::certinstaller::Util,0,2,9,0,1,0,0,0,0,4,0,0,0,0,0,0,0,2,63,0,12,1,0,7,0,0,0,0,0,13,0,0,0,8,0,0,0
+src/com/android/certinstaller/ViewHelper.java,com::android::certinstaller::ViewHelper,3,1.57142857142857,3.71428571428571,0,1.14285714285714,0,0,0,0,4,0,0,0,0,0,0,0,2,26,0,5,2,0,7,0,0,0,0,0,14,0,0,0,8,0,0,0
