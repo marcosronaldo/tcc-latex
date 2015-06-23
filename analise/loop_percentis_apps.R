@@ -12,7 +12,7 @@ for (file in files){
   setwd(path)
   
   base <- read.csv(paste(file, ".csv", sep = ""), header=TRUE, sep=',')
-  print(paste("li arquivo ",file,sep=""))
+  # print(paste("li arquivo ",file,sep=""))
   
   dir.create(file)
   setwd(file)  

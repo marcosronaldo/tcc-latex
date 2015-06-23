@@ -12,19 +12,30 @@ import os
 # 		 'uaf.txt', 'uav.txt']
 
 TXT_METRICS=['accm.txt','amloc.txt','cbo.txt',
-		 'dit.txt','lcom4.txt','loc.txt','noc.txt','rfc.txt']
+		 'dit.txt','lcom4.txt','loc.txt','noc.txt','nom.txt','rfc.txt']
 
+HEADER='app,classes,min,1%,5%,10%,25%,50%,75%,90%,95%,99%,max'
+OUT_FOLDER='unified_percentis'
 
-VERSIONS=['android-1.6_r1.2','android-1.6_r1.5',
-          'android-2.0_r1','android-2.1_r2.1p2',
-          'android-2.2_r1','android-2.2.3_r2',
-          'android-2.3_r1','android-2.3.7_r1',
-          'android-4.0.1_r1','android-4.0.4_r2.1']
+def listapps(path):
+	csvlist = []
+	for root, dirs, files in os.walk(path):
+		for file in files:
+			if file.endswith(".csv"):
+				csvlist.append(os.path.basename(file).replace("-details.csv",""))
+	return csvlist
 
-HEADER='version,min,1%,5%,10%,25%,50%,75%,90%,95%,99%,max'
-OUT_FOLDER='unified_percentils'
+def classesapps(path):
+	csvlist = {}
+	for root, dirs, files in os.walk(path):
+		for file in files:
+			if file.endswith(".csv"):
+				csvlist[os.path.basename(file).replace("-details.csv","")]=sum(1 for line in open(os.path.join(root, file)))
+	return csvlist
 
-def mergeTXTfiles(files, path):
+def mergeTXTfiles(files, path, appslist):
+
+	number_of_classes=classesapps(path)
 
 	if not os.path.exists(path+'/'+OUT_FOLDER):
 		os.makedirs(path+'/'+OUT_FOLDER)
@@ -33,13 +44,12 @@ def mergeTXTfiles(files, path):
 		outfile=path+'/'+OUT_FOLDER+'/'+metric[:-4]+'.csv'
 		f = open(outfile,'w') #create out file for this metric
 		f.write(HEADER+'\n') #write header
-
-		for version in VERSIONS:
+		for app in appslist:
 			for file in files:
 				if((os.path.basename(file) == metric) and
-					(os.path.basename(os.path.dirname(file)) == version)):
+					(os.path.basename(os.path.dirname(file)) == (app+"-details"))):
 					with open(file,'r') as txt:
-						f.write(version+','+txt.read().splitlines()[1].replace(',','.').replace('\t',',')+'\n')
+						f.write(app+','+str(number_of_classes[app]) +','+txt.read().splitlines()[1].replace(',','.').replace('\t',',')+'\n')
 
 if __name__ == "__main__":
     path = sys.argv[1]
@@ -51,5 +61,5 @@ if __name__ == "__main__":
 			for file in files:
 				if file.endswith(".txt"):
 					txtlist.append(os.path.join(root, file))
-		mergeTXTfiles(txtlist, path)
+		mergeTXTfiles(txtlist, path, listapps(path))
 		        

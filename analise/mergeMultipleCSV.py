@@ -3,16 +3,12 @@
 import sys
 import os
 
-OUT_FILENAME='all_merged.csv'
-
-def mergeCSV(files):
+def mergeCSV(files,outfile):
 	
-	outPath = os.path.dirname(files[0])
-	outFilePath = outPath+'/'+OUT_FILENAME
-	outFile = open(outFilePath,'w')
+	outFile = open(outfile,'w')
 
 	with open(files[0],'r') as f:
-		header = f.read().splitlines()[0] + ',version'
+		header = f.read().splitlines()[0]# + ',version'
 		outFile.write(header+'\n')
 
 	print 'header written!'
@@ -25,12 +21,16 @@ def mergeCSV(files):
 				if count==0:
 					count=1
 					continue # skip header/first line
-	 			outFile.write(line+','+os.path.basename(fileIn)+'\n')					
+	 			outFile.write(line+'\n')#+','+os.path.basename(fileIn)+'\n')					
 				
 if __name__ == "__main__":
     path = sys.argv[1]
     if os.path.isfile(path):
-        print 'this script needs to receive a directory!'
+    	files=[sys.argv[1],sys.argv[2]]
+    	outfile =sys.argv[3]
+    	mergeCSV(files,outfile)
+        # print 'Usage: python mergeMultipleCSV directory outfilename.csv'
     else:
+    	filename = sys.argv[2]
         files = [ path + '/' + f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f)) ]
-        mergeCSV(files)
+        mergeCSV(files,filename)

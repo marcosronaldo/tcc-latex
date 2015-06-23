@@ -5,7 +5,7 @@ bases = c('android-1.6_r1.2','android-1.6_r1.5',
           'android-2.2.3_r2','android-2.2_r1',
           'android-2.3.7_r1','android-2.3_r1',
           'android-4.0.1_r1','android-4.0.4_r2.1',
-          'all_C_merged')
+          'android-4.1.1_r1', 'android-5.1.0_r1')
 
 source("script-percentis.R")
 
