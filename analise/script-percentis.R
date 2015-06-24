@@ -16,16 +16,18 @@ perc.plot <- function(base = NULL, index = NULL, Np = 1000){
   
   var.sort <- sort(var)
   
-  for(i in 1:Np) perc.var[i] <- var.sort[round(perc[i]*n)]
+  if(Np!=1){
+    for(i in 1:Np) perc.var[i] <- var.sort[round(perc[i]*n)]
+  }
   
-  h.line <- 0:6*((perc.var[Np] - perc.var[1])/6)
-  nome <- paste(colnames(base)[index], ".pdf", sep = "")
-  pdf(file = nome)
-  plot(perc.var ~ perc, type = "n", xlab = "", ylab = "", axes = FALSE)
-  abline(h = h.line, v = 0:10/10, col = "lightgray", lty = 3)
-  par(new = T)
-  plot(perc.var ~ perc, type = "l", xlab = "Percentis", ylab = "Quantis", main = colnames(base)[index])
-  dev.off()
+  # h.line <- 0:6*((perc.var[Np] - perc.var[1])/6)
+  # nome <- paste(colnames(base)[index], ".pdf", sep = "")
+  # pdf(file = nome)
+  # plot(perc.var ~ perc, type = "n", xlab = "", ylab = "", axes = FALSE)
+  # abline(h = h.line, v = 0:10/10, col = "lightgray", lty = 3)
+  # par(new = T)
+  # plot(perc.var ~ perc, type = "l", xlab = "Percentis", ylab = "Quantis", main = colnames(base)[index])
+  # dev.off()
 
   p <- c(.01, .05, .1, .25, .50, .75, .9, .95, .99)  
   

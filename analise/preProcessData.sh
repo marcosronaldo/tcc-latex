@@ -27,18 +27,18 @@ python ~/tcc-latex/analise/unifyPercentisApps.py ~/tcc-latex/analise/apps_data/f
 
 echo "__"
 
-echo "unifying all percentis for android and apps in same directory"
-globalpercentis=~/tcc-latex/analise/global_percentis
-mkdir $globalpercentis
-extension=".csv"
-for metric in $metrics_list
-do
-	fname=$metric$extension
-	python mergeMultipleCSV.py $BASEDIR/$fname $APPS_BASEDIR/$fname $globalpercentis/$fname
-done
+# echo "unifying all percentis for android and apps in same directory"
+# globalpercentis=~/tcc-latex/analise/global_percentis
+# mkdir $globalpercentis
+# extension=".csv"
+# for metric in $metrics_list
+# do
+# 	fname=$metric$extension
+# 	python mergeMultipleCSV.py $BASEDIR/$fname $APPS_BASEDIR/$fname $globalpercentis/$fname
+# done
 
-# echo "parsing all unified percentil tables to use in latex..."
-# sh ~/tcc-latex/analise/percentisToTable.sh
+echo "parsing all unified percentil tables to use in latex..."
+sh ~/tcc-latex/analise/percentisToTable.sh
 
 echo "ploting line graphs with each metric and number of classes..."
 Rscript plotMetricXNumberOfClasses.R 

@@ -7,7 +7,7 @@ GLOBAL_DIR="~/tcc-latex/analise/global_percentis/"
 ANDROID_DIR="~/tcc-latex/analise/data/fixed/unified_percentis/"
 APPS_DIR="~/tcc-latex/analise/apps_data/fixed/unified_percentis/"
 
-setwd(ANDROID_DIR)
+setwd(APPS_DIR)
 
 files <- list.files(pattern= "\\.csv$")
 files = gsub(".csv","",files)

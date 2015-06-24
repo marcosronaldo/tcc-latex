@@ -55,7 +55,25 @@ def mergeTXTfiles(files, path):
 				if((os.path.basename(file) == metric) and
 					(os.path.basename(os.path.dirname(file)) == version)):
 					with open(file,'r') as txt:
-						f.write(version+','+str(NUMBER_OF_CLASSES[version])+','+txt.read().splitlines()[1].replace(',','.').replace('\t',',')+'\n')
+						line = round_csv_values(txt.read().splitlines()[1].replace(',','.').replace('\t',','),2)
+						f.write(version+','+str(NUMBER_OF_CLASSES[version])+','+line+'\n')
+
+def round_csv_values(line,decimals):
+	values = line.split(",")
+	newLine=""
+	for value in values:
+		number= num(value)
+		if not newLine:
+			newLine=str(number)
+		else:
+			newLine=newLine+","+str(number)
+	return newLine
+
+def num(string):
+	try:
+		return int(string)
+	except ValueError:
+		return round(float(string),2)
 
 if __name__ == "__main__":
     path = sys.argv[1]
