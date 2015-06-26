@@ -11,7 +11,7 @@ Com os dados coletados e devidamente preparados, várias conclusões podem ser t
 Embora seja relevante comentar as diferenciações entre as linguagens e seus paradigmas para algumas métricas,  não há necessidade de separação entre os valores para linguagem C, procedural, e linguagens Java/C++, orientadas a objetos, uma vez que, dadas as proporções das mesmas apresentadas nos dados, não há relevância estatística para tal. Entretanto em algumas métricas algumas observações teóricas possam ser ressaltadas, embora, mais uma vez, não haja implicação substancial no resultados gerais apresentados.
 
 \subsection{Average Method Lines Of Code}
-%TODO resumir aqui LOC e AMLOC
+
 A primeira observação que deve ser feita quando analisando LOC nesse contexto é a diferenciação das linguagens. Embora um módulo em C seja mapeado para uma classe, arquivos fonte em C tendem a ser maiores que uma classe em Java, por exemplo, devido aos diferentes paradigmas que essas linguagem utilizam. Arquivos em C++ e Java também podem ter valores bem distintos para a mesma funcionalidade devido ao número de bibliotecas padrões que a linguagem apresenta e a natureza da própria sintaxe da linguagem. Dessa forma, comparações dessa métrica devem ser feitas somente dentro da mesma linguagem. Neste trabalho não serão feitas comparações diretas dos valores desta métrica, então ela será utilizada principalmente para relativização da comparação de outras métricas, quando aplicável, uma vez que os valores de algumas delas podem ser relacionados a esta. 
 
 A métrica LOC por si só não será discutida aqui, pois seu valor é mais relativo e deve ser comparado com outras métricas para ter significado mais completo. Uma classe com valor alto de LOC pode ter um baixo valor de AMLOC e valor maior para NOM, ainda mantendo um valor aceitável de LCOM. Em suma, a análise de outras métricas abrange as explicações relacionadas a métrica LOC e também a NOM, então essas métricas de tamanho não serão explanadas em separado, mas juntamente com a explicação de outras métricas.
@@ -50,5 +50,46 @@ Intervalos encontrados:
 \item Valores acima de 31 são pouco frequentes em ambos os casos;
 \end{itemize}
 
-\subsection{ACCM} %TODO colocar nomes por extenso
+\subsection{Average Cyclomatic Complexity per Method}
+
+Complexidade ciclomática nada mais é do que o número de caminhos que um software pode seguir dada uma execução qualquer. Na prática, cada condicional dentro do sistema incrementa o valor desta métrica em 1, uma vez que divide a execução em um caminho de execução se a expressão condicional for válida, ou um segundo caminho caso não seja. Complexidade ciclomática é calculada a nível de método, e o valor de ACCM para uma classe corresponde a média dos valores de complexidade ciclomática de cada um dos seus métodos.
+
+A interpretação do valor de complexidade ciclomática é relativamente simples: O valor 1 é o valor mínimo e ideal para se ter como resultado, pois significa que o software tem apenas uma forma de executar e será executado necessariamente daquela forma e naquela sequência. Como consequência disso, se tem um software que pode ser mais facilmente lido e modificado. A implicação dessa métrica é mais notada na atividade de testes do código fonte, pois além de dificultar a compreensão dos possíveis comportamentos de um pedaço de código, cada caminho adicional que pode ser seguido é um trecho diferenciado que deve ser testado. Isso quer dizer que o esforço de teste é diretamente proporcional ao resultado dessa métrica, pois para garantir o funcionamento correto do sistema, todos as possibilidades devem ser devidamente testadas. Em termos práticos, atingir uma cobertura de código de 100\% é uma tarefa árdua quando há um valor muito grande de complexidade ciclomática.
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/accm_android.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Average Cyclomatic Complexity per Method} no Android}
+\label{tab:accm_android}
+\end{table}
+
+Inserida então no contexto de manutenção e testes, essa métrica é uma excelente candidata para ser constantemente monitorada ao longo da evolução do código fonte. Embora não tenha muita relação com outras métricas OO, ACCM tem uma relação óbvia do número de linhas de código de um método, pois um método com poucas linhas de código não tem possibilidade de ter um valor muito alto de complexidade ciclomática. De forma geral, métodos grandes ``abrem espaço'' para problemas de complexidade excessiva, como já comentado na seção anterior. Essa relação pode ser claramente vista na Tabela~\ref{tab:accm_android}. Nos valores do percentil 75, que correspondem a valores muito frequentes, são os únicos valores para o sistema onde essa métrica supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como pode ser visto na Tabela~\ref{tab:amloc_android}. Essa relação direta também pode ser vista nos percentis 90 e 95, que representam valores frequentes e pouco requentes, respectivamente.
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/accm_apps.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Average Cyclomatic Complexity per Method} nos aplicativos nativos}
+\label{tab:accm_apps}
+\end{table}
+
+%TODO criar e linkar gráfico de ACCM em função de AMLOC
+
+Essa mesma relação pode ser vista para os aplicativos. Embora não seja totalmente determinístico, no geral aplicativos com maiores valores de AMLOC tendem a ter um maior valor de ACCM, assim como visto na API do sistema. Com exceção do \textit{SMSReceiver}, os 5 aplicativos com maior valor de AMLOC são os que contém maior complexidade do conjunto. Esses resultados para a métrica ACCM, que é uma métrica bastante difundida e tem sua aplicabilidade bem clara, dão subsídio para reafirmar que os valores da métrica AMLOC devem ser os menores possíveis para uma boa arquitetura orientada a objetos.
+
+Entender essa relação é importante também para pensar em possibilidade de refatoração de um código fonte alvo. Estão claras as consequências de se ter uma alta complexidade ciclomática, mas entender sua relação com AMLOC nos leva rapidamente a ter a idéia verificar os métodos da classe e avaliar se seu comportamento está tão enxuto como deveria ser, se algum método não está fazendo mais do que propõe. As vezes dividir o comportamento em tarefas menores possa ser uma solução viável. Dividir o comportamento de um método em 2 provavelmente vai acarretar no aumento da métrica RFC, mas mais uma vez ressalto que o valor de RFC não deve ser analisado por si só. É importante ficar de olho também em métricas como a LCOM quando fazendo esse tipo de refatoração, pois as vezes uma tarefa menor que foi extraída de um método não está coesa na classe onde está e muitas vezes até já esteja implementada em uma outra classe que tem responsabilidade mais congruente com essa tarefa. Remover esse tipo de código duplicado ajuda a reduzir a falta de coesão dentro de uma classe, e todas essas melhorias derivaram do simples fato de perceber uma alta complexidade ciclomática em uma classe.
+
+Na verdade, embora algumas métricas tenham um indicativo de um problema pontual, nenhuma das métricas discutidas neste trabalho deve ser analisada isoladamente.
+
+Reforçando a importância dessa métrica em uma análise estática de código, \citeonline{oliveira2013} define a mesma com um peso adicional em relação a outras métricas em seu estudo. Valores de referencia definidos para esse estudo foram 1 a 3, 3 a 5, e 5 a 7, para excelente, bom e regular, respectivamente. Observando as Tabelas~\ref{tab:accm_android} e~\ref{tab:accm_apps} percebe-se que os valores obtidos neste trabalho estão dentro do intervalo excelente ou bom, para os percentis 75 e 90, e dentro de bom ou regular para o percentil 95, q representa valores menos frequentes. No geral, os resultados indicam que o sistema tem uma boa complexidade ciclomática e que os aplicativos desenvolvidos para o mesmo acompanham essa mesma linha. \citeonline{meirelles2013} definiu intervalos semelhantes para códigos em C, e valores um pouco reduzidos para códigos em C++ e Java (0 a 2, 2 a 4, e 4 a 6 para os percentis 75, 90 e 95 respectivamente).  Os resultados encontrados para a API do sistema Android se encontram todos dentro desses intervalos, confirmando como um bom resultado. Já os aplicativos tem algumas exceções que extrapolam levemente esses valores, mas continuam em sua maioria dentro desses limites.
+
+Baseando-se nessas observações, são considerados os seguintes intervalos:
+
+\begin{itemize}
+\item Valores abaixo 2 se mostraram muito frequentes para os aplicativos e para a API, e até 2.5 são considerados excelentes. É importante relembrar que uma complexidade ciclomática 2 implica em afirmar que 2 testes unitários resultam em 100\% de cobertura para esse trecho de código;
+\item ACCM menor ou igual a 4 pode ser vista em todas as versões do Android e na grande maioria dos aplicativos dentro do percentil 90, sendo uma referencia para um valor maior mas ainda considerado bom. Os aplicativos do sistema quase não alcançaram esse valor;
+\item Valores acima de 4 são considerados regulares e são pouco frequentes em ambos os casos, porém para a API do sistema o percentil 95 chegou a 6. Valores acima de 6 são bem raros e correspondem a uma quantidade estatisticamente desprezível para esta análise;
+\end{itemize}
+
 \subsection{CBO}
