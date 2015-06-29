@@ -21,7 +21,8 @@ VERSIONS=['android-1.6_r1.2','android-1.6_r1.5',
           'android-2.2_r1','android-2.2.3_r2',
           'android-2.3_r1','android-2.3.7_r1',
           'android-4.0.1_r1','android-4.0.4_r2.1',
-          'android-4.1.1_r1', 'android-5.1.0_r1',]
+          'android-4.1.1_r1', 'android-4.3.1_r1',
+          'android-5.1.0_r1',]
 
 NUMBER_OF_CLASSES={'android-1.6_r1.2':5745,
 				  'android-1.6_r1.5':5745,
@@ -34,6 +35,7 @@ NUMBER_OF_CLASSES={'android-1.6_r1.2':5745,
           		  'android-4.0.1_r1':11709,
           		  'android-4.0.4_r2.1':11851,
           		  'android-4.1.1_r1':14115,
+          		  'android-4.3.1_r1':15472,
           		  'android-5.1.0_r1':20129,
 				}   
 

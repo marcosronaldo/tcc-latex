@@ -29,3 +29,18 @@ do
 	mv temp.txt $apps_file
 
 done
+
+csv2latex /home/marcos/tcc-latex/analise/general_data/cof_android.csv > /home/marcos/tcc-latex/tables/cof_android.tex
+csv2latex /home/marcos/tcc-latex/analise/general_data/cof_apps.csv > /home/marcos/tcc-latex/tables/cof_apps.tex
+
+head -n -1 /home/marcos/tcc-latex/tables/cof_android.tex > temp.txt
+	mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
+
+	tail -n +5 /home/marcos/tcc-latex/tables/cof_android.tex > temp.txt
+	mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
+
+	head -n -1 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
+	mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex
+
+	tail -n +5 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
+	mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex
