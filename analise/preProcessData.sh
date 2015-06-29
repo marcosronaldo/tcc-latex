@@ -3,7 +3,7 @@
 BASEDIR=~/tcc-latex/analise/data/fixed/unified_percentis
 APPS_BASEDIR=~/tcc-latex/analise/apps_data/fixed/unified_percentis
 
-metrics_list="accm amloc cbo dit lcom4 loc noc rfc"
+metrics_list="acc accm amloc cbo dit lcom4 loc noc rfc"
 
 echo "removing fixed folder with old android files..."
 rm -rf ~/tcc-latex/analise/data/fixed/

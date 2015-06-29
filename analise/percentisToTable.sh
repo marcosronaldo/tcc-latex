@@ -3,7 +3,7 @@ BASEDIR=~/tcc-latex/analise/data/fixed/unified_percentis
 APPS_BASEDIR=~/tcc-latex/analise/apps_data/fixed/unified_percentis
 OUTDIR=~/tcc-latex/tables
 
-metrics_list="accm amloc cbo dit lcom4 loc noc rfc"
+metrics_list="acc accm amloc cbo dit lcom4 loc noc rfc"
 extension=".csv"
 android="_android.tex"
 apps="_apps.tex"
@@ -34,13 +34,13 @@ csv2latex /home/marcos/tcc-latex/analise/general_data/cof_android.csv > /home/ma
 csv2latex /home/marcos/tcc-latex/analise/general_data/cof_apps.csv > /home/marcos/tcc-latex/tables/cof_apps.tex
 
 head -n -1 /home/marcos/tcc-latex/tables/cof_android.tex > temp.txt
-	mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
+mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
 
-	tail -n +5 /home/marcos/tcc-latex/tables/cof_android.tex > temp.txt
-	mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
+tail -n +5 /home/marcos/tcc-latex/tables/cof_android.tex > temp.txt
+mv temp.txt /home/marcos/tcc-latex/tables/cof_android.tex
 
-	head -n -1 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
-	mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex
+head -n -1 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
+mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex
 
-	tail -n +5 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
-	mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex
+tail -n +5 /home/marcos/tcc-latex/tables/cof_apps.tex > temp.txt
+mv temp.txt /home/marcos/tcc-latex/tables/cof_apps.tex

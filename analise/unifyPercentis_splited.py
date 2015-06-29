@@ -11,7 +11,7 @@ import os
 # 		 'rogu.txt','rsva.txt','saigv.txt', 'sc.txt','ua.txt',
 # 		 'uaf.txt', 'uav.txt']
 
-TXT_METRICS=['accm.txt','amloc.txt','cbo.txt',
+TXT_METRICS=['acc.txt','accm.txt','amloc.txt','cbo.txt',
 		 'dit.txt','lcom4.txt','loc.txt','noc.txt','nom.txt','rfc.txt']
 
 HEADER='app,classes,min,1%,5%,10%,25%,50%,75%,90%,95%,99%,max'
