@@ -3,6 +3,7 @@
 
 %Neste capítulo serão discutidos os resultados da análise dos dados coletados, bem como resultados referentes ao modelo de regressão criado para utilizar os dados como um auxílio para desenvolvimento de projetos futuros.
 %TODO criar explicação geral para o capítulo
+%TODO relacionar resultados das métricas a padrões de projeto
 
 \section{Análise preliminar}
 
@@ -235,3 +236,106 @@ Em dispositivos móveis, por exemplo, tarefas de tirar foto e capturar vídeo, q
 \citeonline{meirelles2013} define para projetos Java intervalos de 0 a 3, 4 a 7, e 8 a 12 para os percentis 75, 90 e 95, respectivamente. Os resultados encontrados aqui acompanharam muito bem esses intervalos.
 
 LCOM4 também contabiliza classes de modelo, e no caso do Java, os \textit{getters} e \textit{setters} acarretam no aumento do valor do resultado da métrica\cite{meirelles2013}. Classes de modelo tem maior representatividade estatística em projetos menores, o que ajuda um pouco a justificar o aumento da métrica para aplicativos do sistema, como pode ser visto na Tabela~\ref{tab:lcom4_apps}. Os intervalos 0 a 4, 4 a 7, e 7 a 12 são válidos para a grande maioria dos aplicativos. Os resultados são muito parecidos com os valores para a API, sendo que a métrica só aumenta em 1 no percentil 75.
+
+\subsection{Coupling Between Objects}
+
+Coupling Between Objects mede o nível de acoplamento de uma classe através do número de outras classes que estão conectadas a ela de alguma forma, seja por chamada de método, uso de algum atributo/constante, uso como tipo de retorno de método, herança... Basicamente qualquer tipo de referencia. Essa verificação de referencia é feita por conexões de entrada e de saida, isto é, o valor CBO de uma classe A incrementa se uma outra classe B referencia A ou se A referencia B. Caso A referencie B, e B referencie A, numa relação bidirecional, essa relação só é contabilizada uma única vez. 
+
+Valores menores indicam uma classe menos acoplada, e são preferíveis. Uma vez que a métrica representa uma contagem, ela não tem limite de valores, e pode ser tão grande quanto o tamanho do projeto permitir, fazendo com que projetos maiores tenham, em geral, maiores valores dessa métrica. 
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/cbo_android.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Coupling Between Objects} no Android}
+\label{tab:cbo_android}
+\end{table}
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/cbo_apps.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Coupling Between Objects} nos aplicativos nativos}
+\label{tab:cbo_apps}
+\end{table}
+
+As Tabelas~\ref{tab:cbo_android} e~\ref{tab:cbo_apps} demonstram que os valores encontrados para essas métricas na API e nos aplicativos são absurdamente grandes. Não foi encontrado um motivo para tal, podendo então haver algum tipo de problema na ferramenta de captura. O estudo conduzido por \citeonline{meirelles2013} utiliza a mesma ferramenta e não chegou a esses valores aqui encontrados em nenhum projeto, nem mesmo na análise do código fonte completo do sistema Android. Por não conseguirmos identificar exatamente o motivo dessa discrepância de valores, serão consideradas as métricas ACC e COF para acoplamento.
+
+\subsection{Afferent Connections per Class}
+
+Afferent Connections per Class mede o nível de acoplamento de uma classe através do número de outras classes que fazem referencia a ela, por meio da utilização de algum método ou atributo. Apenas as conexões de entrada são contabilizadas, então, diferente de CBO que faz uma contagem bidirecinal, ACC só contabiliza a quantidade de classes clientes de uma classe A qualquer, ou seja, que referenciam A, não importando quantas classes A referencia.
+
+Uma classe com altos valores de ACC é utilizada em muitas outras. A interpretação dessa métrica é semelhante a métrica NOC no que diz respeito a impacto de mudanças. Ter muitas classes clientes indica que é necessário um maior cuidado ao realizar edições nessa classe, uma vez que impactos dessas modificações podem ocorrer em um número de classes tão grande quanto o valor de ACC.
+
+De forma geral, deseja-se ter classes tão independentes quanto possível, levando o valor de ACC para baixo.
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/acc_android.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Afferent Connections per Class} no Android}
+\label{tab:acc_android}
+\end{table}
+
+Dentro do escopo de um projeto, pela própria definição da métrica, o valor limite para ACC é o próprio número de classes. Embora o valor seja limitado pelo número de classes, não é possível perceber uma relação direta entre o crescimento do número de classes e o valor de ACC, sendo que essa métrica é mais relacionada à forma como o sistema foi pensado e desenhado do que com o seu tamanho. 
+
+A Tabela~\ref{tab:acc_android} demonstra que os valores da métrica ACC para os percentis 75, 90 e 95 não passam de 3, 12 e 26, respectivamente. \citeonline{oliveira2013} define os intervalos 0 a 2, 2 a 7, e 7 a 15 como excelente, bom e regular para os valores dessa métrica. \citeonline{meirelles2013} define como referencia para java os intervalos 0 a 1, 1 a 5, e 5 a 12 para os percentis 75, 90 e 95, respectivamente.
+
+Os valores encontrados para o Android estão altos quando comparados com esses estudos, e portanto eles não são bem aplicáveis à API do Android. A variância dentre as versões da API aqui analisadas é muito baixa, uma vez que quase os mesmos valores podem ser vistos ao longo das versões. Como os intervalos encontrados são constantes ao longo das versões, parecem refletir o design do sistema e podem ser utilizados como referência.
+
+\begin{table}[!htb]
+\scalefont{.7}
+\input{tables/acc_apps.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Afferent Connections per Class} nos aplicativos nativos}
+\label{tab:acc_apps}
+\end{table}
+
+A Tabela~\ref{tab:acc_apps} demonstra que os valores para os aplicativos do sistema também são maiores que os intervalos definidos em outros estudos. Entretanto, eles são mais parecidos com os valores encontrados dentro da própria API, mais uma vez refletindo a semelhança de aplicativos em relação a mesma, e demonstrando um certo padrão para códigos relacionados ao Android. Para a grande maioria dos aplicativos, os percentis 75, 90 e 95 não ultrapassam os valores 4, 12 e 22, respectivamente.
+
+Consideramos então os seguintes intervalos para o Android:
+
+\begin{itemize}
+\item Para o percentil 75, ACC igual a 3 para a API e 4 para aplicativos;
+\item 12 é um limite recorrente para o percentil 90 para aplicativos e para a API;
+\item Para o percentil 95 em diante, aplicativos tem um valor médio menor que a API, estando com limites até 22 e 26, respectivamente.
+\end{itemize}
+
+\subsection{Coupling Factor}
+
+Coupling Factor nada mais é que uma relativização do valor de ACC para o tamanho do projeto, sendo então um valor apenas para todo o código fonte desse projeto. ACC calcula as conexões que uma classe tem, enquanto COF soma todas essas conexões de todas as classes e divide pelo total de conexões possíveis, resultando e um valor que pode variar de 0 a 1. Caso todas as X conexões possíveis aconteçam em um software, COF para ele será X/X, que é igual a 1. O ideal então como acoplamento para um projeto qualquer é que o valor de COF esteja tão próximo de zero quanto possível, indicando que as classes são mais independentes e desacopladas.
+
+\begin{table}[!htb]
+\begin{center}
+\scalefont{.7}
+\input{tables/cof_android.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Coupling Factor} no Android}
+\label{tab:cof_android}
+\end{center}
+\end{table}
+
+%TODO atualizar valores quando obtiver mais versões
+Como o denominador da expressão de cálculo dessa métrica é da ordem de O($n^2$), e o numerador O(n), naturalmente o incremento no número de classes de um projeto tende a fazer com que o valor da métrica caia, embora não seja sempre inversamente proporcional a ponto de esperar que projetos distintos com números maiores de classes sempre tenham menores valores de COF, pois depende bastante do design de sua arquitetura. Para um mesmo projeto, essa relação se mostra válida como demonstra a Tabela~\ref{tab:cof_android}. O valor de COF para a API do Android ao longo de suas versões caiu de 0.13\% para 0.057\%. Isso se dá pelo fato de que, como demonstrado na seção anterior, o valor de ACC permanece relativamente constante enquanto o número de classes aumenta significativamente a cada versão. Essencialmente, O sistema se mostra cada vez mais desacoplado e consequentemente manutenível.
+
+\begin{table}[!htb]
+\begin{center}
+\scalefont{.7}
+\input{tables/cof_apps.tex}
+\scalefont{.7}
+\caption{Percentis para a métrica \textit{Coupling Factor} nos aplicativos nativos}
+\label{tab:cof_apps}
+\end{center}
+\end{table}
+
+A Tabela~\ref{tab:cof_apps} apresenta os valores para os aplicativos e nela é possível perceber que o valor de COF não é sempre inversamente proporcional a quantidade de classes como já comentado, embora ele realmente tenha a tendencia a diminuir com o aumento do número de classes. Para os aplicativos, tivemos um range de 33\% para o menor dos projetos, com apenas 4 classes, e 0.4\% para um dos maiores aplicativos.
+
+\citeonline{ferreira2009} apresenta como intervalos os valores de 0 a 0.02 (2\%) como bons , 0.02 a 0.14 (14\%) como regulares, e 0,14 em diante como valores ruins. Podemos perceber que os valores para o sistema Android estão bem abaixo desses valores, sendo considerados então excelentes valores para o fator de acoplamento. Já os aplicativos demonstraram que se mantém nos valores bons quando passam a ter por volta de 200 classes, mas quado muito pequenos se mostraram em sua maioria regulares nessa escala. 
+
+Os intervalos aqui não são considerados em função de seus percentis, mas as seguintes observações podem ser feitas:
+
+\begin{itemize}
+\item Espera-se que o valor de COF para o sistema se mostre cada vez menor à medida que novas versões surgem;
+\item Aplicativos desenvolvidos para o Android, quando muito pequenos, até poucas dezenas de classes, tendem a ficar abaixo de 10\%, e não devem ultrapassar os 14\% no valor de COF. Valores bem menores ainda podem ser obtidos e são preferíveis;
+\item A medida que ganham tamanho de várias dezenas à poucas centenas de classes, os valores de COF para aplicativos não devem ultrapassar os 4\%, entretanto é recomendável que fique abaixo de 2\%. Quando chegam a várias centenas de classes, os valores devem ser menores que 1\%.
+\end{itemize}
