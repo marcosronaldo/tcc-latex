@@ -357,6 +357,8 @@ Não é possível idealizar esse resultado para métricas OO, mensuradas para ca
 
 O objetivo era relativamente simples: desejava-se, a partir do tamanho de um projeto/módulo/classe, obter o valor ideal para uma métrica a fim de o desenvolvedor pudesse comparar com o valor real que o código possui, e então verificar se mudanças estruturais devem ser feitas. Com isso, validar então os intervalos aqui definidos na seção anterior como bons valores nesse contexto de desenvolvimento em Java para a plataforma Android.
 
+Nenhuma das formas propostas foi realmente desenvolvida, apenas foi realizado uma discussão rápida das possibilidades com as métricas que estavam disponíveis. Métricas de tamanho foram o alvo da regressão como variáveis independentes porque seriam uma forma de abstrair os resultados para projetos de diferentes escalas.
+
 \subsection{Regressão em escopo de software}
 
 A primeira observação que se faz sobre a realização de regressão em escopo de software utilizando os valores da evolução da API do sistema Android é capacidade de generalização de um modelo. De forma geral, o modelo seria criado com pontos com valores de número de classes variando de 5000 a 20000 classes. Como consequência, o modelo de regressão não teria uma boa capacidade de generalização para projetos muito pequenos, como acontece com aplicativos, que possuem muitas vezes apenas algumas dezenas de classes, e são o alvo principal para utilização dessa regressão. Da mesma forma, a capacidade de predição para projetos que contenham bem mais que 20000 classes também seria prejudicada, uma vez que o modelo de regressão não veria nenhum nesse intervalo. Isso tudo assumindo que os dados obedecem um certo padrão e um funcional realmente pode ser traçado que represente o comportamento dos mesmos. 
@@ -373,11 +375,29 @@ Como um pequeno problema adicional para esse tipo de regressão linear com os da
 
 Para realização de um modelo de regressão polinomial a nível de software, não foi encontrada ao longo deste trabalho, dadas restrições de tempo e escopo, outra métrica que representasse bem o tamanho do projeto para relativização do resultado das métricas OO, que foram selecionadas para avaliar a arquitetura no contexto do desenvolvimento para Android. 
 
-Utilizar a quantidade de pacotes em vez da quantidade de classes teria o mesmo efeito, uma vez que as métricas OO são independentes desse valor.
+Utilizar a quantidade de pacotes em vez da quantidade de classes teria o mesmo efeito, uma vez que as métricas OO também são independentes desse valor.
 %TODO demonstrar que as métricas não dependem da quantidade de pacotes assim como não dependem da quantidade de classes (será q precisa???)
-
-%TODO concluir q as métricas OO se mostraram, para análise de diferentes projetos, independentes de tamanho. Comentar que análise das mesmas em relação a tamanho ja foram feitas na seção anterior. Concluir que: Regressão não é útil para métricas OO, pois elas são muito independentes e tem intervalos bem definidos que indicam qualidade, como já publicado na literatura.
 
 \subsection{Regressão em escopo de classe}
 
-continue...
+Como uma segunda tentativa na direção de uma regressão polinomial para aplicativos, foi verificada a possibilidade de utilizar valores das métricas para classes, em vez de utilizar todo o conjunto de classes com uma abordagem estatística de percentis, como foi comentado na seção anterior. Tentamos então avaliar o valor ideal de uma métrica para uma classe, dado alguma variável independente que represente de alguma forma seu tamanho.
+
+Cada classe dentro de cada versão seria uma amostra para esse método, que teria então um total de mais de 100000 classes. Pensando dessa forma o problema de escala do escopo de software seria resolvido, uma vez que no próprio sistema existem classes com um range muito grande de tamanhos. Então para cada amostra utilizada com um modelo em produção, o mesmo já teria visto uma com parâmetros de tamanho semelhantes em sua criação. 
+
+O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram bem independentes dos valores das métricas OO. AMLOC por exemplo, não interfere em LCOM4, pois métodos grandes podem ser bastante coesos e métodos pequenos podem não ser, dependendo mais da responsabilidade da classe. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM se apresente bem difusa como mostra o gráfico da Figura XXXX.
+%TODO apresentar graficos de algumas métricas em função de AMLOC, e em funcao de NOM
+
+Em suma, os valores das métricas não são relacionados com os valores dessas métricas de tamanho, como mostra a matriz de correlação XXXX.
+%TODO criar matriz de correlação
+
+\subsection{Regressão em escopo de pacote}
+
+Para fazer esse teste, foi separado cada pacote presente em cada versão do sistema, e utilizado como métrica de tamanho o número de classes nesse pacote. O problema encontrado foi que as métricas eram totalmente dependentes do próprio pacote analisado e seu propósito, mas independentes de seu tamanho. Isso quer dizer que 2 pacotes de 3 classes cada apresentavam valores com nenhuma relação entre si. Basicamente, o mesmo problema de independência dos dados em relação a variável de tamanho foi encontrada nessa abordagem.
+
+O gráfico da figura XXXX demonstra a metrica XXXX para cada pacote em função dos seu número de classes. Podemos pereber que os valores tem uma grande variação que aparentemente independe do número de classes do pacote, mas sim do propósito e das responsabilidades do mesmo.
+
+\subsection{Conclusao}
+
+As métricas OO se mostraram independentes de tamanho. Algumas análises foram feitas na seção de análise preliminar demarcando alguns valores para diferentes tamanhos do projeto quando aplicável. A grande maioria não teve variação significativa em relação a nenhuma das métricas de tamanho que foram obtidas.
+
+Regressão nesse contexto não se mostrou um esforço válido para auxiliar desenvolvimento futuro de aplicativos. Afinal, a maioria dos valores se mostrou invariável ao longo das versões, ou com intervalos fixos. Dessa forma, utilizar esses intervalos tem tanta utilidade quanto uma regressão apresentaria. Para métricas OO, utilizar valores ou intervalos de referência é uma prática mais simples e ainda eficaz enquanto se desenvolve aplicativos, uma vez que a arquitetura do sistema é avaliada dependendo de alguns parâmetros e os intervalos de valores, como exemplificado para algumas métricas na seção anterior.
