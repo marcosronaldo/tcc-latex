@@ -7,14 +7,80 @@ Neste trabalho, serão trabalhadas métricas estáticas de código fonte para av
 
 \section{Métricas utilizadas}
 
-Várias métricas podem ser utilizadas para avaliar quantidade de código fonte, como por exemplo \textit{Lines of Code (LOC)} ou mesmo métricas de tamanho e volume de halstead. Manter o monitoramento de métricas de volume de código em conjunto com outras métricas é de extrema importância para que comparações sejam feitas para sistemas de tamanho semelhante. Comparar um pequeno applicativo de 2 classes com o código de um sistema operacional não apresenta resultados válidos. Essas métricas de tamanho devem ser consideradas para que as comparações sejam feitas de forma adaptada para a ``escala'' de tamanho dos softwares sendo comparados. LOC pode ser bastante representativa para qualidade de software e probabilidade de erros em código \cite{validationmetricsfaultprediction}, e é uma métrica extremamente simples e rápida de ser coletada. Essa é a melhor escolha em termos de tamanho de código para o início deste trabalho devido a sua simplicidade, embora este estudo possa ser futuramente expandido com a utilização de métricas adicionais, para complementar ou substituir essa métrica. Não será levada em consideração a comparação entre diversas métricas neste trabalho, baseando a escolha então totalmente na simplicidade e na ferramenta escolhida para coleta, devido a limitações de tempo e escopo.
+Várias métricas podem ser utilizadas para avaliar quantidade de código fonte, como por exemplo \textit{Lines of Code (LOC)} ou mesmo métricas de tamanho e volume de halstead. Manter o monitoramento de métricas de volume de código em conjunto com outras métricas é de extrema importância para que comparações sejam feitas para sistemas de tamanho semelhante. Comparar um pequeno aplicativo de 2 classes com o código de um sistema operacional não apresenta resultados válidos. Essas métricas de tamanho devem ser consideradas para que as comparações sejam feitas de forma adaptada para a ``escala'' de tamanho dos softwares sendo comparados. LOC pode ser bastante representativa para qualidade de software e probabilidade de erros em código \cite{validationmetricsfaultprediction}, e é uma métrica extremamente simples e rápida de ser coletada. Essa é a melhor escolha em termos de tamanho de código para o início deste trabalho devido a sua simplicidade, embora este estudo possa ser futuramente expandido com a utilização de métricas adicionais, para complementar ou substituir essa métrica. Não será levada em consideração a comparação entre diversas métricas neste trabalho, baseando a escolha então totalmente na simplicidade e na ferramenta escolhida para coleta, devido a limitações de tempo e escopo.
 
 \citeonline{ooasqualityindicators} apresenta um estudo com métricas de Chidamber e Kemerer, introduzidas por \citeonline{chidamberkemerer}, que são métricas para sistemas orientados a objetos, para avaliação da arquitetura do sistema e qualidade do código fonte. Essas métricas são bastante úteis para prever estados futuros já nas primeiras etapas do ciclo de vida. Tais métricas podem ser bastante úteis como indicadores de qualidade de sistemas orientados a objetos\cite{ooasqualityindicators}. 
 
 Métricas de complexidade também dão uma visão do estado atual do software no que diz respeito a escolhas arquiteturais e facilidade de compreensão do mesmo e também tem impacto direto na facilidade em que o software pode ser testado e mantido. Métricas de complexidade ciclomática, introduzidas por \citeonline{mccabe1976}, foram criadas para avaliar a quantidade de caminhos que a execução do software pode seguir em sua execução, dando uma boa visão dos possíveis casos de teste para o software. Demonstrar que um software possui muitos caminhos paralelos de execução para serem testados pode demonstrar um grande esforço com testes, bem como um sistema bem difícil de manter com o passar do tempo. Da mesma forma, um software com baixa capacidade ciclomática indica um software que pode ser testado mais facilmente, podendo indicar um menor esforço futuro com possíveis modificações. Há outras métricas bem difundidas para avaliar a complexidade de software, como as métricas de Halstead que associam tamanho, volume, dificuldade e esforço. As métricas de halstead podem ser consideradas como métricas de tamanho, embora possam ser derivados vários valores com significados distintos das métrica básicas apresentadas. Essas métricas não são diretamente compatíveis pois medem coisas diferentes, mesmo usando ``complexidade'' como terminologia, e seus resultados levam a conclusões completamente distintas.
 
-É importante ressaltar que as métricas discutidas neste capítulo, utilizadas durante todo o estudo, são coletadas de forma unificada pela ferramenta Analizo, o que foi um dos motivos de sua escolha.
+É importante ressaltar que as métricas discutidas neste capítulo, utilizadas durante todo o estudo, são coletadas de forma unificada pela ferramenta Analizo, o que foi um dos motivos de sua escolha. As métricas finais escolhidas estão listadas a seguir:
+
+\begin{itemize}
+\item AMLOC - \textit{Average Method Lines Of Code}
+\item ACCM - \textit{Average Cyclomatic Complexity per Method}
+\item RFC - \textit{Response For a Class}
+\item DIT - \textit{Depth in Inheritance Tree}
+\item NOC - \textit{Number of Children}
+\item LCOM4 - \textit{Lack of Cohesion in Methods}
+\item ACC - \textit{Afferent Connections per Class}
+\item COF - \textit{Coupling Factor}
+\end{itemize}
 
 \subsection{Descrição das métricas}
+%TODO colocar referencias para todas as descrições
 
-(listar e explicar cada uma)
+\subsubsection{Lines of Code (LOC) / Average Method Lines Of Code (AMLOC)}
+
+LOC representa o número de linhas de código fonte de uma classe, enquanto AMLOC a média do número de linhas dos métodos daquela classe. A primeira observação que deve ser feita quando analisando LOC nesse contexto é a diferenciação das linguagens. Embora um módulo em C seja mapeado para uma classe, arquivos fonte em C tendem a ser maiores que uma classe em Java, por exemplo, devido aos diferentes paradigmas que essas linguagem utilizam. Arquivos em C++ e Java também podem ter valores bem distintos para a mesma funcionalidade devido ao número de bibliotecas padrões que a linguagem apresenta e a natureza da própria sintaxe da linguagem. Dessa forma, comparações dessa métrica devem ser feitas somente dentro da mesma linguagem. 
+
+A métrica LOC por si só não será discutida aqui, pois seu valor é relativo e deve ser comparado com outras métricas para ter significado mais completo. AMLOC já apresenta uma interpretação mais concisa, uma vez que métodos grandes ``abrem espaço'' para problemas de complexidade excessiva, e então será explorada no Capítulo~\ref{cap:resultados}. Uma classe com valor alto de LOC pode ter um baixo valor de AMLOC e valor maior para Number of Methods (NOM), ainda mantendo um valor aceitável de LCOM4. Em suma, a análise de outras métricas abrange as explicações relacionadas a métrica LOC e também a NOM, então essas métricas de tamanho não serão explanadas em separado, mas ocasionalmente citadas na explicação de outras métricas.
+
+\subsubsection{Average Cyclomatic Complexity per Method (ACCM)}
+
+Complexidade ciclomática nada mais é do que o número de caminhos que um software pode seguir dada uma execução qualquer. Na prática, cada condicional dentro do sistema incrementa o valor desta métrica em 1, uma vez que divide a execução em um caminho de execução se a expressão condicional for válida, ou um segundo caminho caso não seja. Complexidade ciclomática é calculada a nível de método, e o valor de ACCM para uma classe corresponde a média dos valores de complexidade ciclomática de cada um dos seus métodos.
+
+A interpretação do valor de complexidade ciclomática é relativamente simples: O valor 1 é o valor mínimo e ideal para se ter como resultado, pois significa que o software tem apenas uma forma de executar e será executado necessariamente daquela forma e naquela sequência. Como consequência disso, se tem um software que pode ser mais facilmente lido e modificado. A implicação dessa métrica é mais notada na atividade de testes do código fonte, pois além de dificultar a compreensão dos possíveis comportamentos de um pedaço de código, cada caminho adicional que pode ser seguido é um trecho diferenciado que deve ser testado. Isso quer dizer que o esforço de teste é diretamente proporcional ao resultado dessa métrica, pois para garantir o funcionamento correto do sistema, todos as possibilidades devem ser devidamente testadas. Em termos práticos, atingir uma cobertura de código de 100\% é uma tarefa árdua quando há um valor muito grande de complexidade ciclomática.
+
+Inserida então no contexto de manutenção e testes, ACCM é uma excelente candidata para ser constantemente monitorada ao longo da evolução do código fonte. Embora não tenha muita relação com outras métricas OO, ela tem uma relação óbvia do número de linhas de código de um método, pois um método com poucas linhas de código não tem possibilidade de ter um valor muito alto de complexidade ciclomática. Como citado na seção anterior, métodos grandes ``abrem espaço'' para problemas de complexidade excessiva.
+
+\subsubsection{Response For a Class (RFC)}
+
+Response for a Class é uma métrica que conta o número de métodos que podem ser executados a partir de uma mensagem enviada a um objeto dessa classe. O valor então é calculado pelo somatório de todos os métodos daquela classe, e todos os métodos chamados diretamente por essa classe. Uma classe com alto valor de RFC pode ser uma classe com um número muito grande de métodos, e/ou uma classe bastante dependente de outra(s) classe(s). Um valor Alto de RFC então pode indicar baixa coesão (LCOM alto) e alto acoplamento (CBO alto). 
+
+\subsubsection{Depth of Inheritance Tree (DIT) / Number of Children (NOC)}
+
+Depth of Inheritance Tree é uma métrica que mede a profundidade que uma classe se contra na árvore de herança. Se ela não herda nada, tem DIT igual a 0. Se herda de uma classe, a profundidade é 1, e assim por diante. 
+
+Number of children mede a quantidade de filhos que uma classe tem. Caso ninguém herde dela, o valor é 0, e aumenta em 1 para cada classe que a estende diretamente, ou seja, filhos de filhos não são contabilizados.
+
+DIT e NOC são métricas relativamente semelhantes por trabalhar com a árvore de herança, entretanto tem interpretações diferentes. São métricas que indicam complexidade no design, assim como a maioria das métricas OO.
+
+Altos valores de DIT indicam que a classe herda de várias outras recursivamente, podendo tornar seu comportamento mais imprevisível, pois não se sabe todos os seus possíveis comportamentos sem analisar as demais. Classes com alto DIT tendem a ser mais complexas por adicionar o comportamento de todas suas classes precursoras. Entretanto, por se tratar de herança, altos valores de DIT também indicam maior reuso de código fonte.
+
+NOC também indica maior potencial de reuso em altos valores, assim como na métrica DIT. Entretanto, ela também indica a importância de uma classe e seus comportamentos no design. Um NOC alto significa que uma mudança na classe pode ter consequencias graves, pois seus métodos são utilizados em muitos filhos. Consequentemente é recomendado que classes com altos valores de NOC sejam muito bem testadas.
+
+
+\subsubsection{Lack of Cohesion in Methods (LCOM)}
+
+Lack of Cohesion in Methods é uma métrica que mede coesão de uma classe. Existem algumas variações da métrica LCOM que não serão abordadas neste estudo. A variação calculada pela ferramenta Analizo e utilizada neste trabalho é a LCOM4.
+%TODO colocar referencia LCOM4
+
+LCOM4 gira em torno da ideia de que os métodos da classe estão coesos se eles utilizam os mesmos atributos dentro dessa classe. Se algum método não utiliza nada da classe, ou utiliza apenas métodos/atributos de outra classe, ele provavelmente está no lugar errado. 
+
+A métrica então calcula quantos conjuntos de métodos relacionados existem dentro dessa classe, isto é, métodos que compartilham utilização de algum atributo ou que se referenciam. Caso existam 2 conjuntos de métodos distintos, ou seja, cada conjunto utiliza um conjunto diferente de atributos e um conjunto não utiliza nenhum método do outro, o valor de LCOM4 é 2, e significa que essa classe pode ser dividida em 2 para aumentar a coesão. O valor ideal de LCOM4 é 1, e valores maiores que isso podem indicar que a classe está com muita responsabilidade, tentando alcançar muitos propósitos distintos.
+
+É possível notar, pela própria definição da métrica, que LCOM4 é limitada pelo número de métodos da classe, embora não seja diretamente relacionada. uma classe com 2 métodos não pode ter mais que 2 conjuntos distintos de métodos relacionados, então seu LCOM4 não passa de 2. Essa observação apenas quer dizer que classes pequenas tendem a ter menores valores de LCOM4.
+
+\subsubsection{Afferent Connections per Class (ACC)}
+
+Afferent Connections per Class mede o nível de acoplamento de uma classe através do número de outras classes que fazem referencia a ela, por meio da utilização de algum método ou atributo. Apenas as conexões de entrada são contabilizadas, então, diferente de CBO que faz uma contagem bidirecinal, ACC só contabiliza a quantidade de classes clientes de uma classe A qualquer, ou seja, que referenciam A, não importando quantas classes A referencia.
+
+Uma classe com altos valores de ACC é utilizada em muitas outras. A interpretação dessa métrica é semelhante a métrica NOC no que diz respeito a impacto de mudanças. Ter muitas classes clientes indica que é necessário um maior cuidado ao realizar edições nessa classe, uma vez que impactos dessas modificações podem ocorrer em um número de classes tão grande quanto o valor de ACC.
+
+De forma geral, deseja-se ter classes tão independentes quanto possível, levando o valor de ACC para baixo.
+
+\subsubsection{Coupling Factor}
+
+Coupling Factor nada mais é que uma relativização do valor de ACC para o tamanho do projeto, sendo então um valor apenas para todo o código fonte desse projeto. ACC calcula as conexões que uma classe tem, enquanto COF soma todas essas conexões de todas as classes e divide pelo total de conexões possíveis, resultando e um valor que pode variar de 0 a 1. Caso todas as X conexões possíveis aconteçam em um software, COF para ele será X/X, que é igual a 1. O ideal então como acoplamento para um projeto qualquer é que o valor de COF esteja tão próximo de zero quanto possível, indicando que as classes são mais independentes e desacopladas.
+
+Naturalmente o incremento no número de classes de um projeto tende a fazer com que o valor da métrica caia, embora não seja sempre inversamente proporcional a ponto de esperar que projetos distintos com números maiores de classes sempre tenham menores valores de COF, pois depende bastante do design de sua arquitetura.

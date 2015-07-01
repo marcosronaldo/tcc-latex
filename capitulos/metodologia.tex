@@ -114,7 +114,7 @@ Em seguida foi feito o download de cada \textit{tag} em seu diretório, também 
 Além de todas as versões do Android que foram analisadas, o código fonte dos aplicativos do sistema da ultima versão listada para esta análise (\textit{Android Lollipop} 5.1.0 r1) também foi analisado, com o objetivo principal de comparação com o código do sistema. Aplicativos como de email, calculadora e câmera são analisados pela ferramenta Analizo assim como a API de desenvolvimento. São esperados valores relativos semelhantes aos da API do sistema Android.
 
 %TODO rever porcentagens quando tiver todos os dados
-No total foram coletados módulos/classes das linguagens C, C++ e Java. Java foi a linguagem mais predominante, com aproximadamente 85\% das amostras, enquanto C++ ocupou pouco mais de 10\% e C pouco mais de 3%. 
+No total foram coletados módulos/classes das linguagens C, C++ e Java. Java foi a linguagem mais predominante, com aproximadamente 85\% das amostras, enquanto C++ ocupou pouco mais de 10\% e C pouco mais de 3\%. Embora seja relevante comentar as diferenciações entre as linguagens e seus paradigmas para algumas métricas,  não há necessidade de separação entre os valores para linguagem C, procedural, e linguagens Java/C++, orientadas a objetos, uma vez que, dadas as proporções das mesmas apresentadas nos dados, não há relevância estatística para tal. Entretanto em algumas métricas algumas observações teóricas possam ser ressaltadas, embora, mais uma vez, não haja implicação substancial no resultados gerais apresentados.
 
 \section{Análise de dados}
 
@@ -131,11 +131,10 @@ As métricas finais escolhidas foram capturadas pela ferramenta Analizo e estão
 \begin{itemize}
 \item ACCM - \textit{Average Cyclomatic Complexity per Method}
 \item AMLOC - \textit{Average Method Lines Of Code}
-\item CBO - \textit{Coupling Between Objects}
+\item ACC - \textit{Afferent Connections per Class}
 \item COF - \textit{Coupling Factor}
 \item DIT - \textit{Depth in Inheritance Tree}
 \item LCOM4 - \textit{Lack of Cohesion in Methods}
-\item LOC - \textit{Lines of Code}
 \item NOC - \textit{Number of Children}
 \item RFC - \textit{Response For a Class}
 \end{itemize}
@@ -144,6 +143,7 @@ As métricas finais escolhidas foram capturadas pela ferramenta Analizo e estão
 Essas métricas foram coletadas para cada classe presente em cada versão do Android analisada. Cada uma das versões contém milhares de classes/módulos a serem computados, e essa grande quantidade de classes ajuda a compensar o pequeno número de versões do sistema que foi utilizado, pois como as métricas são calculadas por classe, foi gerada uma quantidade significativa de amostras para cada TAG do sistema.
 
 Para a análise de código fonte em C, que é uma linguagem estruturada, com essas métricas orientadas a objetos, algumas observações devem ser ressaltadas: na ferramenta analizo, em vez de classes, são considerados módulos, e as funções são utilizadas como métodos\cite{meirelles2013}. Embora seja uma abordagem relativamente eficaz para o cálculo das métricas OO, os valores de algumas métricas podem ser bastante distintos das mesmas métricas calculadas para as linguagens que realmente utilizam o paradigma orientado a objetos. No Capítulo~\ref{cap:resultados} serão discutidas, no contexto deste trabalho, as variações de valores para algumas métricas quando analisados nesses diferentes paradigmas. Os valores para C++ e Java já se apresentam similares por utilizarem o mesmo paradigma e portanto terem funcionamento semelhante.
+%TODO citar referencia original pag 48
 
 Antes de prosseguir com a utilização dos dados, foi preciso executar uma correção dos dados, pois os arquivos CSV de saída continham classes/módulos com parâmetros de tipos genéricos que utilizam vírgula em sua declaração, comprometendo a formatação correta do arquivo CSV, que utiliza vírgula como separador de valores. Esse problema fazia com que algumas linhas fossem calculadas com mais valores do que deveriam conter, uma vez que as vírgulas adicionais empurravam os valores para a direita e os últimos eram então ignorados. A correção de dados então se resumiu em identificar essas amostras que continham vírgulas e remover as vírgulas adicionais. Esses dados corrigidos então foram armazenados em um diretório a parte para utilização nos estágios seguintes.
 
