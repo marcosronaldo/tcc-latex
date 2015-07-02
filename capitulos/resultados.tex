@@ -460,16 +460,20 @@ Cada classe dentro de cada versão seria uma amostra para esse método, que teri
 
 O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM seja mínima e os dados se apresentem na forma de uma linha horizontal como mostram as Figuras~\ref{fig:metricasxamloc} e~\ref{fig:metricasxnom}. Na verdade, apenas pelo fato de essas métricas não variarem muito ao longo das versões, já se pode prever esse resultado.
 
-Os valores das métricas não são relacionados com os valores dessas métricas de tamanho, como mostra a matriz de correlação XXXX.
-%TODO criar matriz de correlação
-
 \subsubsection{Regressão em escopo de pacote}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/metricasxtamanhomodulo.eps}
+\caption{valores dos percentis 75 das métricas LCOM, ACC e ACCM em função do tamanho de cada módulo}
+\label{fig:metricasxtamanhomodulo}
+\end{figure}
 
 Para fazer esse teste, foi separado cada pacote presente em cada versão do sistema, e utilizado como métrica de tamanho o número de classes nesse pacote. Os percentis para cada métrica eram calculados individualmente por pacote.
 
 O problema encontrado nessa abordagem foi que as métricas eram dependentes do próprio pacote analisado e seu propósito, mas independentes de seu tamanho. Isso quer dizer que vários pacotes com mesmo número de classes apresentavam valores com nenhuma relação entre si. Basicamente, o mesmo problema de independência dos dados em relação a variável de tamanho foi encontrado aqui.
 
-O gráfico da figura XXXX demonstra a metrica XXXX para cada pacote em função dos seu número de classes. Podemos perceber que os valores tem uma grande variação que aparentemente independe do número de classes do pacote. 
+O gráfico da Figura~\ref{fig:metricasxtamanhomodulo} demonstra as métricas LCOM, ACC e ACCM para cada pacote em função dos seu número de classes. Podemos perceber que os valores tem uma grande variação que aparentemente independe do número de classes do pacote. Pacotes maiores podem parecer variar um pouco menos, mas isso se da pela quantidade menor de amostras em relação a pacotes pequenos.
 
 Emfim, regressão neste contexto de métricas OO e métricas de tamanho não se mostrou um esforço válido para auxiliar desenvolvimento futuro de aplicativos. Mesmo no caso do escopo de software onde os dados podiam ser representados por um funcional, como a maioria dos valores se mostrou quase invariável ao longo das versões, ou com intervalos fixos, utilizar intervalos de referência tem tanta utilidade quanto uma regressão apresentaria. 
 
