@@ -27,9 +27,9 @@ Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a median
 \subsection{Average Method Lines Of Code}
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/amloc_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Average Method Lines of Code} no Android}
 \label{tab:amloc_android}
 \end{table}
@@ -46,9 +46,9 @@ A Tabela~\ref{tab:amloc_android} apresenta os valores para a métrica AMLOC nas 
 Esses são valores que estão de acordo com os apresentados em \citeonline{meirelles2013}, porém levemente menores para os percentis 75 e 90, com aproximadamente 3 linhas de código a menos por método. É possível perceber que os valores se mostraram bem semelhantes para o projeto Android, mesmo considerando o fato que este trabalho estuda apenas a API de desenvolvimento de aplicativos, essencialmente em Java e dentro do diretório ``\textit{frameworks}'' do AOSP, e \citeonline{meirelles2013} analiza todo o código fonte do sistema, que apresenta em sua totalidade uma maior proporção da linguagem C em relação as demais. Esses valores são subsídios para reafirmar que arquivos em C em geral, tem uma maior utilização de linhas de código do que arquivos em Java. \citeonline{oliveira2013} comenta que as diferenças entre as linguagems C/C++/Java para esta métrica não é significativa, uma vez que a sintaxe entre as 3 é bastante semelhante. Dada essa afirmação, podemos comparar os intervalos definidos por ele, chegando a conclusão de que os valores das métricas estão, para todas as versões, abaixo dos valores e regular para os percentis 75 e 90, o que é um bom resultado.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/amloc_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Average Method Lines of Code} nos aplicativos nativos}
 \label{tab:amloc_apps}
 \end{table}
@@ -79,9 +79,9 @@ Intervalos encontrados:
 A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a evolução da API. Podemos perceber que essa métrica não teve uma variação grande ao longo das versões nos percentis 75, 90 e 95, e o pouco do valor que ganhou nas versões centrais do gráfico foi sendo novamente reduzido nas versões seguintes.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/accm_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Average Cyclomatic Complexity per Method} no Android}
 \label{tab:accm_android}
 \end{table}
@@ -96,9 +96,9 @@ A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a ev
 Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:accm_android} e está melhor demonstrada no gráfico da Figura~\ref{fig:accmxamloc}. Nos valores do percentil 75, que correspondem a valores muito frequentes, as versões de 2.2.3 a 4.0.4 contém os únicos valores para o sistema onde a complexidade ciclomática supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como pode ser visto na Tabela~\ref{tab:amloc_android}. Essa relação direta também pode ser vista nos percentis 90 e 95, que representam valores frequentes e pouco requentes, respectivamente.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/accm_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Average Cyclomatic Complexity per Method} nos aplicativos nativos}
 \label{tab:accm_apps}
 \end{table}
@@ -118,9 +118,9 @@ Baseando-se nessas observações, são considerados os seguintes intervalos:
 \subsection{Response For a Class}
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/rfc_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Response For a Class} no Android}
 \label{tab:rfc_android}
 \end{table}
@@ -139,9 +139,9 @@ Contribuindo para o aumento, o resultado da busca de dispositivos bluetooth é r
 Comunicações assíncronas são muito usadas ao longo de todo o sistema para utilização de recursos, e então é necessário ter uma forma de receber mensagens de aplicativos e do sistema, o que é feito com a classe \textit{BroadcastReceiver} e implementando métodos específicos da mesma. Mesmo fora do contexto Android, comunicações assíncronas tendem a criar métodos adicionais de comunicação, como é visto no padrão \textit{Observer}, que se assemelha muito a essa comunicação por \textit{Intents}. A Figura~\ref{fig:rfc_android} demonstra que essa métrica não teve variação grande ao longo das versões do Android, tendendo inclusive a um leve aumento nas ultimas versões, demonstrando que os valores altos apresentados são mesmo uma característica da arquitetura do sistema. 
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/rfc_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Response For a Class} nos aplicativos nativos}
 \label{tab:rfc_apps}
 \end{table}
@@ -181,17 +181,17 @@ Um intervalo de valores até 38 pode ser considerado bom para aplicativos, e reg
 As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportamento dessas métricas com a evolução do sistema. É possível perceber que são valores relativamente baixos e com variação muito pequena para as duas métricas. Para DIT podemos perceber que os valores para cada percentil varia em no máximo 1 em algumas versões e depois voltam ao valor anterior. NOC também se mantém 0 ou 1 para o percentil 90 em todas as versões.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/dit_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Depth of Inheritance Tree} no Android}
 \label{tab:dit_android}
 \end{table}
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/dit_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Depth of Inheritance Tree} nos aplicativos nativos}
 \label{tab:dit_apps}
 \end{table}
@@ -199,9 +199,9 @@ As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportame
 A primeira observação sobre o dados das Tabela~\ref{tab:dit_android} e~\ref{tab:dit_apps} é que elas contém um número grande de zeros até o percentil 50. Como a linguagem Java representa mais de 85\% da amostra, vários desses zeros estão presentes também na linguagem Java. O que tiramos disso é que a ferramenta Analizo não contabiliza a classe Object na métrica DIT, pois caso contabilizasse o valor mínimo para o Java seria 1, visto que todo objeto Java herda de Object. Tirando esse fato não temos muitas surpresas, os valores são em geral baixos, chegando a no máximo 4 até o percentil 95 em todos as versões da API, demonstrando valores bem menores dos que os intervalos definidos por \citeonline{meirelles2013} para Java, que chegam até 2, 4 e 6 para os percentis 75, 90 e 95, respectivamente. \citeonline{oliveira2013} utiliza os mesmos intervalos para excelente, bom, e regular, respectivamente. \citeonline{ferreira2009} não define intervalos para essa métrica, mas indica um valor 2 como referência.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/noc_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Number of Children} no Android}
 \label{tab:noc_android}
 \end{table}
@@ -211,9 +211,9 @@ A API do sistema se manteve dentro dos intervalos excelente ou bom definidos nes
 A Tabela~\ref{tab:noc_android} apresenta os valores da métrica NOC para o sistema Android. Percebe-se que a maioria das classes não tem filhos, tendo 0 como valor muito frequente em todas as versões da API do sistema. Da mesma forma que a métrica DIT, os valores encontrados aqui são relativamente baixos. \citeonline{meirelles2013} define para projetos Java o valor 0 como muito frequente, 1 a 2 frequente e 3 pouco frequente. O que encontramos aqui é 0 muito frequênte, 0 a 1 como frequente, e 2 como pouco frequente.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/noc_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Number of Children} nos aplicativos nativos}
 \label{tab:noc_apps}
 \end{table}
@@ -242,9 +242,9 @@ Sobre árvore de herança, consideramos os seguintes intervalos para o Android:
 A Figura~\ref{fig:lcom4_android} apresenta a continuidade dos valores para LCOM na API do android, que, mesmo quado variam de uma versão para outra, retornam aos valores antigos, circulando acerca de um pequeno range de valores. Para o percentil 75, que representa valores muito frequentes, o gráfico demonstra uma linha reta horizontal em verde escuro que não desviou do valor 3 em nenhuma versão da API.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/lcom4_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Lack of Cohesion in Methods} no Android}
 \label{tab:lcom4_android}
 \end{table}
@@ -256,9 +256,9 @@ Embora o valor ideal de LCOM4 seja 1, valores maiores que 1 não são totalmente
 Em dispositivos móveis, por exemplo, tarefas de tirar foto e capturar vídeo, que são bem distintas, são reunidas na classe câmera, que representa o dispositivo físico que contempla essas funcionalidades. Essa representação de hardware em uma classe específica auxilia a manter uma maior organização no código, e mesmo que sejam tarefas distintas, resultando possivelmente em um maior valor de LCOM4, as classes ainda podem ser consideradas coesas. Fazer a separação da representação de um dispositivo físico em diversas classes pode não ser tão fácil quanto em um projeto com objetos mais ``abstratos'', que podem ser mais facilmente separados sem prejudicar o entendimento da estrutura do sistema.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/lcom4_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Lack of Cohesion in Methods} nos aplicativos nativos}
 \label{tab:lcom4_apps}
 \end{table}
@@ -270,9 +270,9 @@ LCOM4 também contabiliza classes de modelo, e no caso do Java, os \textit{gette
 \subsection{Afferent Connections per Class}
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/acc_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Afferent Connections per Class} no Android}
 \label{tab:acc_android}
 \end{table}
@@ -289,9 +289,9 @@ A Figura~\ref{fig:acc_android} e a Tabela~\ref{tab:acc_android} demonstram que o
 Os valores encontrados para o Android estão altos quando comparados com esses estudos, e portanto estes não são bem aplicáveis à API do Android, que, como podemos ver na Figura~\ref{fig:acc_android}, contém valores que não parecem ter tendência clara de reduzir para os intervalos considerados bons. A variância dentre as versões da API aqui analisadas é muito baixa, uma vez que quase os mesmos valores podem ser vistos ao longo das versões. Como os intervalos encontrados são constantes ao longo das versões, parecem refletir o design do sistema e podem ser utilizados como referência.
 
 \begin{table}[!htb]
+\centering
 \scalefont{.7}
 \input{tables/acc_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Afferent Connections per Class} nos aplicativos nativos}
 \label{tab:acc_apps}
 \end{table}
@@ -309,13 +309,11 @@ Consideramos então os seguintes intervalos para o Android:
 \subsection{Coupling Factor}
 
 \begin{table}[!htb]
-\begin{center}
+\centering
 \scalefont{.7}
 \input{tables/cof_android.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Coupling Factor} no Android}
 \label{tab:cof_android}
-\end{center}
 \end{table}
 
 \begin{figure}[!htb]
@@ -330,13 +328,11 @@ Consideramos então os seguintes intervalos para o Android:
 O valor de COF para a API do Android ao longo de suas versões caiu de 0.13\% para 0.057\%, como pode ser visto na Figura~\ref{fig:cof_android} e na Tabela~\ref{tab:cof_android}. Isso se dá pelo fato de que, como demonstrado na seção anterior, o valor de ACC permanece relativamente constante enquanto o número de classes aumenta significativamente a cada versão. Essencialmente, o sistema se mostra cada vez mais desacoplado e consequentemente manutenível. 
 
 \begin{table}[!htb]
-\begin{center}
+\centering
 \scalefont{.7}
 \input{tables/cof_apps.tex}
-\scalefont{.7}
 \caption{Percentis para a métrica \textit{Coupling Factor} nos aplicativos nativos}
 \label{tab:cof_apps}
-\end{center}
 \end{table}
 
 A Tabela~\ref{tab:cof_apps} apresenta os valores para os aplicativos e nela é possível perceber que o valor de COF não é sempre inversamente proporcional a quantidade de classes como já comentado, embora ele realmente tenha a tendencia a diminuir com o aumento do número de classes. Para os aplicativos, tivemos um range de 33\% para o menor dos projetos, com apenas 4 classes, e 0.4\% para um dos maiores aplicativos.
@@ -355,12 +351,11 @@ Os intervalos aqui não são considerados em função de seus percentis, mas as 
 %TODO trocar nome (esqueci ultima sugestão xD)
 
 \begin{table}[!htb]
-\begin{center}
+\centering
+\scalefont{.8}
 \input{tables/final_table_android.tex}
-\scalefont{.85}
 \caption{Intervalos definidos para sistema Android}
 \label{tab:final_table_android}
-\end{center}
 \end{table}
 
 A Tabela~\ref{tab:final_table_android} apresenta um resumo dos intervalos definidos para a API do sistema Android ao longo dessa seção. Embora algumas métricas tenham um indicativo de um problema pontual, como explicado no Capítulo~\ref{cap:metricas} e em outras seções deste capítulo, nenhuma das métricas discutidas neste trabalho deve ser analisada isoladamente.
@@ -478,5 +473,5 @@ O gráfico da Figura~\ref{fig:metricasxtamanhomodulo} demonstra as métricas LCO
 Emfim, regressão neste contexto de métricas OO e métricas de tamanho não se mostrou um esforço válido para auxiliar desenvolvimento futuro de aplicativos. Mesmo no caso do escopo de software onde os dados podiam ser representados por um funcional, como a maioria dos valores se mostrou quase invariável ao longo das versões, ou com intervalos fixos, utilizar intervalos de referência tem tanta utilidade quanto uma regressão apresentaria. 
 
 \subsection{Validação dos intervalos de referência com distancia euclidiana}
-
+%TODO falar q a relativização não é necessária devido a independencia das métricas utilizadas em relação ao tamanho. Então comparação direta pode ser útil.
 ...

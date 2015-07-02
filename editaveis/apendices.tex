@@ -1,4 +1,11 @@
-\section{Componentes Android} %TODO jogar subseções de desenho para apendice
+\begin{apendicesenv}
+
+\partapendices
+
+\chapter{Android e a Engenharia de software}
+\label{ap:android_esw}
+
+\section{Design e Componentes Android}
 
 O Android provê um \textit{framework} para desenvolver aplicativos baseado nos componentes descritos no início deste capítulo. Os aplicativos são construídos com qualquer combinação desses componentes, que podem ser utilizados individualmente, sem a presença dos demais. Cada um dos componentes pode ser uma entrada para o aplicativo sendo desenvolvido.
 
@@ -53,3 +60,7 @@ Podem existir classes em Java puro que não utilizam a API de desenvolvimento do
 As suítes de teste no Android são baseadas em \textit{JUnit}, e então da mesma forma que é possível utilizar \textit{JUnit} para desenvolver testes para classes que não utilizam a API Android, é possível utilizar as extensões do \textit{JUnit} criadas especificamente para testar cada componente do aplicativo sendo desenvolvido. Existem extensões \textit{JUnit} específicas para cada componente Android, e essas classes contém métodos auxiliares para criar \textit{Mock Objects}. Estes são criados para simular outros objetos do contexto de execução real do aplicativo.
 
 O kit de desenvolvimento para a plataforma Android inclui ferramentas automatizadas de teste de interface gráfica. O robotium, por exemplo, realiza testes de caixa preta em cima da interface gráfica do aplicativo. São criadas rotinas de teste em Java semelhantes ao \textit{JUnit}, com \textit{asserts} para validar os resultados. Com ele é possível criar rotinas robustas de testes para validar critérios de aceitação pré-definidos, simulando interações do usuário com uma ou várias \textit{activities}. Existe a ferramenta Monkeyrunner, onde se cria \textit{scripts} em Python para instalar e executar algum aplicativo, enviando comandos e cliques para o mesmo, e salvando \textit{screenshots} do dispositivo no computador com resultados. Há também a ferramenta Monkey, que é utilizada para fazer testes de stress no aplicativo gerando inputs pseudo aleatórios.
+
+\input{capitulos/biodyn}
+
+\end{apendicesenv}
