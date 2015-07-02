@@ -86,7 +86,14 @@ A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a ev
 \label{tab:accm_android}
 \end{table}
 
-Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:accm_android}. Nos valores do percentil 75, que correspondem a valores muito frequentes, as versões de 2.2.3 a 4.0.4 contém os únicos valores para o sistema onde a complexidade ciclomática supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como pode ser visto na Tabela~\ref{tab:amloc_android}. Essa relação direta também pode ser vista nos percentis 90 e 95, que representam valores frequentes e pouco requentes, respectivamente.
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.85]{figuras/ACCMxAMLOC.eps}
+\caption{Variação de ACCM por AMLOC para os valores da API apresentados nas Tabelas~\ref{tab:amloc_android} e~\ref{tab:accm_android}}
+\label{fig:accmxamloc}
+\end{figure}
+
+Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:accm_android} e está melhor demonstrada no gráfico da Figura~\ref{fig:accmxamloc}. Nos valores do percentil 75, que correspondem a valores muito frequentes, as versões de 2.2.3 a 4.0.4 contém os únicos valores para o sistema onde a complexidade ciclomática supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como pode ser visto na Tabela~\ref{tab:amloc_android}. Essa relação direta também pode ser vista nos percentis 90 e 95, que representam valores frequentes e pouco requentes, respectivamente.
 
 \begin{table}[!htb]
 \scalefont{.7}
@@ -96,9 +103,7 @@ Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:ac
 \label{tab:accm_apps}
 \end{table}
 
-%TODO criar e linkar gráfico de ACCM em função de AMLOC
-
-Essa mesma relação pode ser vista para os aplicativos. Embora não seja totalmente determinístico, no geral aplicativos com maiores valores de AMLOC tendem a ter um maior valor de ACCM, assim como visto na API do sistema. Com exceção do \textit{SMSReceiver}, os 5 aplicativos com maior valor de AMLOC são os que contém maior complexidade do conjunto. 
+Essa relação pode ser vista para os aplicativos. Embora não seja totalmente determinístico, no geral aplicativos com maiores valores de AMLOC tendem a ter um maior valor de ACCM, assim como visto na API do sistema. Com exceção do \textit{SMSReceiver}, os 5 aplicativos com maior valor de AMLOC são os que contém maior complexidade do conjunto. 
 
 Reforçando a importância dessa métrica em uma análise estática de código, \citeonline{oliveira2013} define a mesma com um peso adicional em relação a outras métricas em seu estudo. Valores de referencia definidos para esse estudo foram 1 a 3, 3 a 5, e 5 a 7, para excelente, bom e regular, respectivamente. Observando as Tabelas~\ref{tab:accm_android} e~\ref{tab:accm_apps} percebe-se que os valores obtidos neste trabalho estão dentro do intervalo excelente ou bom, para os percentis 75 e 90, e dentro de bom ou regular para o percentil 95, q representa valores menos frequentes. No geral, os resultados indicam que o sistema tem uma boa complexidade ciclomática e que os aplicativos desenvolvidos para o mesmo acompanham essa mesma linha. \citeonline{meirelles2013} definiu intervalos semelhantes para códigos em C, e valores um pouco reduzidos para códigos em C++ e Java (0 a 2, 2 a 4, e 4 a 6 para os percentis 75, 90 e 95 respectivamente).  Os resultados encontrados para a API do sistema Android se encontram todos dentro desses intervalos, confirmando como um bom resultado. Já os aplicativos tem algumas exceções que extrapolam levemente esses valores, mas continuam em sua maioria dentro desses limites.
 
@@ -371,7 +376,6 @@ Entender a relação entre ACCM e AMLOC é importante também para pensar em pos
 O ideal em uma classe é obter métodos pequenos com tarefas atômicas e bem definidas, que correspondam às responsabilidades dessa classe. A métrica RFC está diretamente relacionada a Number Of Methods (NOM), uma vez que um aumento neste ultimo implica necessariamente em um aumento em RFC. Uma classe que tenha alto RFC e muitos métodos (valor alto de NOM) pode indicar que está fazendo mais tarefas do que é sua responsabilidade fazer, necessitando talvez rever a sua implementação para aumentar sua coesão. Da mesma forma, um valor alto de RFC e valor baixo de NOM indica que uma classe está fazendo muito o uso de métodos de terceiros, podendo-se inferir que alguns métodos possam ser extraídos para essas classes que estão sendo tanto chamadas, com o objetivo de diminuir o acoplamento entre essas classes.
 
 Alto valor de profundidade de árvore de herança em uma classe pode auxiliar no aumento da métrica RFC, uma vez que todos os comportamentos são herdados. Entretanto não é uma correlação direta significativa entre as duas, visto que a profundidade de herança raramente é alta para o sistema Android, como será discutido nas seções seguintes. Embora valor alto de DIT possa significar maior valor de RFC, valores muito altos de RFC tendem a indicar mais a falta de coesão e alto acoplamento, aumentando assim a complexidade estrutural da classe, e não uma profundidade de herança preocupante.
-%TODO rever esse parágrafo que compara com DIT
 
 LCOM4 juntamente com RFC são bons indicadores da organização interna de uma classe, pois ambas as métricas dão subsídios para avaliar coesão. Essencialmente, métricas de coesão e acoplamento estão sempre relacionadas e são as métricas mais indicadas para avaliar a complexidade estrutural de uma classe. A ferramenta Analizo, por exemplo, calcula a métrica Structural Complexity (SC) como produto entre LCOM4 e CBO.
 
@@ -408,11 +412,25 @@ Nenhuma das formas propostas foi realmente implementada, apenas foi realizado um
 
 A primeira observação que se faz sobre a realização de regressão em escopo de software utilizando os valores da evolução da API do sistema Android é capacidade de generalização de um modelo. De forma geral, o modelo seria criado com pontos com valores de número de classes variando de 5000 a 20000 classes. Como consequência, argumentamos que o modelo de regressão não teria uma boa capacidade de generalização para projetos muito pequenos, como acontece com aplicativos, que possuem muitas vezes apenas algumas dezenas de classes, e são o alvo principal para utilização dessa regressão. Da mesma forma, a capacidade de predição para projetos que contenham bem mais que 20000 classes também seria prejudicada, uma vez que o modelo de regressão não veria nenhum nesse intervalo. 
 
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/metricasxclasses.eps}
+\caption{valores dos percentis 75 das métricas DIT, NOC, LCOM, ACC e ACCM em função do número de classes}
+\label{fig:metricasxclasses}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/rfcxclasses.eps}
+\caption{valores dos percentis 75, 90 e 95 de RFC em função do número de classes}
+\label{fig:rfcxclasses}
+\end{figure}
+
 Para que isso pudesse ser realmente feito, os dados das métricas OO devem ser relacionados com as métricas de tamanho, demonstrando seu valor como dependente do valor dessas métricas. Se os dados obedecem um certo padrão, um funcional pode ser traçado para representar o comportamento dos mesmos. 
 
-%TODO demonstrar graficos ACC, ACCM, LCOM4, e RFC em função do numero de classes
+Como podemos ver na Figura~\ref{fig:metricasxclasses}, onde é traçado o percentil 75 em função do número de classes, as métricas DIT, NOC, ACC, LCOM4 e ACCM podem ser representadas por uma linha reta horizontal, enquanto RFC, plotada na Figura~\ref{fig:rfcxclasses}, tem dados mais dispersos mas ainda podem ser representados por uma reta horizontal sem perda significativa nos percentis 75 e 90, que correspondem a grande maioria dos dados. Nas tabelas e gráficos apresentados nas seção anterior pode ser confirmado que dentro de cada percentil de cada métrica a variação é pequena. Não foram plotados os valores de outros percentis aqui por diferenciação de escala que exigiria uma quantidade absurda de gráficos, além de não terem tanta importância quanto os valores muito frequêntes apresentados no percentil 75.
 
-Como podemos ver na Figura XXXX, onde é traçado o percentil 75 em função do número de classes, as métrica ACC, LCOM4 e ACCM parecem poder ser representadas por uma linha reta horizontal, enquanto RFC tem dados muito difusos para serem representados por um polinômio. Resumidamente, para algumas métricas essa regressão parece ser promissora, isto é, um funcional realmente pode ser traçado que representa a variação dos valores das métricas com o número de classes do projeto. Entretanto, para a ínfima variação para métricas importantes como ACC, LCOM4, DIT, NOC, ACCM, que são as principais métricas aqui analisadas, argumentamos que um valor referência se mostra tão útil quanto essa regressão, tornando-a desnecessária.
+Para algumas métricas essa regressão parece ser possível, isto é, um funcional realmente pode ser traçado que representa a variação dos valores das métricas com o número de classes do projeto. Entretanto, para a ínfima variação nos percentis mais significativos para métricas importantes como ACC, LCOM4, DIT, NOC, RFC, ACCM, que são as principais métricas aqui analisadas, argumentamos que um valor referência se mostra tão útil quanto essa regressão, tornando-a desnecessária.
 
 Além de poder utilizar um valor referencia sem perda de valor semântico sobre o valor ideal da métrica, uma regressão em escopo de software da forma como foi proposta, pelo número de classes, não contém, com os dados aqui obtidos, um conjunto suficiente de dados para uma boa regressão. Em suma, temos poucas amostras para realizar esse estudo.
 
@@ -424,10 +442,23 @@ Para realização de um modelo de regressão polinomial a nível de software, n�
 
 Como uma segunda tentativa na direção de uma regressão polinomial, foi verificada a possibilidade de utilizar valores das métricas para cada classe, e não para o projeto. Tentamos então avaliar o valor ideal de uma métrica para uma classe, dado alguma variável independente que represente de alguma forma seu tamanho.
 
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/metricasxamloc.eps}
+\caption{valores dos percentis 75 das métricas DIT, NOC, LCOM, ACC e ACCM em função de AMLOC}
+\label{fig:metricasxamloc}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/metricasxnom.eps}
+\caption{valores dos percentis 75 das métricas DIT, NOC, LCOM, ACC e ACCM em função de NOM}
+\label{fig:metricasxnom}
+\end{figure}
+
 Cada classe dentro de cada versão seria uma amostra para esse método, que teria então um total de mais de 100000 classes. Pensando dessa forma o problema de escala do escopo de software seria resolvido.
 
-O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM seja grande e os dados se apresentem de forma difusa como mostra o gráfico da Figura XXXX.
-%TODO apresentar graficos de algumas métricas em função de AMLOC, e em funcao de NOM
+O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM seja mínima e os dados se apresentem na forma de uma linha horizontal como mostram as Figuras~\ref{fig:metricasxamloc} e~\ref{fig:metricasxnom}. Na verdade, apenas pelo fato de essas métricas não variarem muito ao longo das versões, já se pode prever esse resultado.
 
 Os valores das métricas não são relacionados com os valores dessas métricas de tamanho, como mostra a matriz de correlação XXXX.
 %TODO criar matriz de correlação
