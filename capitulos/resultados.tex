@@ -1,19 +1,28 @@
 \chapter{Resultados}
 \label{cap:resultados}
 
-Na primeira seção deste capítulo serão discutidos os resultados da análise de distribuição dos dados coletados, definindo para a API Android valores de referencia em cada métrica. Na seção seguinte, apresentamos uma discussão sobre a aplicabilidade de um modelo de regressão para utilizar os dados como um auxílio para desenvolvimento de projetos futuros, principalmente em aplicativos. A terceira seção apresenta uma proposta de validação dos valores de referência definidos na primeira seção, na forma de um cálculo de aproximação de aplicativos ao sistema através de métricas estáticas de código, utilizando distancia euclidiana com média ponderada.
+Na primeira seção deste capítulo serão discutidos os resultados da análise de distribuição dos dados coletados, definindo para a API Android valores de referência em cada métrica. Na seção seguinte, são apresentadas discussões sobre a validação dos valores de referência definidos na primeira seção. Após discutir acerca de regressão polinomial para validar os intervalos aqui descritos, o trabalho caminhou para realização de um cálculo de aproximação de aplicativos em relação a API através de métricas estáticas de código, utilizando distância euclidiana com média ponderada. A primeira seção juntamente com a proposta de cálculo de similaridade reúnem as principais contribuições deste trabalho.
 
 \section{Análise de Distribuição}
 %TODO explicar melhor correlação de métricas no sistema (relacionar com codigos de interface (activity) e código de outros componentes). 
 %TODO relacionar resultados das métricas a padrões de projeto
+%TODO justificar o valor 0 em todas as métricas 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.70]{figuras/android510dist.eps}
+\caption{Distribuição de valores para as métricas LCOM4, ACC, ACCM e RFC}
+\label{fig:android510dist}
+\end{figure}
 
 Com os dados coletados e devidamente preparados, várias conclusões podem ser tiradas dos valores das métricas e sua evolução ao longo do tempo. Esta seção é focada na análise subjetiva dos dados, tentando explicar seu comportamento com relação às características do sistema, compará-los a outros estudos, e até mesmo comparar com dados de métricas em aplicativos, utilizando os próprios aplicativos do sistema como base de comparação.
 
-\subsection{Distribuição dos dados}
-%TODO fazer grafico de distribuição para algumas métricas. 
 
-Os gráficos na Figura XXXX demonstram as distribuições dos dados para as métricas XXXXXX.
-...
+\subsection{Distribuição dos dados}
+
+Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Podemos perceber que em todos os casos a densidade de probabilidade apresenta uma distribuição de cauda longa, já demonstrando que a média desses valores não é igual a mediana, e não é significativa. 
+
+Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise cada métrica, assim como feito por \citeonline{meirelles2013}. 
 
 \subsection{Average Method Lines Of Code}
 
@@ -337,7 +346,8 @@ Os intervalos aqui não são considerados em função de seus percentis, mas as 
 \item A medida que ganham tamanho de várias dezenas à poucas centenas de classes, os valores de COF para aplicativos não devem ultrapassar os 4\%, entretanto é recomendável que fique abaixo de 2\%. Quando chegam a várias centenas de classes, os valores devem ser menores que 1\%.
 \end{itemize}
 
-\subsection{Resumo da analise de distribuição}
+\subsection{Resumo da discussão}
+%TODO trocar nome (esqueci ultima sugestão xD)
 
 \begin{table}[!htb]
 \begin{center}
@@ -349,6 +359,8 @@ Os intervalos aqui não são considerados em função de seus percentis, mas as 
 \end{table}
 
 A Tabela~\ref{tab:final_table_android} apresenta um resumo dos intervalos definidos para a API do sistema Android ao longo dessa seção. Embora algumas métricas tenham um indicativo de um problema pontual, como explicado no Capítulo~\ref{cap:metricas} e em outras seções deste capítulo, nenhuma das métricas discutidas neste trabalho deve ser analisada isoladamente.
+
+\subsubsection{Observações acerca das métricas}
 
 Valores baixos de AMLOC são sempre preferíveis, pois métodos mais enxutos tem menor responsabilidade, portanto estão mais sujeitos a reuso, e também são mais fáceis de se ler e se modificar. Entretanto essa métrica é preciso ser analisada em conjunto com outras métricas, como LCOM4 e RFC. Uma classe com muitos métodos privados pequenos tende a ter um valor maior de RFC, o que não implica que esteja mal projetada, desde que os métodos ali presentes estejam bem posicionados segundo o padrão de projeto OO especialista da informação, mantendo por consequência um baixo valor de LCOM4. Como referência geral de resultados para AMLOC, quanto menor o valor, melhor o resultado.
 
@@ -367,68 +379,69 @@ LCOM4 juntamente com RFC são bons indicadores da organização interna de uma c
 
 Dentro do escopo de um projeto, pela própria definição da métrica, o valor limite para ACC é o próprio número de classes. Embora o valor seja limitado pelo número de classes, não é possível perceber uma relação direta entre o crescimento do número de classes e o valor de ACC, sendo que essa métrica é mais relacionada à forma como o sistema foi pensado e desenhado do que com o seu tamanho. Entretanto, para análise longitudinal em um mesmo projeto, a relação entre número de classes e COF se mostra válida.
 
-\section{Modelos de Regressão}
+\section{Validação dos intervalos de referência}
 
-A partir da obtenção e analise de distribuição dos dados de métricas OO nas diferentes versões do Android e de aplicativos nativos, foram feitos testes empíricos para verificar da possibilidade de utilizar esses dados em modelos de regressão polinomial. Essas tentativas tiveram como alvo a predição de um valor ideal de uma métrica para aplicativos em desenvolvimento, a partir de alguma métrica independente base, que refletisse o tamanho do projeto analisado.
+Após a obtenção e analise de distribuição dos dados de métricas OO nas diferentes versões do Android e em aplicativos nativos, foram feitos alguns estudos para validar os intervalos de referência definidos na primeira seção deste capítulo. Esses estudos, além de validar os valores definidos previamente de forma subjetiva, também tinham como propósito verificar a possibilidade de utilizar esses dados para auxiliar desenvolvedores no desenvolvimento de aplicativos. 
 
-Algumas das métricas base que foram inicialmente idealizadas para relativização das métricas para diferentes tamanhos de projetos e regressão polinomial:
+A partir daí, o passo inicial foi pensar na criação um modelo de regressão que conseguisse predizer o valor ideal de uma métrica OO a partir de uma variável independente de tamanho que representasse a escala do projeto, de forma a obter um valor proporcional daquela métrica. O desenvolvedor então poderia comparar esse valor com o valor real da métrica que o código apresenta, e com os intervalos que foram definidos neste trabalho, e então verificar se mudanças estruturais devem ser feitas.
+
+Após identificadas as limitações e problemáticas com essa abordagem de regressão, o trabalho seguiu um novo caminho em direção à uma comparação mais direta. A ideia vem da proposição de que, julgando a API como um bom exemplo de código, valores próximos aos da API podem ser considerados bons por consequência. 
+
+O passo seguinte foi então avaliar a qualidade um aplicativo a partir da distancia da API no que diz respeito a métricas estáticas de código.
+
+\subsection{Validação por regressão}
+
+A seguir métricas base que foram inicialmente idealizadas para relativização das métricas por regressão polinomial:
 
 \begin{enumerate}
 \item Número de classes, realizando uma regressão em escopo de software.
 \item Número de classes por pacote, resultando em uma regressão em escopo de ``módulo''.
-\item Número de métodos, realizando uma regressão em escopo de classe.
+\item NOM, realizando uma regressão em escopo de classe.
 \item AMLOC, realizando uma regressão em escopo de classe.
 \end{enumerate}
 
-Não é possível idealizar esse resultado para métricas OO, mensuradas para cada classe, para entradas mais granularizadas como valores de métodos.
+Não é possível idealizar esse resultado para métricas OO, mensuradas para cada classe, para entradas mais granularizadas como valores de métodos. A grande maioria das métricas tem seus valores para a classe como um todo, não podendo fazer distinção sobre a participação de cada método individualmente dentro daquele valor.
 
-O objetivo era relativamente simples: desejava-se, a partir do tamanho de um projeto/módulo/classe, obter o valor ideal para uma métrica a fim de o desenvolvedor pudesse comparar com o valor real que o código possui, e então verificar se mudanças estruturais devem ser feitas. Com isso, validar então os intervalos aqui definidos na seção anterior como bons valores nesse contexto de desenvolvimento em Java para a plataforma Android.
+Nenhuma das formas propostas foi realmente implementada, apenas foi realizado uma discussão das possibilidades com as métricas que estavam disponíveis. Métricas de tamanho foram o alvo da regressão como variáveis independentes porque seriam uma forma de abstrair os resultados para projetos de diferentes escalas. Essencialmente os intervalos de valores anteriormente definidos seriam validados se a métrica estivesse de acordo com os mesmos para os parâmetros específicos do projeto sendo analisado, fazendo uma comparação entre o modelo de regressão e a análise manual subjetiva deste trabalho.
 
-Nenhuma das formas propostas foi realmente desenvolvida, apenas foi realizado uma discussão rápida das possibilidades com as métricas que estavam disponíveis. Métricas de tamanho foram o alvo da regressão como variáveis independentes porque seriam uma forma de abstrair os resultados para projetos de diferentes escalas.
+\subsubsection{Regressão em escopo de software}
 
-\subsection{Regressão em escopo de software}
+A primeira observação que se faz sobre a realização de regressão em escopo de software utilizando os valores da evolução da API do sistema Android é capacidade de generalização de um modelo. De forma geral, o modelo seria criado com pontos com valores de número de classes variando de 5000 a 20000 classes. Como consequência, argumentamos que o modelo de regressão não teria uma boa capacidade de generalização para projetos muito pequenos, como acontece com aplicativos, que possuem muitas vezes apenas algumas dezenas de classes, e são o alvo principal para utilização dessa regressão. Da mesma forma, a capacidade de predição para projetos que contenham bem mais que 20000 classes também seria prejudicada, uma vez que o modelo de regressão não veria nenhum nesse intervalo. 
 
-A primeira observação que se faz sobre a realização de regressão em escopo de software utilizando os valores da evolução da API do sistema Android é capacidade de generalização de um modelo. De forma geral, o modelo seria criado com pontos com valores de número de classes variando de 5000 a 20000 classes. Como consequência, o modelo de regressão não teria uma boa capacidade de generalização para projetos muito pequenos, como acontece com aplicativos, que possuem muitas vezes apenas algumas dezenas de classes, e são o alvo principal para utilização dessa regressão. Da mesma forma, a capacidade de predição para projetos que contenham bem mais que 20000 classes também seria prejudicada, uma vez que o modelo de regressão não veria nenhum nesse intervalo. Isso tudo assumindo que os dados obedecem um certo padrão e um funcional realmente pode ser traçado que represente o comportamento dos mesmos. 
-
-Para que isso pudesse ser realmente feito, os dados das métricas OO devem ser relacionados com as métricas de tamanho, demonstrando seu valor como dependente do valor dessas métricas.
+Para que isso pudesse ser realmente feito, os dados das métricas OO devem ser relacionados com as métricas de tamanho, demonstrando seu valor como dependente do valor dessas métricas. Se os dados obedecem um certo padrão, um funcional pode ser traçado para representar o comportamento dos mesmos. 
 
 %TODO demonstrar graficos ACC, ACCM, LCOM4, e RFC em função do numero de classes
 
-Como podemos ver na Figura XXXX, onde é traçado o percentil 75 em função do número de classes, as métrica ACC, LCOM4 e ACCM parecem poder ser representadas por uma linha reta horizontal, enquanto RFC tem dados muito difusos para serem representados por um polinômio. Resumidamente, para algumas métricas essa regressão parece ser promissora, isto é, um funcional realmente pode ser traçado que representa a variação dos valores das métricas com o número de classes do projeto. Entretanto, a ínfima variação para métricas importantes como ACC, LCOM4, DIT, NOC, ACCM, que são as principais métricas aqui analisadas, dá a impressão de que um valor referência se mostra tão útil quanto essa regressão, tornando-a desnecessária.
+Como podemos ver na Figura XXXX, onde é traçado o percentil 75 em função do número de classes, as métrica ACC, LCOM4 e ACCM parecem poder ser representadas por uma linha reta horizontal, enquanto RFC tem dados muito difusos para serem representados por um polinômio. Resumidamente, para algumas métricas essa regressão parece ser promissora, isto é, um funcional realmente pode ser traçado que representa a variação dos valores das métricas com o número de classes do projeto. Entretanto, para a ínfima variação para métricas importantes como ACC, LCOM4, DIT, NOC, ACCM, que são as principais métricas aqui analisadas, argumentamos que um valor referência se mostra tão útil quanto essa regressão, tornando-a desnecessária.
 
-Além de poder utilizar um valor referencia sem perda de valor semântico sobre o valor ideal da métrica, uma regressão em escopo de software da forma como foi proposta, pelo número de classes, não contém, com os dados aqui obtidos, um conjunto suficiente de dados para uma boa regressão, mesmo se ela se apresentasse realmente necessária. Em suma, temos poucas amostras para realizar esse estudo. Com os valores das métricas para todos as TAGS no repositório do AOSP talvez uma regressão poderia ser melhor realizada, porém, como já comentado, os dados aqui obtidos indicam q ela seria extremamente próxima de uma linha reta horizontal para a maioria das métricas, dado o grau de independência que elas demonstram em relação ao número de classes.
+Além de poder utilizar um valor referencia sem perda de valor semântico sobre o valor ideal da métrica, uma regressão em escopo de software da forma como foi proposta, pelo número de classes, não contém, com os dados aqui obtidos, um conjunto suficiente de dados para uma boa regressão. Em suma, temos poucas amostras para realizar esse estudo.
 
-Como um pequeno problema adicional para esse tipo de regressão linear com os dados aqui obtidos seria um problema de \textit{overfitting}, ou seja, um ajuste muito fino em relação aos dados. Os dados das métricas para os aplicativos se mostraram levemente diferentes para os dados da API do sistema, mesmo estando bem semelhantes, então utilizar apenas a API do sistema como insumo para o modelo de regressão resultaria em um modelo que não funciona bem para predizer valores de métricas de aplicativos. Entretanto, para os aplicativos, considerando cada um como um projeto distinto, assim como fizemos com as versões da API, as métricas são extremamente dispersas em relação ao número de classes, tornando difícil representar os dados por um polinômio para realizar a regressão. Isso se dá pela maior variância que as métricas tem nos aplicativos devido às diferenças dos propósito desses aplicativos, o que muda seu estilo de arquitetura. Assim, podemos chegar a conclusão que uma regressão por número de classes pode ser válida para diferentes versões sistemas estáveis, que tenham variações de tamanho dentro de um certo intervalo conhecido, mas não para um conjunto muito distinto de projetos.
+Como um pequeno problema adicional, os dados das métricas para os aplicativos se mostraram levemente diferentes para os dados da API do sistema, mesmo estando bem semelhantes, então argumentamos que utilizar apenas a API do sistema como insumo para o modelo de regressão resultaria em um modelo que não funciona tão bem para predizer valores de métricas de aplicativos. Para os aplicativos, que são projetos distintos, as métricas são extremamente dispersas em relação ao número de classes, tornando difícil representar bem os dados por um polinômio para realizar a regressão. 
 
-Para realização de um modelo de regressão polinomial a nível de software, não foi encontrada ao longo deste trabalho, dadas restrições de tempo e escopo, outra métrica que representasse bem o tamanho do projeto para relativização do resultado das métricas OO, que foram selecionadas para avaliar a arquitetura no contexto do desenvolvimento para Android. 
+Para realização de um modelo de regressão polinomial a nível de software, não foi encontrada ao longo deste trabalho, dadas restrições de tempo e escopo, outra métrica que representasse bem o tamanho do projeto para relativização do resultado das métricas OO. 
 
-Utilizar a quantidade de pacotes em vez da quantidade de classes teria o mesmo efeito, uma vez que as métricas OO também são independentes desse valor.
-%TODO demonstrar que as métricas não dependem da quantidade de pacotes assim como não dependem da quantidade de classes (será q precisa???)
+\subsubsection{Regressão em escopo de classe}
 
-\subsection{Regressão em escopo de classe}
+Como uma segunda tentativa na direção de uma regressão polinomial, foi verificada a possibilidade de utilizar valores das métricas para cada classe, e não para o projeto. Tentamos então avaliar o valor ideal de uma métrica para uma classe, dado alguma variável independente que represente de alguma forma seu tamanho.
 
-Como uma segunda tentativa na direção de uma regressão polinomial para aplicativos, foi verificada a possibilidade de utilizar valores das métricas para classes, em vez de utilizar todo o conjunto de classes com uma abordagem estatística de percentis, como foi comentado na seção anterior. Tentamos então avaliar o valor ideal de uma métrica para uma classe, dado alguma variável independente que represente de alguma forma seu tamanho.
+Cada classe dentro de cada versão seria uma amostra para esse método, que teria então um total de mais de 100000 classes. Pensando dessa forma o problema de escala do escopo de software seria resolvido.
 
-Cada classe dentro de cada versão seria uma amostra para esse método, que teria então um total de mais de 100000 classes. Pensando dessa forma o problema de escala do escopo de software seria resolvido, uma vez que no próprio sistema existem classes com um range muito grande de tamanhos. Então para cada amostra utilizada com um modelo em produção, o mesmo já teria visto uma com parâmetros de tamanho semelhantes em sua criação. 
-
-O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram bem independentes dos valores das métricas OO. AMLOC por exemplo, não interfere em LCOM4, pois métodos grandes podem ser bastante coesos e métodos pequenos podem não ser, dependendo mais da responsabilidade da classe. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM se apresente bem difusa como mostra o gráfico da Figura XXXX.
+O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM seja grande e os dados se apresentem de forma difusa como mostra o gráfico da Figura XXXX.
 %TODO apresentar graficos de algumas métricas em função de AMLOC, e em funcao de NOM
 
-Em suma, os valores das métricas não são relacionados com os valores dessas métricas de tamanho, como mostra a matriz de correlação XXXX.
+Os valores das métricas não são relacionados com os valores dessas métricas de tamanho, como mostra a matriz de correlação XXXX.
 %TODO criar matriz de correlação
 
-\subsection{Regressão em escopo de pacote}
+\subsubsection{Regressão em escopo de pacote}
 
-Para fazer esse teste, foi separado cada pacote presente em cada versão do sistema, e utilizado como métrica de tamanho o número de classes nesse pacote. O problema encontrado foi que as métricas eram totalmente dependentes do próprio pacote analisado e seu propósito, mas independentes de seu tamanho. Isso quer dizer que 2 pacotes de 3 classes cada apresentavam valores com nenhuma relação entre si. Basicamente, o mesmo problema de independência dos dados em relação a variável de tamanho foi encontrada nessa abordagem.
+Para fazer esse teste, foi separado cada pacote presente em cada versão do sistema, e utilizado como métrica de tamanho o número de classes nesse pacote. Os percentis para cada métrica eram calculados individualmente por pacote.
 
-O gráfico da figura XXXX demonstra a metrica XXXX para cada pacote em função dos seu número de classes. Podemos pereber que os valores tem uma grande variação que aparentemente independe do número de classes do pacote, mas sim do propósito e das responsabilidades do mesmo.
+O problema encontrado nessa abordagem foi que as métricas eram dependentes do próprio pacote analisado e seu propósito, mas independentes de seu tamanho. Isso quer dizer que vários pacotes com mesmo número de classes apresentavam valores com nenhuma relação entre si. Basicamente, o mesmo problema de independência dos dados em relação a variável de tamanho foi encontrado aqui.
 
-\subsection{Conclusão acerca de regressão}
+O gráfico da figura XXXX demonstra a metrica XXXX para cada pacote em função dos seu número de classes. Podemos perceber que os valores tem uma grande variação que aparentemente independe do número de classes do pacote. 
 
-As métricas OO se mostraram independentes de tamanho. Algumas análises foram feitas na seção de análise preliminar demarcando alguns valores para diferentes tamanhos do projeto quando aplicável. A grande maioria não teve variação significativa em relação a nenhuma das métricas de tamanho que foram obtidas.
+Emfim, regressão neste contexto de métricas OO e métricas de tamanho não se mostrou um esforço válido para auxiliar desenvolvimento futuro de aplicativos. Mesmo no caso do escopo de software onde os dados podiam ser representados por um funcional, como a maioria dos valores se mostrou quase invariável ao longo das versões, ou com intervalos fixos, utilizar intervalos de referência tem tanta utilidade quanto uma regressão apresentaria. 
 
-Regressão nesse contexto não se mostrou um esforço válido para auxiliar desenvolvimento futuro de aplicativos. Afinal, a maioria dos valores se mostrou invariável ao longo das versões, ou com intervalos fixos. Dessa forma, utilizar esses intervalos tem tanta utilidade quanto uma regressão apresentaria. Para métricas OO, utilizar valores ou intervalos de referência é uma prática mais simples e ainda eficaz enquanto se desenvolve aplicativos, uma vez que a arquitetura do sistema é avaliada dependendo de alguns parâmetros e os intervalos de valores, como exemplificado para algumas métricas na seção anterior.
-
-\section{Validação dos intervalos de referência com distancia euclidiana}
+\subsection{Validação dos intervalos de referência com distancia euclidiana}
 
 ...
