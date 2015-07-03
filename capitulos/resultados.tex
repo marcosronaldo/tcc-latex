@@ -4,9 +4,6 @@
 Na primeira seção deste capítulo serão discutidos os resultados da análise de distribuição dos dados coletados, definindo para a API Android valores de referência em cada métrica. Na seção seguinte, são apresentadas discussões sobre a validação dos valores de referência definidos na primeira seção. Após discutir acerca de regressão polinomial para validar os intervalos aqui descritos, o trabalho caminhou para realização de um cálculo de aproximação de aplicativos em relação a API através de métricas estáticas de código, utilizando distância euclidiana com média ponderada. A primeira seção juntamente com a proposta de cálculo de similaridade reúnem as principais contribuições deste trabalho.
 
 \section{Análise de Distribuição}
-%TODO explicar melhor correlação de métricas no sistema (relacionar com codigos de interface (activity) e código de outros componentes). 
-%TODO relacionar resultados das métricas a padrões de projeto
-%TODO justificar o valor 0 em todas as métricas 
 
 \begin{figure}[!htb]
 \centering
@@ -17,12 +14,13 @@ Na primeira seção deste capítulo serão discutidos os resultados da análise 
 
 Com os dados coletados e devidamente preparados, várias conclusões podem ser tiradas dos valores das métricas e sua evolução ao longo do tempo. Esta seção é focada na análise subjetiva dos dados, tentando explicar seu comportamento com relação às características do sistema, compará-los a outros estudos, e até mesmo comparar com dados de métricas em aplicativos, utilizando os próprios aplicativos do sistema como base de comparação.
 
-
 \subsection{Distribuição dos dados}
 
 Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Podemos perceber que em todos os casos a densidade de probabilidade apresenta uma distribuição de cauda longa, já demonstrando que a média desses valores não é igual a mediana, e não é significativa. 
 
-Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise cada métrica, assim como feito por \citeonline{meirelles2013}. 
+Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise cada métrica, assim como feito por \citeonline{meirelles2013}.
+
+Valores considerados como 0 para muitas métricas não tem valor semântico para interpretação e resulta da impossibilidade de calcular a métrica. Resultado 0 para LCOM4, ACCM e RFC, por exemplo, indicam classes sem métodos.
 
 \subsection{Average Method Lines Of Code}
 
@@ -41,9 +39,9 @@ Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a median
 \label{fig:amloc_android}
 \end{figure}
 
-A Tabela~\ref{tab:amloc_android} apresenta os valores para a métrica AMLOC nas versões do Android analisadas. É facilmente perceptível que a média de linhas de código por método não teve variação relevante. Em todas as versões analisadas, os valores muito frequentes, isto é, percentil 75, são métodos com até 14 linhas de código, enquanto de 14 a 30 aparecem como frequentes, e 31 a 55 pouco frequentes. A Figura~\ref{fig:amloc_android} apresenta a evolução da métrica AMLOC com a API, onde é possível ver uma variação muito pequena de valores para os percentis 75 e 90. O percentil 99 demonstra uma variação maior, mas ele representa dados não frequentes na análise.
+A Tabela~\ref{tab:amloc_android} apresenta os valores para a métrica AMLOC nas versões do Android analisadas. É facilmente perceptível que a média de linhas de código por método não teve variação relevante. Em todas as versões analisadas, os valores muito frequentes, isto é, percentil 75, são métodos com até 14 linhas de código, enquanto de 14 a 30 aparecem como frequentes, e 31 a 55 pouco frequentes. A Figura~\ref{fig:amloc_android} apresenta a evolução da métrica AMLOC com a API, onde é possível ver uma variação muito pequena de valores para os percentis 75 e 90. O percentil 99 demonstra uma variação maior, mas ele representa dados não frequêntes na análise.
 
-Esses são valores que estão de acordo com os apresentados em \citeonline{meirelles2013}, porém levemente menores para os percentis 75 e 90, com aproximadamente 3 linhas de código a menos por método. É possível perceber que os valores se mostraram bem semelhantes para o projeto Android, mesmo considerando o fato que este trabalho estuda apenas a API de desenvolvimento de aplicativos, essencialmente em Java e dentro do diretório ``\textit{frameworks}'' do AOSP, e \citeonline{meirelles2013} analiza todo o código fonte do sistema, que apresenta em sua totalidade uma maior proporção da linguagem C em relação as demais. Esses valores são subsídios para reafirmar que arquivos em C em geral, tem uma maior utilização de linhas de código do que arquivos em Java. \citeonline{oliveira2013} comenta que as diferenças entre as linguagems C/C++/Java para esta métrica não é significativa, uma vez que a sintaxe entre as 3 é bastante semelhante. Dada essa afirmação, podemos comparar os intervalos definidos por ele, chegando a conclusão de que os valores das métricas estão, para todas as versões, abaixo dos valores e regular para os percentis 75 e 90, o que é um bom resultado.
+Esses são valores que estão de acordo com os apresentados em \citeonline{meirelles2013}, porém levemente menores para os percentis 75 e 90, com aproximadamente 3 linhas de código a menos por método. É possível perceber que os valores se mostraram bem semelhantes para o projeto Android, mesmo considerando o fato que este trabalho estuda apenas a API de desenvolvimento de aplicativos, essencialmente em Java e dentro do diretório ``\textit{frameworks}'' do AOSP, e \citeonline{meirelles2013} analiza todo o código fonte do sistema, que apresenta em sua totalidade uma maior proporção da linguagem C em relação as demais. Esses valores são subsídios para reafirmar que arquivos em C em geral, tem uma maior utilização de linhas de código do que arquivos em Java. \citeonline{oliveira2013} comenta que as diferenças entre as linguagems C/C++/Java para esta métrica não é significativa, uma vez que a sintaxe entre as 3 é bastante semelhante. Dada essa afirmação, podemos comparar os intervalos definidos por ele, chegando a conclusão de que os valores das métricas estão, para todas as versões, abaixo dos valores bom e regular para os percentis 75 e 90, o que é um bom resultado.
 
 \begin{table}[!htb]
 \centering
@@ -53,7 +51,11 @@ Esses são valores que estão de acordo com os apresentados em \citeonline{meire
 \label{tab:amloc_apps}
 \end{table}
 
-Os valores apresentados na análise são relativamente baixos quando comparados com outros softwares livres, como demonstrado por \citeonline{meirelles2013}. Da mesma forma, quando olhamos os valores aplicativos do sistema, demonstrados na Tabela~\ref{tab:amloc_apps}, podemos perceber uma grande semelhança nos resultados. Embora alguns poucos aplicativos tenham valores mais elevados para essa métrica, pode-se perceber que os intervalos se mantém válidos para a grande maioria dos aplicativos. Esses valores de aplicativos foram retirados dos aplicativos nativos da ultima versão do sistema analisada (Lollipop 5.1.0), e continuam se mantendo semelhantes ao sistema, como o próprio acoplamento à API sugere.
+Os valores apresentados na análise são relativamente baixos quando comparados com outros softwares livres, como demonstrado por \citeonline{meirelles2013}. Da mesma forma, quando olhamos os valores aplicativos do sistema, demonstrados na Tabela~\ref{tab:amloc_apps}, podemos perceber uma grande semelhança nos resultados. 
+
+Métodos relacionados a interface gráfica tentem a ser relativamente grandes quando a interface é criada dinamicamente em Java, mas esse aumento não tem grande representatividade no código do sistema, uma vez que a maioria das partes do sistema que contém componentes gráficos estão nos aplicativos, como o launcher, settings e outros apps do sistema. Assim, aplicativos podem ter valores maiores de amloc, principalmente nos componentes do tipo \textit{Activity}.
+
+Embora alguns poucos aplicativos tenham valores mais elevados para essa métrica, pode-se perceber que os intervalos se mantém válidos para a grande maioria dos aplicativos. Esses valores de aplicativos foram retirados dos aplicativos nativos da ultima versão do sistema analisada (Lollipop 5.1.0), e continuam se mantendo semelhantes ao sistema, como o próprio acoplamento à API sugere. 
 
 Os aplicativos do sistema também se mantém dentro dos intervalos bom e regular definidos em \citeonline{oliveira2013}. Os valores para o percentil 95 também se encontram abaixo do valor regular, na maioria dos casos.
 
@@ -76,7 +78,7 @@ Intervalos encontrados:
 \label{fig:accm_android}
 \end{figure}
 
-A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a evolução da API. Podemos perceber que essa métrica não teve uma variação grande ao longo das versões nos percentis 75, 90 e 95, e o pouco do valor que ganhou nas versões centrais do gráfico foi sendo novamente reduzido nas versões seguintes.
+A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a evolução da API. Podemos perceber que essa métrica não teve uma variação grande ao longo das versões nos percentis 75, 90 e 95, e o pouco do valor que ganhou nas versões centrais do gráfico foi sendo novamente reduzido nas versões seguintes. Valores sinalizados com 0 ocorrem em classes que não contém métodos.
 
 \begin{table}[!htb]
 \centering
@@ -147,7 +149,9 @@ Comunicações assíncronas são muito usadas ao longo de todo o sistema para ut
 \end{table}
 
 
-Em suma, na API do sistema, o valor de RFC pode ser considerado alto, porém justificável. Inclusive, o acoplamento entre a própria API de desenvolvimento e o aplicativos faz com que o valor dessa métrica seja alto também para aplicativos desenvolvidos para o Android. E importante lembrar que componentes do sistema se comunicam da mesma forma com outros componentes do sistema como se comunicam com aplicativos desenvolvidos para o mesmo. A Tabela~\ref{tab:rfc_apps} demonstra os valores de RFC para aplicativos nativos.
+Em suma, na API do sistema, o valor de RFC pode ser considerado alto, porém justificável. Os componentes do Android podem ter seu valor RFC e DIT mais alto que outras classes em java devido ao nível de herança que eles apresentam. Por exemplo, um componente gráfico em um \textit{app} herda de \textit{Activity}, que por sua vez herda de \textit{Context}, que contém uma estrutura de hierarquia intermediária.
+
+O acoplamento entre a própria API de desenvolvimento e o aplicativos fica exemplificado com o valor dessa métrica sendo alto para ambos os casos. É importante lembrar que componentes do sistema se comunicam da mesma forma com outros componentes do sistema como se comunicam com aplicativos desenvolvidos para o mesmo. A Tabela~\ref{tab:rfc_apps} demonstra os valores de RFC para aplicativos nativos.
 
 \citeonline{meirelles2013} define como bons intervalos para projetos Java valores de 0 a 9, 10 a 26, e 27 a 59, para os percentis 75, 90 e 95, respectivamente. Pode-ses perceber que os valores na análise da API obtidos neste trabalho estão bem acima desse valor, estando em seu percentil 75 um valor perto de 30, que seria no máximo regular nessa escala.
 
@@ -196,7 +200,7 @@ As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportame
 \label{tab:dit_apps}
 \end{table}
 
-A primeira observação sobre o dados das Tabela~\ref{tab:dit_android} e~\ref{tab:dit_apps} é que elas contém um número grande de zeros até o percentil 50. Como a linguagem Java representa mais de 85\% da amostra, vários desses zeros estão presentes também na linguagem Java. O que tiramos disso é que a ferramenta Analizo não contabiliza a classe Object na métrica DIT, pois caso contabilizasse o valor mínimo para o Java seria 1, visto que todo objeto Java herda de Object. Tirando esse fato não temos muitas surpresas, os valores são em geral baixos, chegando a no máximo 4 até o percentil 95 em todos as versões da API, demonstrando valores bem menores dos que os intervalos definidos por \citeonline{meirelles2013} para Java, que chegam até 2, 4 e 6 para os percentis 75, 90 e 95, respectivamente. \citeonline{oliveira2013} utiliza os mesmos intervalos para excelente, bom, e regular, respectivamente. \citeonline{ferreira2009} não define intervalos para essa métrica, mas indica um valor 2 como referência.
+A primeira observação sobre o dados das Tabela~\ref{tab:dit_android} e~\ref{tab:dit_apps} é que elas contém um número grande de zeros até o percentil 50. Como a linguagem Java representa mais de 85\% da amostra, vários desses zeros estão presentes também na linguagem Java. O que tiramos disso é que a ferramenta Analizo não contabiliza a classe Object na métrica DIT, pois caso contabilizasse o valor mínimo para o Java seria 1, visto que todo objeto Java herda de Object. Tirando esse fato não temos muitas surpresas, os valores são em geral baixos, chegando a no máximo 4 até o percentil 95 em todos as versões da API, demonstrando valores bem menores dos que os intervalos definidos por \citeonline{meirelles2013} para Java, que chegam até 2, 4 e 6 para os percentis 75, 90 e 95, respectivamente. \citeonline{oliveira2013} utiliza os mesmos intervalos para excelente, bom, e regular, respectivamente. \citeonline{ferreira2009} não define intervalos para essa métrica, mas indica um valor 2 como referência. 
 
 \begin{table}[!htb]
 \centering
@@ -265,7 +269,7 @@ Em dispositivos móveis, por exemplo, tarefas de tirar foto e capturar vídeo, q
 
 \citeonline{meirelles2013} define para projetos Java intervalos de 0 a 3, 4 a 7, e 8 a 12 para os percentis 75, 90 e 95, respectivamente. Os resultados encontrados aqui acompanharam muito bem esses intervalos.
 
-LCOM4 também contabiliza classes de modelo, e no caso do Java, os \textit{getters} e \textit{setters} acarretam no aumento do valor do resultado da métrica\cite{meirelles2013}. Classes de modelo tem maior representatividade estatística em projetos menores, o que ajuda um pouco a justificar o aumento da métrica para aplicativos do sistema, como pode ser visto na Tabela~\ref{tab:lcom4_apps}. Os intervalos 0 a 4, 4 a 7, e 7 a 12 são válidos para a grande maioria dos aplicativos. Os resultados são muito parecidos com os valores para a API, sendo que a métrica só aumenta em 1 no percentil 75.
+LCOM4 também contabiliza classes de modelo, e no caso do Java, os \textit{getters} e \textit{setters} acarretam no aumento do valor do resultado da métrica\cite{meirelles2013}, entretanto foi verificado, em alguns projetos utilizados como teste, que a ferramenta Analizo não contabilizou esses métodos. Como pode ser visto na Tabela~\ref{tab:lcom4_apps}, os intervalos 0 a 4, 4 a 7, e 7 a 12 são válidos para a grande maioria dos aplicativos. Os resultados são muito parecidos com os valores para a API, sendo que a métrica só aumenta em 1 no percentil 75.
 
 \subsection{Afferent Connections per Class}
 
@@ -297,6 +301,8 @@ Os valores encontrados para o Android estão altos quando comparados com esses e
 \end{table}
 
 A Tabela~\ref{tab:acc_apps} demonstra que os valores para os aplicativos do sistema também são maiores que os intervalos definidos em outros estudos. Entretanto, eles são mais parecidos com os valores encontrados dentro da própria API, mais uma vez refletindo a semelhança de aplicativos em relação a mesma, e demonstrando um certo padrão para códigos relacionados ao Android. Para a grande maioria dos aplicativos, os percentis 75, 90 e 95 não ultrapassam os valores 4, 12 e 22, respectivamente.
+
+Classes de modelo tendem a ser utilizadas como variável de instância em diversos lugares em um aplicativo, e portanto podem ter valores de ACC mais altos. Verificou-se que referências estáticas não são contabilizadas pela ferramenta Analizo para o cálculo de ACC. Em suma, no Analizo só aumenta o ACC em escopo de objeto, não de classe, ou seja, se a classe for utilizada como objeto em algum contexto, tendo alguma variável ou método acessado através desse objeto.
 
 Consideramos então os seguintes intervalos para o Android:
 
@@ -439,6 +445,28 @@ Como uma segunda tentativa na direção de uma regressão polinomial, foi verifi
 
 \begin{figure}[!htb]
 \centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/accmxamloc510.eps}
+\caption{valores de ACCM em função de AMLOC nas classes da versão 5.1.0}
+\label{fig:accmxamloc510}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/accxamloc510.eps}
+\caption{valores de ACC em função de AMLOC nas classes da versão 5.1.0}
+\label{fig:accxamloc510}
+\end{figure}
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.7]{figuras/accxamloc51095.eps}
+\caption{valores de ACC em função de AMLOC nas classes da versão 5.1.0 até o percentil 95}
+\label{fig:accxamloc51095}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
 \includegraphics [keepaspectratio=true,scale=0.7]{figuras/metricasxamloc.eps}
 \caption{valores dos percentis 75 das métricas DIT, NOC, LCOM, ACC e ACCM em função de AMLOC}
 \label{fig:metricasxamloc}
@@ -453,7 +481,9 @@ Como uma segunda tentativa na direção de uma regressão polinomial, foi verifi
 
 Cada classe dentro de cada versão seria uma amostra para esse método, que teria então um total de mais de 100000 classes. Pensando dessa forma o problema de escala do escopo de software seria resolvido.
 
-O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Isso faz com que a variação das métricas OO em função de AMLOC ou NOM seja mínima e os dados se apresentem na forma de uma linha horizontal como mostram as Figuras~\ref{fig:metricasxamloc} e~\ref{fig:metricasxnom}. Na verdade, apenas pelo fato de essas métricas não variarem muito ao longo das versões, já se pode prever esse resultado.
+O problema nessa abordagem é que as métricas de tamanho que podem ser utilizadas também se mostraram independentes dos valores das métricas OO. Como pode ser visto nas Figuras~\ref{fig:accmxamloc510} e~\ref{fig:accxamloc510}, os valores de ACC e ACCM parecem oscilar bastante. É importante notar que a parte de maior valor do gráfico representa uma quantidade muito pequena de amostras como os próprios percentis já descrevem. A Figura~\ref{fig:accxamloc51095} demonstra isso com o fato de que pouco menos de 5\% dos dados de maior valor foram retirados (1000 amostras), deixando aproximadamente os dados até o percentil 95, e a escala do gráfico caiu drasticamente. De forma geral, esses pontos de maior valor tem representação estatística muito pequena. Como os percentis representam a grande maioria de valores, iremos utilizá-los para fazer essa comparação, em vez do valor de cada classe.
+
+Como mostram as Figuras~\ref{fig:metricasxamloc} e~\ref{fig:metricasxnom}, a variação das métricas OO em seus percentis mais representativos em função de AMLOC ou NOM é mínima e os dados se apresentam na forma de uma linha horizontal. Apenas ACCM tem uma suave relação crescente com AMLOC como já discutido na seção anterior. Na verdade, apenas pelo fato de essas métricas não variarem muito ao longo das versões, já se pode prever esse resultado.
 
 \subsubsection{Regressão em escopo de pacote}
 
