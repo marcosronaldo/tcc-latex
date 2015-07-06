@@ -3,17 +3,15 @@
 
 O objetivo geral deste trabalho é realizar uma análise da API do sistema Android a partir de uma análise estática de seu código fonte, e então avaliar a possibilidade de utilizar os resultados como referência para o desenvolvimento de aplicativos desenvolvidos para o Android, partindo da premissa que os aplicativos desenvolvidos utilizando a API do sistema são fortemente dependentes da mesma.
 
-A partir da análise do código fonte, definir intervalos para valores da métrica que se adequam a arquitetura do sistema, assim como definir intervalos para os aplicativos do sistema e verificar o grau de aproximação que ambos encontram em seu design. 
+A partir da análise do código fonte, definir intervalos para valores da métrica que se adequam a arquitetura do sistema, assim como definir intervalos para os aplicativos do sistema e verificar o grau de aproximação que ambos encontram em seu design. Verificar então a possibilidade da validação dos intervalos de valores através de regressão polinomial utilizando métricas OO em função de métricas de tamanho.
 
-Em seguida, verificar possibilidade da validação dos intervalos de valores através de regressão polinomial e através de aproximação dos aplicativos do sistema em relação a API, verificando se os valores preditos como ideais estão de acordo com os intervalos considerados bons, e se a aproximação grande ao sistema também indica estar em bons intervalos.
+Assumindo que o código da API do sistema possui uma boa arquitetura, propomos um fator de aproximação para aplicar a aplicativos em desenvolvimento para avaliar sua qualidade de acordo com a aproximação ao sistema, em termos de métricas estáticas de código. Essas métricas utilizadas refletem complexidade arquitetural e decisões de design, essencialmente métricas OO.
 
-Assumindo que o código dos aplicativos do sistema possui uma arquitetura ideal de aplicativos por ser mantido pela Google, bem como pela comunidade de desenvolvedores por ter código aberto, criar um fator de aproximação para aplicar a aplicativos em desenvolvimento para avaliar sua qualidade de acordo com a aproximação ao sistema, em termos de métricas estáticas de código. Esse fator de aproximação será calculado por meio de distancia euclidiana com média ponderada, de forma que possa ser avaliada a aproximação de uma nova amostra aos perfis existentes, que correspondem as distancias dos aplicativos nativos em relação a API.
-
-Caso o grau de aproximação de um aplicativo qualquer seja bastante elevado, pode-se inferir uma boa qualidade de código, pelo fato de se aproximar àquelas desenvolvidas pelos próprios arquitetos do sistema. Esse grau de aproximação será derivado de métricas de código orientado a objetos, bem como outras métricas que refletem decisões arquiteturais e de design. 
+Esse fator de aproximação a nível de software é centralizado em 0, onde valores positivos indicam valores das métricas maiores que os da API, e valores negativos indicam resultados menores que os da API. Quanto mais próximo de 0, mais próximo a API, e quanto menor o valor, melhores são os resultados. Usar esse score como forma de avaliar a qualidade em comparação com a API, julgando então como resultados teóricos melhores, próximos a API, ou piores, para valores negativos, próximos ao 0, e positivos, respectivamente.
 
 %É importante incluir métricas que refletem o volume de código para dar resultados relativos ao tamanho do aplicativo sendo avaliado, uma vez que várias métricas tem seu valor de referência variável de acordo com o tamanho do código. Utilizar valores do sistema, como milhões de linhas de código, como referência para analisar um aplicativo com apenas algumas centenas de linhas resulta em uma comparação inválida para os valores de algumas métricas, como discutido no Capítulo~\ref{cap:metricas}.
 
-Algumas conclusões talvez já possam ser tiradas de acordo com a aproximação do código do sistema aos aplicativos nativos. Por exemplo, se os resultados mostrarem que nenhum deles se aproxima a mais de 70\% do sistema, então pode-se inferir que a aproximação ideal ao sistema seja esta, e talvez uma maior que 70 não seja desejada em aplicativos de terceiros. Da mesma forma, uma aproximação muito alta nos aplicativos do sistema pode indicar a possibilidade de utilizar os valores da mesma como referência, não necessitando ma separação de intervalos específicos para aplicativos.
+Algumas conclusões talvez já possam ser tiradas de acordo com a aproximação do código do sistema aos aplicativos nativos. Se a média de scores indicar um valor negativo, por exemplo, indica que na média os aplicativos do sistema tem valores teóricos melhores que os da plataforma, e talvez o objetivo de um novo app seja se manter dentro dos intervalos de valores do sistema, mas tentando ficar com valores ainda menores, não necessariamente iguais aos da API. Essa verificação de scores é reflexão dos intervalos de valores que serão definidos no Capítulo~\ref{cap:resultados}, e será discutida no mesmo capítulo.
 
 \section{Pesquisa}
 
@@ -27,7 +25,7 @@ Baseando-se nas ideias apresentadas, é levantada a seguinte questão de pesquis
 
 Respondendo a essa pergunta podemos confirmar a efetividade de utilizar o próprio sistema como arquitetura referência em análise de aplicativos desenvolvidos para ele.
 
-Para alcançar os objetivos descritos e responder as questões de pesquisa que foram definidas, algumas hipóteses devem ser estudadas e avaliadas:
+Para alcançar os objetivos descritos e responder a questão de pesquisa que foi definida, algumas hipóteses devem ser estudadas e avaliadas:
 
 \begin{itemize}
 \item H1 - É possível identificar padrões e tendências na evolução da arquitetura do sistema Android e nos aplicativos desenvolvidos para ele.
@@ -121,7 +119,7 @@ Após o download de todas as versões escolhidas, foi utilizada a ferramenta Ana
 
 Neste trabalho, foi utilizada a funcionalidade de \textit{batch} do Analizo, de forma a coletar métricas de todas as \textit{tags} de uma só vez. A saída da ferramenta é um arquivo CSV para cada projeto ou versão a ser analisada, assim como um arquivo CSV que centraliza os valores de cada métrica a nível de projeto para cada um dos projetos/versões. Isso pode ser interessante quanto utilizado com o mesmo projeto em diferentes versões para verificar o avanço de algumas métricas juntamente com a evolução do sistema.
 
-O resultado da análise de cada projeto contém os valores parciais das métricas para cada arquivo Java que foi analisado pela ferramenta. No total são 16 arquivos CSV contendo cada um as métricas para todas as classes de 1 versão do sistema. O arquivo CSV que contém todas as métricas unificadas para todos os projetos não será utilizado neste trabalho. 
+O resultado da análise de cada projeto contém os valores parciais das métricas para cada arquivo Java que foi analisado pela ferramenta. No total são 16 arquivos CSV contendo cada um as métricas para todas as classes de 1 versão do sistema. O arquivo CSV que contém métricas unificadas para todos os projetos não será utilizado neste trabalho. 
 
 As métricas finais escolhidas, descritas no Capítulo~\ref{cap:metricas}, foram capturadas pela ferramenta Analizo e estão listadas a seguir:
 
@@ -159,7 +157,7 @@ Com esses arquivos em mãos com os valores de vários percentis para cada métri
 
 Alguns outros gráficos também podem ser gerados a partir dos dados completos, com os valores de cada métrica para cada classe. Gráficos como de distribuição, demonstrando os valores mais frequêntes, e gráfico de linha ou de área para demonstrar evolução das métricas, são bastante úteis para a análise dos dados coletados. 
 
-Assim como ~\citeonline{meirelles2013}, os resultados das análises discutidos no Capítulo~\ref{cap:resultados} serão em função dos percentis 75, 90 e 95, correspondendo a valores muito frequentes, frequentes e pouco frequentes, respectivamente. A utilização de 95\%, embora não inclua todas as amostras, ainda resulta em uma boa amostra estatística, uma vez que, como os valores estão ordenados, boa parte desses 5\% restantes são valores discrepantes que podem interferir negativamente na análise correta dos dados.
+Assim como feito por ~\citeonline{meirelles2013}, os resultados das análises discutidos no Capítulo~\ref{cap:resultados} serão em função dos percentis 75, 90 e 95, correspondendo a valores muito frequentes, frequentes e pouco frequentes, respectivamente. A utilização de 95\%, embora não inclua todas as amostras, ainda resulta em uma boa amostra estatística, uma vez que, como os valores estão ordenados, boa parte desses 5\% restantes são valores discrepantes que podem interferir negativamente na análise correta dos dados.
 
 %TODO dar prévia da falha da regressão e explicar em linhas gerais o cálculo de semelhança.
 
