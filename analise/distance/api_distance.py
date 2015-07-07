@@ -174,3 +174,10 @@ if __name__ == "__main__":
 	# 		removed[app]=result[app]
 
 	# print removed
+
+
+	with open("biodyn.csv","w") as csvfile:
+		csvfile.write("metric,75%,90%,95%\n")
+		for key in metrics:
+			for metric in metrics[key]:
+				csvfile.write(metric+','+metrics[key][metric]["75"]+','+metrics[key][metric]["90"]+','+metrics[key][metric]["95"]+'\n')

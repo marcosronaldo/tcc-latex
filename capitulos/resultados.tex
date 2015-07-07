@@ -7,18 +7,38 @@ Na terceira seção, são apresentadas discussões sobre a possibilidade de vali
 
 \section{Análise de Distribuição}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics [keepaspectratio=true,scale=0.70]{figuras/android510dist.eps}
-\caption{Distribuição de valores para as métricas LCOM4, ACC, ACCM e RFC}
-\label{fig:android510dist}
-\end{figure}
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/dist/acc.eps} 
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{figuras/dist/accm.eps}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{figuras/dist/lcom4.eps}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{figuras/dist/rfc.eps}
+        \end{subfigure}
+        \caption[]
+        {\small Distribuição das métricas ACC, ACCM, LCOM4 e RFC na versão 5.1.0} 
+ \label{fig:android510dist}
+    \end{figure}
+
 
 Com os dados coletados e devidamente preparados, várias conclusões podem ser tiradas dos valores das métricas e sua evolução ao longo do tempo. Esta seção é focada na análise subjetiva dos dados, tentando explicar seu comportamento com relação às características do sistema, compará-los a outros estudos, e até mesmo comparar com dados de métricas em aplicativos, utilizando os próprios aplicativos do sistema como base de comparação.
 
 \subsection{Distribuição dos dados}
 
-Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Podemos perceber que em todos os casos a densidade de probabilidade apresenta uma distribuição de cauda longa, já demonstrando que a média desses valores não é igual a mediana, e não é significativa. 
+Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Podemos perceber que em todos os casos a probabilidade cumulativa, representada pelos percentis, apresenta um aumento de valor apenas nos últimos percentis, já demonstrando que que esses valores nos últimos percentis são bem discrepantes. Entretanto eles só começam a realmente aumentar significativamente a partir do percentil 95, então os 5\% restantes podem ser descartados como um ruído estatístico. 
 
 Nas tabelas que serão discutidas nas seção seguintes, percebe-se que a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise cada métrica, assim como feito por \citeonline{meirelles2013}.
 
@@ -159,14 +179,13 @@ O acoplamento entre a própria API de desenvolvimento e o aplicativos fica exemp
 
 Baseando-se em todas essas observações, são considerados os seguintes intervalos:
 
-%TODO rever intervalos
 \begin{itemize}
 \item Valores abaixo 31 se mostraram muito frequentes para API Android. Para os aplicativos do sistema, existe uma grande variância de valores, porém estando em sua grande maioria abaixo de 38 para o percentil 75.
 \item RFC chegou a 130 em aplicativos nativos, porém no geral não alcançam o valor 85. Esse mesmo valor é o limite para a API do sistema.
-\item Valores acima de 85 são valores considerados muito altos para a métrica RFC, e são pouco frequentes nos dados analisados.
+\item Valores acima de 85 são valores considerados altos para a métrica RFC, e são pouco frequentes nos dados analisados. Valores acima de 140 não são frequentes.
 \end{itemize}
 
-Um intervalo de valores até 38 pode ser considerado bom para aplicativos, e regular no intervalo desse valor até o 85. Acima disso são considerados valores altos. Esses intervalos aqui encontrados estão mais próximos dos limites definidos por \citeonline{meirelles2013} para a Linguagem C do que para Java. Inclusive os valores aqui encontrados aqui para a API Android, essencialmente em Java, se mostram bastante semelhantes aos valores para o projeto Android como um todo, com predominância da linguagem C, encontrados por \citeonline{meirelles2013}. Essa semelhança pode levar a interpretação de que estilos semelhantes de estruturação e design são utilizados em todo o AOSP, independente da linguagem utilizada em cada módulo.
+Um intervalo de valores até 38 pode ser considerado bom para aplicativos, e regular no intervalo desse valor até o 85. Acima disso são considerados valores altos, mas parecem ser comuns no Android, então são aceitáveis. Esses intervalos aqui encontrados estão mais próximos dos limites definidos por \citeonline{meirelles2013} para a Linguagem C do que para Java. Inclusive os valores aqui encontrados aqui para a API Android, essencialmente em Java, se mostram bastante semelhantes aos valores para o projeto Android como um todo, com predominância da linguagem C, encontrados por \citeonline{meirelles2013}. Essa semelhança pode levar a interpretação de que estilos semelhantes de estruturação e design são utilizados em todo o AOSP, independente da linguagem utilizada em cada módulo.
 
 \subsection{Depth of Inheritance Tree / Number of Children}
 
@@ -514,6 +533,8 @@ Entretanto, podemos abstrair um pouco os significados das métricas e avaliar o 
 
 Utilizando os valores identificados no início desse capítulo, neste trabalho considerados bons para o contexto Android, propomos então um cálculo de aproximação de aplicativos à API em termos de métricas estáticas de código. Essa comparação não se da de forma direta com o valor de uma classe de um projeto, mas sim para o projeto como um todo. Para isso, assim como na primeira seção, utilizamos os percentis 75, 90 e 95 dos valores de cada métrica dentro do projeto, com o objetivo de levar em conta a distribuição de valores da métrica dentro do sistema, visto que a média e a mediana não são sempre representativas para as métricas utilizadas \cite{meirelles2013}. A proposta de cálculo de similaridade da API então verifica as diferenças entre cada percentil do app e cada percentil da API, normalizados, e então unifica as diferenças entre as métricas em um só valor. 
 
+\subsection{Normalização de valores}
+
 Como as métricas geralmente se mostraram independentes, uma comparação direta pode ser bastante útil. Entretanto, obter um valor apenas de similaridade para a API não é efetivo se as métricas tem diferentes grandezas de valores. Consequentemente temos que fazer um trabalho de normalização dos valores das métricas para deixar todas as métricas com um mesmo \textit{range}, ou com grandezas equivalentes, e portanto ter uma certa equivalência, para calcular a distancia do app numa ideia semelhante ao que é feito com uma distancia euclidiana, onde todas as variáveis tem sua distancia unificada em um valor.
 
 Normalizar métricas com valores sem um range específico pode ser bastante problemático. A métrica AMLOC, por exemplo, nada mais é do que a média de valores absolutos de tamanhos de métodos, que podem ser tão grandes quanto se queira. Dessa forma, não há um valor limite superior para os valores, embora o valor mínimo seja 0 pela própria forma de cálculo da métrica. Isso é válido para quase todas as métricas, com exceção de COF, que varia entre 0 e 1. Entretanto COF não tem uma abordagem de distribuição de valores por ser um valor único para o projeto, além do que é derivada de ACC, então não será utilizada no cálculo de distancia.
@@ -528,10 +549,12 @@ Na verdade uma normalização nada mais é do que a relativização da métrica 
 
 Dessa forma as distancias serão calculadas em termos de quantas vezes o valor do percentil 75 de referência para cada métrica foi incrementado em um determinado valor de métrica. Por exemplo, um valor igual a 6 para a métrica ACCM, referência para percentil 95, seria ``normalizado'' para 3 com esse cálculo, sendo interpretado então como 3 vezes o valor muito frequente da API. Da mesma forma, o valor 4 de DIT, que é a referência do Android para o percentil 95, seria 4. As grandezas estão mais equivalentes quando calculadas assim.
 
-Inicialmente pensou-se em calcular distancias de forma modular, isto é, uma mesmo valor para uma variação positiva ou negativa. Optou-se por não o fazer porque aplicativos com valores teóricos bem menores que os do sistema eram ``mascarados'' por estarem distantes da API e erroneamente considerados como aplicativos de qualidade ruim.  Calculando distancias como sendo positivas ou negativas, podemos perceber se o valor está menor ou maior que o do sistema, podendo fazer uma comparação entre ambos. É importante perceber que uma métrica com distancia positiva mascara uma variação negativa de outra métrica com grandeza similar. Entretanto o objetivo aqui é encontrar similaridade para o \textit{app} como um todo, e não métricas isoladas, e geralmente um valor positivo ou negativo se sobressai sobre o oposto, pois boas arquiteturas tem valores bons em várias métricas, ficando com score negativo, e arquiteturas ruins tem valores ruins em algumas ou várias métricas, tendendo o valor para lado positivo. 
+\subsection{Cálculo de similaridade}
+
+Inicialmente pensou-se em calcular distancias de forma modular, isto é, uma mesmo valor para uma variação positiva ou negativa. Optou-se por não o fazer porque aplicativos com valores teóricos bem menores que os do sistema eram ``mascarados'' por estarem distantes da API e erroneamente considerados como aplicativos de qualidade ruim.  Calculando similaridade como sendo positiva ou negativa, podemos perceber se o valor está menor ou maior que o do sistema, podendo fazer uma comparação entre ambos. É importante perceber que uma métrica com distância positiva mascara uma variação negativa de outra métrica com grandeza similar. Entretanto o objetivo aqui é encontrar similaridade para o \textit{app} como um todo, e não métricas isoladas, e geralmente um valor positivo ou negativo se sobressai sobre o oposto, pois boas arquiteturas tem valores bons em várias métricas, ficando com score negativo, e arquiteturas ruins tem valores ruins em algumas ou várias métricas, tendendo o valor para lado positivo. 
 
 %Mesmo com um valor geral negativo, ainda pode haver alguma métrica com um valor positivo, que é um valor teórico ruim. Por esse motivo, será apresentado um alerta para métricas que passarem de valores aceitáveis. Assim, juntamente com o score, será possível ver as métricas que devem ser olhadas com mais cautela em determinados casos.
-%TODO criar o alerta. refazer esse parágrafo 
+%TODO criar o alerta (ou não). refazer esse parágrafo 
 
 Para o cálculo das distancias, tentou-se utilizar pesos em relação a importância das métricas, semelhante ao realizado em \citeonline{oliveira2013} para a configuração do Kalibro. Assim, métricas mais importantes teriam mais impacto para informar que um valor está melhor ou pior em relação a API. Assim como no trabalho citado, manteve-se equivalência de pesos entre métricas de complexidade e tamanho, e métrica de acoplamento e coesão são evidenciadas com peso maior por terem mais impacto na qualidade do software. Essencialmente, quase todas as métricas trabalham com complexidade, acoplamento ou coesão, então apenas métricas que trabalham com arvore de herança ficaram com peso 1, e o restante tem peso 2. AMLOC ganhou peso 2 para tentar criar equivalência com ACCM.
 
@@ -573,6 +596,8 @@ Onde:
 \item $\sum_{i}^{n} W_i$ é a soma dos pesos das métricas.
 \end{itemize}
 
+\subsection{Resultados}
+
 \begin{table}[!htb]
 \centering
 \scalefont{.8}
@@ -581,11 +606,18 @@ Onde:
 \label{tab:relative_distance}
 \end{table}
 
-O resultado então é multiplicado por 100 para levar os valores para uma grandeza maior e então truncamos as casas decimais, com o intuito de ter resultados melhor visualizados. A Tabela~\ref{tab:relative_distance} apresenta os scores calculados com a Equação~\ref{eq:distancia_total} para os aplicativos do sistema. Como podemos perceber, o \textit{app} \textit{Bluetooth} ficou com o maior valor dentre os aplicativos, e portanto representa o mais discrepante do sistema e o que contém, no geral, os piores valores para as métricas analisadas. Como podemos perceber nas tabelas da primeira seção deste capítulo, ele realmente tinha valores em intervalos ruins para quase todas as métricas. Já o \textit{app} \textit{Settings}, que possui bons valores em quase todas as métricas, com exceção de DIT, ficou negativo, e mais próximo do sistema que o app Bluetooth, como os valores anteriormente apresentados já indicavam. O \textit{app} Camera ficou com valor 0, bem próximo ao sistema, e como podemos ver nas tabelas da primeira seção, ele se manteve bem próximo aos intervalos na maioria das métricas, com pequenas variações, positivas ou negativas. O \textit{app} \textit{Calculator}, que contém um dos menores valores, apresenta valores teóricos em geral melhores que os da API, então sua posição com um número negativo maior que os demais é justificada, assim como o \textit{HTMLViewer}, que é um projeto mais simples e também contém valores teóricos melhores que os do sistema.
+O resultado então é multiplicado por 100 para levar os valores para uma grandeza maior e então truncamos as casas decimais, com o intuito de ter resultados melhor visualizados. A Tabela~\ref{tab:relative_distance} apresenta os scores calculados com a Equação~\ref{eq:distancia_total} para os aplicativos do sistema. Como podemos perceber, o \textit{app} \textit{Bluetooth} ficou com o maior valor dentre os aplicativos, e portanto representa o mais discrepante do sistema e o que contém, no geral, os piores valores para as métricas analisadas. Como podemos perceber nas tabelas da primeira seção deste capítulo, ele realmente tinha valores em intervalos ruins para quase todas as métricas. Já o \textit{app} \textit{Settings}, que possui bons valores em quase todas as métricas, com exceção de DIT, ficou negativo, e mais próximo do sistema que o \textit{app} \textit{Bluetooth}, como os valores anteriormente apresentados já indicavam. O \textit{app} \textit{Camera} ficou com score 0, bem próximo ao sistema, e como podemos ver nas tabelas da primeira seção, ele se manteve bem próximo aos intervalos na maioria das métricas, com pequenas variações, positivas ou negativas. O \textit{app} \textit{Calculator}, que contém um dos menores valores, apresenta valores teóricos em geral melhores que os da API, então sua posição com um número negativo maior que os demais é justificada, assim como o \textit{HTMLViewer}, que é um projeto mais simples e também contém valores teóricos melhores que os do sistema.
 
-%TODO colocar tabela com valores dos percentils do biodyn em todas as métricas
-%metrica,75%,90%,95%
-%acc 0,0, ....
-%accm 0, 0 ...
+\begin{table}[!htb]
+\centering
+\scalefont{.9}
+\input{tables/biodyn_percentis.tex}
+\caption{Percentis 75, 90 e 95 para as métricas analisadas no aplicativo e-lastic}
+\label{tab:biodyn_percentis}
+\end{table}
 
-Quando esse calculo foi aplicado ao aplicativo parcial desenvolvido nas etapas iniciais desse projeto, com processo e arquitetura descritos no Apêndice~\ref{ap:elastic}, os valores foram muito bons, como esperado. O aplicativo elastic obteve score -82, e contém valores teóricos melhores que os do sistema em todas as métricas, como mostra a tabela XXXX.
+Quando esse calculo foi aplicado ao aplicativo parcial desenvolvido nas etapas iniciais desse projeto, com processo e arquitetura descritos no Apêndice~\ref{ap:elastic}, os valores foram muito bons, como esperado. O aplicativo e-lastic obteve score -82, e contém valores teóricos melhores que os do sistema em todas as métricas, como mostra a Tabela~\ref{tab:biodyn_percentis}. Isso nos dá subsídio para afirmar que a hipótese 4 (H4) definida no Capítulo~\ref{cap:metodologia} é verdadeira, isto é, as decisões tomadas ao longo do desenvolvimento do aplicativo com base em padrões de projeto estão relacionadas às decisões tomadas com base em métricas, uma vez que decisões tomadas com este propósito tentariam levar os valores para os menores possíveis, tentando alcançar valores em intervalos ótimos, como os que foram encontrados no aplicativo parcial desenvolvido.
+
+No geral a grande maioria dos aplicativos ficou melhor que o sistema Android, sendo que a média dos valores de similaridade para os aplicativos do sistema ficou em -17,5, com desvio padrão de 31,5. Os valores dos aplicativos do sistema então podem ser considerados como sendo de -48 a 14, indicando que no geral os aplicativos são próximos do sistema, como já verificado na primeira seção deste capítulo, porém esses valores podem implicar que aplicativos tendem a ter métricas com valores levemente melhores.
+
+Apesar de algumas observações serem levantadas sobre os resultados apresentados, como números com grandezas não significativas e valores bons mascararem alguns ruins e vice versa, pelos resultados apresentados na Tabela~\ref{tab:relative_distance}, podemos verificar que o objetivo proposto para essa verificação de similaridade foi alcançado. Assim como se planejava, \textit{scores} negativos se mostram melhores que o sistema, \textit{scores} próximos a 0, com valor perto de -20 a 20 são bem próximos aos valores da API, e \textit{scores} positivos são preocupantes. De certa forma, o cálculo de similaridade proposto pode ser utilizado como um indicador de problemas arquiteturais caso o valor seja positivo, para ser utilizado por desenvolvedores inexperientes e sem conhecimento direto de métricas de código fonte. Esse indicador de qualidade de código em comparação com a API parte da premissa de que a API tem uma boa qualidade de código, como verificado no início desse capítulo com intervalos de valores de métricas, e portanto será sua validade enquanto essa premissa for verdadeira.
