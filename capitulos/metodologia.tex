@@ -69,7 +69,7 @@ O código fonte para análise foi retirado diretamente do \textit{Android Open S
 
 A ferramenta \textit{repo}\footnote{Ferramenta desenvolvida especificamente para o contexto do Android, utilizada em conjunto com o GIT}  é utilizada para unificar os projetos internos dos componentes do sistema em seus repositórios, e um tutorial para configurar a ferramenta e fazer o download do projeto pode ser encontrado no site do AOSP.
 
-Para a análise da API do sistema, foram escolhidas 16 versões do sistema, selecionando arbitrariamente a primeira e a última versão de cada grande \textit{release}. Por exemplo, para o \textit{Android Eclair}, foram pegas as versões 2.0 e 2.1, e para o KitKat, as versões 4.4 e 4.4.4. Para o \textit{Android Lollipop}, a última versão selecionada não será a ultima antes da próxima grande \textit{release}, mas sim a última lançada até a data de início deste trabalho. Em uma análise ideal, todas as versões possíveis (ou pelo menos todas as tags oficiais) seriam levadas em consideração, mas o motivo dessa escolha de versões foi a impossibilidade de realizar uma análise do código fonte de todas as versões para este trabalho, por limitações de tempo e de recursos computacionais. Portanto, foram escolhidas as versões iniciais de cada grande \textit{release} onde é alterado o \textit{codename} da versão, que contém grandes mudanças e significativos avanços no sistema, assim como as versões finais de cada \textit{codename}, que representam as versões mais estáveis das funcionalidades adicionadas nas versões com aquele \textit{codename}.
+Para a análise da API do sistema, foram escolhidas 14 versões do sistema, selecionando arbitrariamente a primeira e a última versão de cada grande \textit{release}. Por exemplo, para o \textit{Android Eclair}, foram pegas as versões 2.0 e 2.1, e para o Jelly Bean, as versões 4.1.1 e 4.3.1. Para o \textit{Android Lollipop}, a última versão selecionada não será a ultima antes da próxima grande \textit{release}, mas sim a última lançada até a data de início deste trabalho. Em uma análise ideal, todas as versões possíveis (ou pelo menos todas as tags oficiais) seriam levadas em consideração, mas o motivo dessa escolha de versões foi a impossibilidade de realizar uma análise do código fonte de todas as versões para este trabalho, por limitações de tempo e de recursos computacionais. Portanto, foram escolhidas as versões iniciais de cada grande \textit{release} onde é alterado o \textit{codename} da versão, que contém grandes mudanças e significativos avanços no sistema, assim como as versões finais de cada \textit{codename}, que representam as versões mais estáveis das funcionalidades adicionadas nas versões com aquele \textit{codename}.
  
 Cada versão escolhida corresponde a uma \textit{tag} no repositório oficial. Segue a listagem das \textit{tags} escolhidas:
 \begin{enumerate}
@@ -85,9 +85,6 @@ Cada versão escolhida corresponde a uma \textit{tag} no repositório oficial. S
 \item \textit{Android Ice Cream Sandwich} 4.0.4 r2.1
 \item \textit{Android Jelly Bean} 4.1.1 r1
 \item \textit{Android Jelly Bean} 4.3.1 r1
-\item \textit{Android KitKat} 4.4 r1
-\item \textit{Android KitKat} 4.4.4 r2
-\item \textit{Android Lollipop} 5.0.0 r1.0.1
 \item \textit{Android Lollipop} 5.1.0 r1
 \end{enumerate}
 
@@ -159,7 +156,7 @@ Os percentis que foram armazenados foram: 1, 5, 10, 25, 50, 75, 90, 95 e 99, al�
 \centering
 \scalefont{.7}
 \input{tables/accm_android.tex}
-\caption{Percentis para os valores de complexidade ciclomática nas versões do Android analisadas}
+\caption{Complexidade ciclomática nas versões da API analisadas}
 \label{exemplo_percentis}
 \end{table} 
 
