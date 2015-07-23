@@ -1,0 +1,66 @@
+\chapter{Referencial Teórico}
+\label{cap:referencial_teorico}
+
+\section{Componentes Android}
+O Android provê um \textit{framework} para desenvolver aplicativos baseado nos seguintes componentes: \textit{Activities, Services, Broadcast Receivers}, e \textit{Content Providers} \cite{heuser2014}. 
+
+\begin{enumerate}
+\item Uma \textit{Activity} é basicamente o código para uma tarefa bem específica a ser realizada pelo usuário, e apresenta uma interface gráfica(\textit{Graphic User Interface}) para a realização dessa tarefa.
+\item \textit{Services} são tarefas que são executadas em background, sem interação com o usuário. \textit{Services} podem funcionar no processo principal de uma aplicação ou no seu próprio processo.
+\item \textit{Broadcast Receiver} é um componente que é chamado quando um \textit{Intent} é criado e enviado via broadcast por alguma aplicação ou pelo sistema. \textit{Intents} são mecanismos para comunicação entre processos, podendo informar algum evento, ou transmitir dados de um para o outro.
+Um aplicativo pode receber um \textit{Intent} criado por outro aplicativo, ou mesmo receber \textit{intents} do próprio sistema.
+\item \textit{Content providers} são componentes que gerenciam o acesso a um conjunto de dados. São utilizados para criar um ponto de acesso a determinada informação para outras aplicações.
+\end{enumerate}
+
+Aplicativos são construídos com qualquer combinação desses componentes, que podem ser utilizados individualmente, sem a presença dos demais. Cada um dos componentes pode ser uma entrada para o aplicativo sendo desenvolvido.
+
+\section{Métricas de código fonte}
+%TODO colocar valor teórico ideal de cada métrica
+Métricas de código fonte caracterizam bem o produto de software em qualquer estado do seu desenvolvimento. Existem vários tipos de métricas de código fonte, como métricas de tamanho, complexidade, acoplamento e coesão.
+
+Nos capítulos seguintes serão apresentados mais detalhes sobre a escolha das métricas aqui descritas, bem como interpretação das mesmas diretamente no contexto de dispositivos móveis em plataforma Android e linguagem Java. No Capítulo~\ref{cap:analise_exploratoria}, serão discutidos valores dessas métricas para a API do sistema Android, bem como para aplicativos nativos.
+
+\subsection{Linhas de Código (LOC) / Média de linhas de código por método (AMLOC)}
+
+LOC representa o número de linhas de código fonte de uma classe, enquanto AMLOC a média do número de linhas dos métodos daquela classe. Número de métodos (\textit{Number of Methods} - NOM) conta o número de métodos de uma classe e também é uma métrica de tamanho \cite{sharma2012comparative}.
+
+A métrica LOC por si só não será discutida aqui, pois seu valor é independente e deve ser comparado com outras métricas para ter significado mais completo. AMLOC tem significado semelhante a uma combinação de LOC e NOM, e utilizá-la pode ser considerado uma utilização indireta dessas métricas. AMLOC apresenta uma interpretação mais concisa que as demais, uma vez que métodos grandes ``abrem espaço'' para problemas de complexidade excessiva. 
+
+\subsection{Média de complexidade ciclomática por método (ACCM)}
+
+Complexidade ciclomática nada mais é do que o número de caminhos independentes que um software pode seguir em sua execução, calculado a partir da representação em grafo das estruturas de controle \cite{shepperd1988critique}. Na prática, cada condicional dentro do sistema incrementa o valor desta métrica em 1, uma vez que divide a execução em um caminho de execução se a expressão condicional for válida, ou um segundo caminho caso não seja. Complexidade ciclomática é calculada em nível de método, e o valor de ACCM para uma classe corresponde a média dos valores de complexidade ciclomática de cada um dos seus métodos.
+
+\subsection{Resposta para uma classe (RFC)}
+
+Response for a Class é uma métrica que conta o número de métodos que podem ser executados a partir de uma mensagem enviada a um objeto dessa classe \cite{chidamberkemerer}. O valor então é calculado pelo somatório de todos os métodos daquela classe, e todos os métodos chamados diretamente por essa classe. Uma classe com alto valor de RFC pode ser uma classe com um número muito grande de métodos, e/ou uma classe bastante dependente de outra(s) classe(s). Um valor alto de RFC então pode indicar baixa coesão e alto acoplamento. 
+
+\subsection{Profundidade na árvore de herança (DIT) / Número de subclasses (NOC)}
+
+DIT é uma métrica que mede a profundidade que uma classe se contra na árvore de herança, e caso haja herança múltipla, DIT mede a distancia máxima até o nó raiz da árvore de herança \cite{chidamberkemerer}. Se ela não herda nada, tem DIT igual a 0. Se herda de uma classe, a profundidade é 1, e assim por diante. 
+
+NOC mede a quantidade de filhos que uma classe tem \cite{chidamberkemerer}. Caso ninguém herde dela, o valor é 0, e aumenta em 1 para cada classe que a estende diretamente, ou seja, filhos de filhos não são contabilizados.
+
+DIT e NOC são métricas relativamente semelhantes por trabalhar com a árvore de herança, entretanto tem interpretações diferentes. São métricas que indicam complexidade no design, assim como a maioria das métricas OO.
+
+\subsection{Falta de coesão em métodos (LCOM)}
+
+LCOM é uma métrica que mede coesão de uma classe. Existem algumas variações da métrica LCOM definida por \citeonline{chidamberkemerer} criadas por outros estudos que não serão abordadas neste estudo. A variação calculada pela ferramenta Analizo e utilizada neste trabalho é a LCOM4 \cite{hitz1995measuring}.
+
+LCOM4 calcula quantos conjuntos de métodos relacionados existem dentro dessa classe, isto é, métodos que compartilham utilização de algum atributo ou que se referenciam. Caso existam 2 conjuntos de métodos distintos, ou seja, cada conjunto utiliza um conjunto diferente de atributos e um conjunto não utiliza nenhum método do outro, o valor de LCOM4 é 2, e significa que teoricamente essa classe pode ser dividida em 2 para aumentar a coesão. O valor ideal de LCOM4 é 1, que representa a maior coesão possível, e valores maiores que isso podem indicar que a classe está com muita responsabilidade, tentando alcançar muitos propósitos distintos.
+
+\subsection{Acoplamento entre Objetos (CBO) / Conexões aferentes de uma classe (ACC)}
+
+A métrica de acoplamento entre objetos (CBO), definida por \citeonline{chidamberkemerer}, calcula as conexões de entrada e de saída de uma classe, isto é, para uma classe A, são contabilizadas classes que utilizam algum método ou variável de A, como também todas as classes que A referencia. Entretanto neste trabalho não a utilizaremos por problemas encontrados na coleta, como será discutido no Capítulo~\ref{cap:metodologia}, ficando com ACC como métrica de acoplamento.
+
+ACC é um valor parcial de uma das métricas MOOD (\textit{Metrics for Object Oriented Design}) propostas por \citeonline{abreu1994object}. É um o resultado de um cálculo intermediário para calcular o fator de acoplamento (COF). 
+
+ACC mede o nível de acoplamento de uma classe através do número de outras classes que fazem referência a ela, por meio da utilização de algum método ou atributo. Apenas as conexões de entrada são contabilizadas, então, diferente de CBO que faz uma contagem bidirecional, ACC só contabiliza a quantidade de classes clientes de uma classe A qualquer, ou seja, que referenciam A, não importando quantas classes A referencia.
+
+\subsection{Fator de acoplamento (COF)}
+
+COF é uma métrica MOOD proposta por \citeonline{abreu1994object}, e é nada mais é que uma relativização do valor de ACC explicado na seção anterior para o tamanho do projeto, sendo então um valor apenas para todo o código fonte desse projeto. ACC calcula as conexões que uma classe tem, enquanto COF soma todas essas conexões de todas as classes e divide pelo total de conexões possíveis, resultando e um valor que pode variar de 0 a 1. Caso todas as X conexões possíveis aconteçam em um software, COF para ele será X/X, que é igual a 1. O ideal então como acoplamento para um projeto qualquer é que o valor de COF esteja tão próximo de zero quanto possível, indicando que as classes são mais independentes e desacopladas.
+
+\section{Regressão}
+%TODO Explicar conceitos de regressão.
+\section{Distância}
+%TODO Descrever formas de diferenciação de valores e cálculo de distância.

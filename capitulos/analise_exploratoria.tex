@@ -1,5 +1,5 @@
-\chapter{Resultados}
-\label{cap:resultados}
+\chapter{Análise Exploratória}
+\label{cap:analise_exploratoria}
 
 Na primeira seção deste capítulo serão discutidos os resultados da análise de distribuição dos dados coletados, definindo para a API Android valores de referência em cada métrica. Na seção seguinte, é feito um trabalho de comparação de aplicativos com a API em função dos valores de referência definidos para a API em cada métrica. A primeira seção juntamente com a proposta de cálculo de similaridade da segunda seção reúnem as principais contribuições deste trabalho.
 
@@ -384,7 +384,7 @@ Os intervalos aqui não são considerados em função de seus percentis, mas as 
 \label{tab:final_table_android}
 \end{table}
 
-A Tabela~\ref{tab:final_table_android} apresenta um resumo dos intervalos definidos para a API do sistema Android ao longo dessa seção. Embora algumas métricas tenham um indicativo de um problema pontual, como explicado no Capítulo~\ref{cap:metricas} e em outras seções deste capítulo, nenhuma das métricas discutidas neste trabalho deve ser analisada isoladamente.
+A Tabela~\ref{tab:final_table_android} apresenta um resumo dos intervalos definidos para a API do sistema Android ao longo dessa seção. Embora algumas métricas tenham um indicativo de um problema pontual, como explicado no Capítulo~\ref{cap:referencial_teorico} e em outras seções deste capítulo, nenhuma das métricas discutidas neste trabalho deve ser analisada isoladamente.
 
 Valores baixos de AMLOC são sempre preferíveis, pois métodos mais enxutos tem menor responsabilidade, portanto estão mais sujeitos a reuso, e também são mais fáceis de se ler e se modificar. Entretanto essa métrica é preciso ser analisada em conjunto com outras métricas, como LCOM4 e RFC. Uma classe com muitos métodos privados pequenos tende a ter um valor maior de RFC, o que não implica que esteja mal projetada, desde que os métodos ali presentes estejam bem posicionados segundo o padrão de projeto OO especialista da informação, mantendo por consequência um baixo valor de LCOM4. Como referência geral de resultados para AMLOC, quanto menor o valor, melhor o resultado.
 
@@ -550,9 +550,6 @@ Dessa forma as distancias serão calculadas em termos de quantas vezes o valor d
 
 Inicialmente pensou-se em calcular distancias de forma modular, isto é, uma mesmo valor para uma variação positiva ou negativa. Optou-se por não o fazer porque aplicativos com valores teóricos bem menores que os do sistema eram ``mascarados'' por estarem distantes da API e erroneamente considerados como aplicativos de qualidade ruim.  Calculando similaridade como sendo positiva ou negativa, podemos perceber se o valor está menor ou maior que o do sistema, podendo fazer uma comparação entre ambos. É importante perceber que uma métrica com distância positiva mascara uma variação negativa de outra métrica com grandeza similar. Entretanto o objetivo aqui é encontrar similaridade para o \textit{app} como um todo, e não métricas isoladas, e geralmente um valor positivo ou negativo se sobressai sobre o oposto, pois boas arquiteturas tem valores bons em várias métricas, ficando com score negativo, e arquiteturas ruins tem valores ruins em algumas ou várias métricas, tendendo o valor para lado positivo. 
 
-%Mesmo com um valor geral negativo, ainda pode haver alguma métrica com um valor positivo, que é um valor teórico ruim. Por esse motivo, será apresentado um alerta para métricas que passarem de valores aceitáveis. Assim, juntamente com o score, será possível ver as métricas que devem ser olhadas com mais cautela em determinados casos.
-%TODO criar o alerta (ou não). refazer esse parágrafo 
-
 Para o cálculo das distancias, tentou-se utilizar pesos em relação a importância das métricas, semelhante ao realizado em \citeonline{oliveira2013} para a configuração do Kalibro. Assim, métricas mais importantes teriam mais impacto para informar que um valor está melhor ou pior em relação a API. Assim como no trabalho citado, manteve-se equivalência de pesos entre métricas de complexidade e tamanho, e métrica de acoplamento e coesão são evidenciadas com peso maior por terem mais impacto na qualidade do software. Essencialmente, quase todas as métricas trabalham com complexidade, acoplamento ou coesão, então apenas métricas que trabalham com arvore de herança ficaram com peso 1, e o restante tem peso 2. AMLOC ganhou peso 2 para tentar criar equivalência com ACCM.
 
 Os valores para comparação com o sistema são os valores indicados na Tabela~\ref{tab:final_table_android}. Para ACCM, por exemplo, os valores de comparação são 2, 4 e 6, para os percentis 75, 90 e 95, respectivamente. 
@@ -604,16 +601,6 @@ Onde:
 \end{table}
 
 O resultado então é multiplicado por 100 para levar os valores para uma grandeza maior e então truncamos as casas decimais, com o intuito de ter resultados melhor visualizados. A Tabela~\ref{tab:relative_distance} apresenta os scores calculados com a Equação~\ref{eq:distancia_total} para os aplicativos do sistema. Como podemos perceber, o \textit{app} \textit{Bluetooth} ficou com o maior valor dentre os aplicativos, e portanto representa o mais discrepante do sistema e o que contém, no geral, os piores valores para as métricas analisadas. Como podemos perceber nas tabelas da primeira seção deste capítulo, ele realmente tinha valores em intervalos ruins para quase todas as métricas. Já o \textit{app} \textit{Settings}, que possui bons valores em quase todas as métricas, com exceção de DIT, ficou negativo, e mais próximo do sistema que o \textit{app} \textit{Bluetooth}, como os valores anteriormente apresentados já indicavam. O \textit{app} \textit{Camera} ficou com score 0, bem próximo ao sistema, e como podemos ver nas tabelas da primeira seção, ele se manteve bem próximo aos intervalos na maioria das métricas, com pequenas variações, positivas ou negativas. O \textit{app} \textit{Calculator}, que contém um dos menores valores, apresenta valores teóricos em geral melhores que os da API, então sua posição com um número negativo maior que os demais é justificada, assim como o \textit{HTMLViewer}, que é um projeto mais simples e também contém valores teóricos melhores que os do sistema.
-
-\begin{table}[!htb]
-\centering
-\scalefont{.9}
-\input{tables/biodyn_percentis.tex}
-\caption{Percentis 75, 90 e 95 para as métricas analisadas no aplicativo e-lastic}
-\label{tab:biodyn_percentis}
-\end{table}
-
-Quando esse calculo foi aplicado ao aplicativo parcial desenvolvido nas etapas iniciais desse projeto, com processo e arquitetura descritos no Apêndice~\ref{ap:elastic}, os valores foram muito bons, como esperado. O aplicativo e-lastic obteve score -82, e contém valores teóricos melhores que os do sistema em todas as métricas, como mostra a Tabela~\ref{tab:biodyn_percentis}. Isso nos dá subsídio para afirmar que a hipótese 4 (H4) definida no Capítulo~\ref{cap:metodologia} é verdadeira, isto é, as decisões tomadas ao longo do desenvolvimento do aplicativo com base em padrões de projeto estão relacionadas às decisões tomadas com base em métricas, uma vez que decisões tomadas com este propósito tentariam levar os valores para os menores possíveis, tentando alcançar valores em intervalos ótimos, como os que foram encontrados no aplicativo parcial desenvolvido.
 
 No geral a grande maioria dos aplicativos ficou melhor que o sistema Android, sendo que a média dos valores de similaridade para os aplicativos do sistema ficou em -17,5, com desvio padrão de 31,5. Os valores dos aplicativos do sistema então podem ser considerados como sendo de -48 a 14, indicando que no geral os aplicativos são próximos do sistema, como já verificado na primeira seção deste capítulo, porém esses valores podem implicar que aplicativos tendem a ter métricas com valores levemente melhores.
 
