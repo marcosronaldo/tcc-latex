@@ -40,17 +40,17 @@ Esta seção é focada na análise dos dados, tentando explicar seu comportament
 
 Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Em todos os casos a probabilidade cumulativa, representada pelos percentis, apresenta um aumento significativo de valor apenas nos últimos percentis, demonstrando valores bem discrepantes em relação aos demais. Entretanto, devido ao aumento acontecer a partir do percentil 95, esses 5\% podem ser descartados como um ruído estatístico. 
 
-Nas tabelas que serão discutidas nas seção seguintes, a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise cada métrica, assim como feito por \citeonline{meirelles2013}.
+Nas tabelas que serão discutidas nas seções seguintes, a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise de cada métrica, assim como feito por \citeonline{meirelles2013}.
 
 Valores considerados como 0 para muitas métricas não tem valor semântico para interpretação e resulta da impossibilidade de calcular a métrica. Resultado 0 para LCOM4, ACCM e RFC, por exemplo, indicam classes sem métodos.
 
-\subsection{Média de linhas de código por método - \textit{Average Method Lines Of Code} (AMLOC)}
+\subsection{Média de linhas de código por método (AMLOC)}
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/amloc_android.tex}
-\caption{\textit{Average Method Lines of Code} no Android}
+\caption{AMLOC no Android}
 \label{tab:amloc_android}
 \end{table}
 
@@ -65,25 +65,25 @@ LOC representa o número de linhas de código fonte de uma classe, enquanto AMLO
 
 A Tabela~\ref{tab:amloc_android} apresenta os valores para a métrica AMLOC nas versões do Android analisadas. É facilmente perceptível que a média de linhas de código por método não teve variação relevante. Em todas as versões analisadas, os valores muito frequentes, isto é, percentil 75, são métodos com até 14 linhas de código, enquanto de 14 a 30 aparecem como frequentes, e 31 a 55 pouco frequentes. A Figura~\ref{fig:amloc_android} apresenta a evolução da métrica AMLOC com a API, com uma variação muito pequena de valores para os percentis 75 e 90. O percentil 99 demonstra uma variação maior, mas ele representa dados não frequentes na análise.
 
-Esses valores estão de acordo com os apresentados em \citeonline{meirelles2013}, porém levemente menores para os percentis 75 e 90, com aproximadamente 3 linhas de código a menos por método. Os valores se mostraram bem semelhantes para o projeto Android, mesmo considerando o fato que este trabalho estuda apenas a API de desenvolvimento de aplicativos, essencialmente em Java e dentro do diretório ``\textit{frameworks}'' do AOSP, e \citeonline{meirelles2013} analisa todo o código fonte do sistema, que apresenta em sua totalidade uma maior proporção da linguagem C em relação as demais. Esses valores são subsídios para reafirmar que arquivos em C em geral, tem uma maior utilização de linhas de código do que arquivos em Java. \citeonline{oliveira2013} comenta que as diferenças entre as linguagens C/C++/Java para esta métrica não é significativa, uma vez que a sintaxe entre as 3 é bastante semelhante. Dada essa afirmação, comparamos os intervalos definidos por ele, chegando a conclusão de que os valores das métricas estão, para todas as versões, abaixo dos valores bom e regular para os percentis 75 e 90, o que é um bom resultado.
+Esses valores estão de acordo com os apresentados em \citeonline{meirelles2013}, porém levemente menores para os percentis 75 e 90, com aproximadamente 3 linhas de código a menos por método. Os valores se mostraram bem semelhantes para o projeto Android, mesmo considerando o fato que este trabalho estuda apenas a API de desenvolvimento de aplicativos, essencialmente em Java e dentro do diretório ``\textit{frameworks}'' do AOSP, e \citeonline{meirelles2013} analisa todo o código fonte do sistema, que apresenta em sua totalidade uma maior proporção da linguagem C em relação as demais. Esses valores são subsídios para reafirmar que arquivos em C em geral, tem uma maior utilização de linhas de código do que arquivos em Java. \citeonline{oliveira2013} comenta que as diferenças entre as linguagens C/C++/Java para esta métrica não é significativa, uma vez que a sintaxe entre as 3 é bastante semelhante. Dada essa afirmação, comparamos os intervalos definidos por ele, chegando à conclusão de que os valores das métricas estão, para todas as versões, abaixo dos valores bom e regular para os percentis 75 e 90, o que é um bom resultado.
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/amloc_apps.tex}
-\caption{\textit{Average Method Lines of Code} nos aplicativos nativos}
+\caption{AMLOC nos aplicativos nativos}
 \label{tab:amloc_apps}
 \end{table}
 
 Os valores apresentados na análise são relativamente baixos quando comparados com outros softwares livres, como demonstrado por \citeonline{meirelles2013}. Da mesma forma, os valores de aplicativos do sistema, demonstrados na Tabela~\ref{tab:amloc_apps}, apresentam uma grande semelhança nos resultados. 
 
-Métodos relacionados a interface gráfica tentem a ser relativamente grandes quando a interface é criada dinamicamente em Java, mas esse aumento não tem grande representatividade no código do sistema, uma vez que a maioria das partes do sistema que contém componentes gráficos estão nos aplicativos, como o launcher, settings e outros apps do sistema. Assim, aplicativos podem ter valores maiores de amloc, principalmente nos componentes do tipo \textit{Activity}.
+Métodos relacionados à interface gráfica tentem a ser relativamente grandes quando a interface é criada dinamicamente em Java, mas esse aumento não tem grande representatividade no código do sistema, uma vez que a maioria das partes do sistema que contém componentes gráficos estão nos aplicativos, como o launcher, settings e outros apps do sistema. Assim, aplicativos podem ter valores maiores de AMLOC, principalmente nos componentes do tipo \textit{Activity}.
 
-Embora alguns poucos aplicativos tenham valores mais elevados para essa métrica, os intervalos se mantém válidos para a grande maioria dos aplicativos. Esses valores de aplicativos foram retirados dos aplicativos nativos da ultima versão do sistema analisada (Lollipop 5.1.0), e continuam se mantendo semelhantes ao sistema, como o próprio acoplamento à API sugere. 
+Embora alguns poucos aplicativos tenham valores mais elevados para essa métrica, os intervalos se mantém válidos para a grande maioria dos aplicativos. Esses valores de aplicativos foram retirados dos aplicativos nativos da última versão do sistema analisada (Lollipop 5.1.0), e continuam se mantendo semelhantes ao sistema, como o próprio acoplamento à API sugere. 
 
 Os aplicativos do sistema também se mantém dentro dos intervalos bom e regular definidos em \citeonline{oliveira2013}. Os valores para o percentil 95 também se encontram abaixo do valor regular, na maioria dos casos.
 
-Em suma, os valores para os aplicativos se assemelham muito com os valores para as versões da API Android analisadas, levando então a conclusão de que os mesmos intervalos são válidos para as métricas em ambos os casos, embora se possa esperar valores menores em aplicativos, porém com uma maior variância. Essa variância se dá pelo diferente propósito de cada aplicativo, que utiliza pedaços variados do sistema e tem sua codificação adaptada para seu propósito.
+Em suma, os valores para os aplicativos se assemelham muito com os valores para as versões da API Android analisadas, levando então à conclusão de que os mesmos intervalos são válidos para as métricas em ambos os casos, embora se possa esperar valores menores em aplicativos, porém com uma maior variância. Essa variância se dá pelo diferente propósito de cada aplicativo, que utiliza pedaços variados do sistema e tem sua codificação adaptada para seu propósito.
 
 Intervalos encontrados:
 
@@ -93,7 +93,7 @@ Intervalos encontrados:
 \item Valores acima de 31 são pouco frequentes em ambos os casos;
 \end{itemize}
 
-\subsection{Média de complexidade ciclomática por método - \textit{Average Cyclomatic Complexity per Method} (ACCM)}
+\subsection{Média de complexidade ciclomática por método (ACCM)}
 
 \begin{figure}[!htb]
 \centering
@@ -110,7 +110,7 @@ A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a ev
 \centering
 \scalefont{.7}
 \input{tables/accm_android.tex}
-\caption{\textit{Average Cyclomatic Complexity per Method} no Android}
+\caption{ACCM no Android}
 \label{tab:accm_android}
 \end{table}
 
@@ -121,13 +121,13 @@ A Figura~\ref{fig:accm_android} apresenta a evolução de ACCM métrica com a ev
 \label{fig:accmxamloc}
 \end{figure}
 
-Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:accm_android} e está melhor demonstrada no gráfico da Figura~\ref{fig:accmxamloc}. Nos valores do percentil 75, que correspondem a valores muito frequentes, as versões de 2.2.3 a 4.0.4 contém os únicos valores para o sistema onde a complexidade ciclomática supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como demonstra a Tabela~\ref{tab:amloc_android}. Essa relação direta também está presente nos percentis 90 e 95, que representam valores frequentes e pouco requentes, respectivamente.
+Uma relação entre ACCM e AMLOC pode ser claramente vista na Tabela~\ref{tab:accm_android} e está melhor demonstrada no gráfico da Figura~\ref{fig:accmxamloc}. Nos valores do percentil 75, que correspondem a valores muito frequentes, as versões de 2.2.3 a 4.0.4 contém os únicos valores para o sistema onde a complexidade ciclomática supera o número 2, e não por acaso são os valores com maior AMLOC nesse percentil como demonstra a Tabela~\ref{tab:amloc_android}. Essa relação direta também está presente nos percentis 90 e 95, que representam valores frequentes e pouco frequentes, respectivamente.
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/accm_apps.tex}
-\caption{\textit{Average Cyclomatic Complexity per Method} nos aplicativos nativos}
+\caption{ACCM nos aplicativos nativos}
 \label{tab:accm_apps}
 \end{table}
 
@@ -139,23 +139,23 @@ Baseando-se nessas observações, são considerados os seguintes intervalos:
 
 \begin{itemize}
 \item Valores abaixo 2 são muito frequentes para os aplicativos e para a API, e até 2.5 são considerados excelentes. É importante relembrar que uma complexidade ciclomática 2 implica em afirmar que 2 testes unitários resultam em 100\% de cobertura para esse trecho de código;
-\item ACCM é menor ou igual a 4 em todas as versões do Android e na grande maioria dos aplicativos dentro do percentil 90, sendo uma referência para um valor maior mas ainda considerado bom. Os aplicativos do sistema quase não alcançaram esse valor;
+\item ACCM é menor ou igual a 4 em todas as versões do Android e na grande maioria dos aplicativos dentro do percentil 90, sendo uma referência para um valor maior mas ainda considerado bom.
 \item Valores acima de 4 são considerados regulares e são pouco frequentes em ambos os casos, porém para a API do sistema o percentil 95 chegou a 6. Valores acima de 6 são bem raros e correspondem a uma quantidade estatisticamente desprezível para esta análise.
 \end{itemize}
 
-\subsection{Resposta para uma classe - \textit{Response For a Class} (RFC)}
+\subsection{Resposta para uma classe (RFC)}
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/rfc_android.tex}
-\caption{\textit{Response For a Class} no Android}
+\caption{RFC no Android}
 \label{tab:rfc_android}
 \end{table}
 
 RFC é uma métrica que conta o número de métodos que podem ser executados a partir de uma mensagem enviada a um objeto dessa classe \cite{chidamberkemerer}. O valor então é calculado pelo somatório de todos os métodos daquela classe, e todos os métodos chamados diretamente por essa classe. Uma classe com alto valor de RFC pode ser uma classe com um número muito grande de métodos, e/ou uma classe bastante dependente de outra(s) classe(s). Um valor alto de RFC pode indicar baixa coesão e alto acoplamento. Valores mais próximos a zero são os ideais teóricos dessa métrica.
 
-A API do sistema Android tende a ter um valor relativamente alto de RFC devido a forma como sua arquitetura foi desenhada, como apresenta a Tabela~\ref{tab:rfc_android}. Serviços do sistema são acessados muitas vezes através de objetos do sistema, e para seu uso correto alguns métodos devem ser chamados explicitamente. Por exemplo, para acessar o \textit{bluetooth}, não se chama diretamente um método de uma classe \textit{BluetoothAdapter}, pois os serviços do sistema geralmente estão encapsulados e são retornados por um método \textit{get()}, seguidos dos métodos que se deseja utilizar desse serviço. Por exemplo, para verificar dispositivos \textit{bluetooth} próximos, deve-se obter o \textit{adapter} via chamada estática de método para a própria classe para obter a instância, seguida de uma chamada de método para início de \textit{discovery} de dispositivos, e em seguida utilizar os métodos \textit{isDiscoverying()} e \textit{cancelDiscovery()} para controlar a busca. Um acesso direto a uma variável booleana removeria a necessidade da chamada de método \textit{isDiscoverying()}, entretanto perderia seu encapsulamento. De forma geral, encapsulamento de variáveis tende a aumentar o valor de RFC, que conta apenas métodos. 
+A API do sistema Android tende a ter um valor relativamente alto de RFC devido à forma como sua arquitetura foi desenhada, como apresenta a Tabela~\ref{tab:rfc_android}. Serviços do sistema são acessados muitas vezes através de objetos do sistema, e para seu uso correto alguns métodos devem ser chamados explicitamente. Por exemplo, para acessar o \textit{bluetooth}, não se chama diretamente um método de uma classe \textit{BluetoothAdapter}, pois os serviços do sistema geralmente estão encapsulados e são retornados por um método \textit{get()}, seguidos dos métodos que se deseja utilizar desse serviço. Por exemplo, para verificar dispositivos \textit{bluetooth} próximos, deve-se obter o \textit{adapter} via chamada estática de método para a própria classe para obter a instância, seguida de uma chamada de método para início de \textit{discovery} de dispositivos, e em seguida utilizar os métodos \textit{isDiscoverying()} e \textit{cancelDiscovery()} para controlar a busca. Um acesso direto a uma variável booleana removeria a necessidade da chamada de método \textit{isDiscoverying()}, entretanto perderia seu encapsulamento. De forma geral, encapsulamento de variáveis tende a aumentar o valor de RFC, que conta apenas métodos. 
 
 \begin{figure}[!htb]
 \centering
@@ -164,15 +164,15 @@ A API do sistema Android tende a ter um valor relativamente alto de RFC devido a
 \label{fig:rfc_android}
 \end{figure}
 
-Contribuindo para o aumento, o resultado da busca de dispositivos bluetooth é realizado de forma assíncrona na forma de mensagens utilizando \textit{intents} (vide Capítulo~\ref{cap:android-os}), então mais um método é criado dentro de um \textit{receiver} (que pode ser a própria classe estendendo \textit{BroadcastReceiver}) para receber essa mensagem, aumentando um pouco o valor de RFC. Uma comunicação síncrona hipotética com uma chamada estática direta como \textit{BluetoothAdapter.discoverNearDevices()} retornando uma lista seria em teoria uma forma muito mais simples de ser utilizada, porém perderia a proteção do encapsulamento e deixaria de utilizar o comportamento em escopo de objeto para usar em escopo de classe, e também se perderia o maior controle sobre a própria busca que a API dá ao usuário com os métodos adicionais. Além disso, o encapsulamento de serviço dos sistema é um controle adicional que permite o mesmo escalonar melhor a utilização de recursos que necessitam de exclusão mútua. Por exemplo, um acesso direto a câmera dificultaria o sistema de dar acesso a 1 cliente de cada vez, pois afinal, o usuário não consegue usar a câmera, por exemplo, em dois aplicativos simultaneamente.
+Contribuindo para o aumento, o resultado da busca de dispositivos bluetooth é realizado de forma assíncrona na forma de mensagens utilizando \textit{intents} (vide Capítulo~\ref{cap:android-os}), então mais um método é criado dentro de um \textit{receiver} (que pode ser a própria classe estendendo \textit{BroadcastReceiver}) para receber essa mensagem, aumentando um pouco o valor de RFC. Uma comunicação síncrona hipotética com uma chamada estática direta como \textit{BluetoothAdapter.discoverNearDevices()} retornando uma lista seria em teoria uma forma muito mais simples de ser utilizada, porém perderia a proteção do encapsulamento e deixaria de utilizar o comportamento em escopo de objeto para usar em escopo de classe, e também se perderia o maior controle sobre a própria busca que a API dá ao usuário com os métodos adicionais. Além disso, o encapsulamento de serviço dos sistema é um controle adicional que permite o mesmo escalonar melhor a utilização de recursos que necessitam de exclusão mútua. Por exemplo, um acesso direto à câmera dificultaria o sistema de dar acesso a 1 cliente de cada vez, pois afinal, o usuário não consegue usar a câmera, por exemplo, em dois aplicativos simultaneamente.
 
-Comunicações assíncronas são muito usadas ao longo de todo o sistema para utilização de recursos, e então é necessário ter uma forma de receber mensagens de aplicativos e do sistema, o que é feito com a classe \textit{BroadcastReceiver} e implementando métodos específicos da mesma. Mesmo fora do contexto Android, comunicações assíncronas tendem a criar métodos adicionais de comunicação, como é visto no padrão \textit{Observer}, que se assemelha muito a essa comunicação por \textit{Intents}. A Figura~\ref{fig:rfc_android} mostra que essa métrica não teve variação grande ao longo das versões do Android, tendendo inclusive a um leve aumento nas ultimas versões, demonstrando que os valores altos apresentados são mesmo uma característica da arquitetura do sistema. 
+Comunicações assíncronas são muito usadas ao longo de todo o sistema para utilização de recursos, e então é necessário ter uma forma de receber mensagens de aplicativos e do sistema, o que é feito com a classe \textit{BroadcastReceiver} e implementando métodos específicos da mesma. Mesmo fora do contexto Android, comunicações assíncronas tendem a criar métodos adicionais de comunicação, como é visto no padrão \textit{Observer}, que se assemelha muito a essa comunicação por \textit{Intents}. A Figura~\ref{fig:rfc_android} mostra que essa métrica não teve variação grande ao longo das versões do Android, tendendo inclusive a um leve aumento nas últimas versões, demonstrando que os valores altos apresentados são mesmo uma característica da arquitetura do sistema. 
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/rfc_apps.tex}
-\caption{\textit{Response For a Class} nos aplicativos nativos}
+\caption{RFC nos aplicativos nativos}
 \label{tab:rfc_apps}
 \end{table}
 
@@ -208,15 +208,15 @@ Um intervalo de valores até 38 pode ser considerado bom para aplicativos, e reg
 \label{fig:noc_android}
 \end{figure}
 
-DIT é uma métrica que mede a profundidade que uma classe se contra na árvore de herança, e caso haja herança múltipla, DIT mede a distancia máxima até o nó raiz da árvore de herança \cite{chidamberkemerer}. Se ela não herda nada, tem DIT igual a 0. NOC mede a quantidade de filhos que uma classe tem \cite{chidamberkemerer}. Caso ninguém herde dela, o valor é 0. Filhos de filhos não são contabilizados em NOC. Valores mais próximos a zero são os ideais teóricos de ambas as métricas.
+DIT é uma métrica que mede a profundidade que uma classe se contra na árvore de herança, e caso haja herança múltipla, DIT mede a distância máxima até o nó raiz da árvore de herança \cite{chidamberkemerer}. Se ela não herda nada, tem DIT igual a 0. NOC mede a quantidade de filhos que uma classe tem \cite{chidamberkemerer}. Caso ninguém herde dela, o valor é 0. Filhos de filhos não são contabilizados em NOC. Valores mais próximos a zero são os ideais teóricos de ambas as métricas.
 
-As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportamento dessas métricas com a evolução do sistema. São valores baixos e com variação muito pequena para as duas métricas. Para DIT os valores para cada percentil varia em no máximo 1 em algumas versões e depois voltam ao valor anterior. NOC também se mantém 0 ou 1 para o percentil 90 em todas as versões.
+As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportamento de DIT e NOC com a evolução do sistema. São valores baixos e com variação muito pequena para as duas métricas. Para DIT os valores para cada percentil varia em no máximo 1 em algumas versões e depois voltam ao valor anterior. NOC também se mantém 0 ou 1 para o percentil 90 em todas as versões.
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/dit_android.tex}
-\caption{\textit{Depth of Inheritance Tree} no Android}
+\caption{DIT no Android}
 \label{tab:dit_android}
 \end{table}
 
@@ -224,7 +224,7 @@ As Figuras~\ref{fig:dit_android} e~\ref{fig:noc_android} demonstram o comportame
 \centering
 \scalefont{.7}
 \input{tables/dit_apps.tex}
-\caption{\textit{Depth of Inheritance Tree} nos aplicativos nativos}
+\caption{DIT nos aplicativos nativos}
 \label{tab:dit_apps}
 \end{table}
 
@@ -234,7 +234,7 @@ A primeira observação sobre o dados das Tabelas~\ref{tab:dit_android} e~\ref{t
 \centering
 \scalefont{.7}
 \input{tables/noc_android.tex}
-\caption{\textit{Number of Children} no Android}
+\caption{NOC no Android}
 \label{tab:noc_android}
 \end{table}
 
@@ -246,13 +246,13 @@ A Tabela~\ref{tab:noc_android} apresenta os valores da métrica NOC para o siste
 \centering
 \scalefont{.7}
 \input{tables/noc_apps.tex}
-\caption{\textit{Number of Children} nos aplicativos nativos}
+\caption{NOC nos aplicativos nativos}
 \label{tab:noc_apps}
 \end{table}
 
 A tabela~\ref{tab:noc_apps} mostra que os mesmos valores de NOC discutidos para a API do Android são válidos para os aplicativos nativos da plataforma. 
 
-De forma geral, a complexidade da API android com relação a árvore de herança é relativamente baixa, e isso é refletido nos seus aplicativos, que pelo seu tamanho tem complexidade de herança ainda menor. Os valores de DIT e NOC são muito bons tanto para a API do sistema quanto para os aplicativo desenvolvidos para o mesmo. Vale ressaltar que ambas as métricas são calculadas apenas para linguagem OO, sendo que para C o valor é sempre 0. Como C representa cerca de 2\% das amostras, os resultados não são afetados de forma significativa.
+De forma geral, a complexidade da API android com relação à árvore de herança é relativamente baixa, e isso é refletido nos seus aplicativos, que pelo seu tamanho tem complexidade de herança ainda menor. Os valores de DIT e NOC são muito bons tanto para a API do sistema quanto para os aplicativo desenvolvidos para o mesmo. Vale ressaltar que ambas as métricas são calculadas apenas para linguagem OO, sendo que para C o valor é sempre 0. Como C representa cerca de 2\% das amostras, os resultados não são afetados de forma significativa.
 
 Sobre árvore de herança, consideramos os seguintes intervalos para o Android:
 
@@ -262,7 +262,7 @@ Sobre árvore de herança, consideramos os seguintes intervalos para o Android:
 \item DIT até 4 e NOC igual a 2 são valores pouco frequentes para a API, mas para seus aplicativos os valores de DIT no percentil 95 permanecem no número 2.
 \end{itemize}
 
-\subsection{Falta de coesão em métodos - \textit{Lack of Cohesion in Methods} (LCOM4)}
+\subsection{Falta de coesão em métodos (LCOM4)}
 
 \begin{figure}[!htb]
 \centering
@@ -280,7 +280,7 @@ A Figura~\ref{fig:lcom4_android} apresenta a continuidade dos valores para LCOM 
 \centering
 \scalefont{.7}
 \input{tables/lcom4_android.tex}
-\caption{\textit{Lack of Cohesion in Methods} no Android}
+\caption{LCOM4 no Android}
 \label{tab:lcom4_android}
 \end{table}
 
@@ -294,7 +294,7 @@ Em dispositivos móveis, por exemplo, tarefas de tirar foto e capturar vídeo, q
 \centering
 \scalefont{.7}
 \input{tables/lcom4_apps.tex}
-\caption{\textit{Lack of Cohesion in Methods} nos aplicativos nativos}
+\caption{LCOM4 nos aplicativos nativos}
 \label{tab:lcom4_apps}
 \end{table}
 
@@ -302,13 +302,13 @@ Em dispositivos móveis, por exemplo, tarefas de tirar foto e capturar vídeo, q
 
 LCOM4 também contabiliza classes de modelo, e no caso do Java, os \textit{getters} e \textit{setters} acarretam no aumento do valor do resultado da métrica\cite{meirelles2013}, entretanto foi verificado, em alguns projetos utilizados como teste, que a ferramenta Analizo não contabilizou esses métodos. A Tabela~\ref{tab:lcom4_apps} mostra que os intervalos 0 a 4, 4 a 7, e 7 a 12 são válidos para a grande maioria dos aplicativos. Os resultados são muito parecidos com os valores para a API, sendo que a métrica só aumenta em 1 no percentil 75.
 
-\subsection{Conexões aferentes de uma classe - \textit{Afferent Connections per Class} (ACC)}
+\subsection{Conexões aferentes de uma classe (ACC)}
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/acc_android.tex}
-\caption{\textit{Afferent Connections per Class} no Android}
+\caption{ACC no Android}
 \label{tab:acc_android}
 \end{table}
 
@@ -331,7 +331,7 @@ Os valores encontrados para o Android estão altos quando comparados com esses e
 \centering
 \scalefont{.7}
 \input{tables/acc_apps.tex}
-\caption{\textit{Afferent Connections per Class} nos aplicativos nativos}
+\caption{ACC nos aplicativos nativos}
 \label{tab:acc_apps}
 \end{table}
 
@@ -347,13 +347,13 @@ Consideramos então os seguintes intervalos para o Android:
 \item Para o percentil 95 em diante, aplicativos tem um valor médio menor que a API, estando com limites até 22 e 26, respectivamente.
 \end{itemize}
 
-\subsection{Fator de acoplamento - \textit{Coupling Factor} (COF)}
+\subsection{Fator de acoplamento (COF)}
 
 \begin{table}[!htb]
 \centering
 \scalefont{.7}
 \input{tables/cof_android.tex}
-\caption{\textit{Coupling Factor} no Android}
+\caption{COF no Android}
 \label{tab:cof_android}
 \end{table}
 
@@ -374,7 +374,7 @@ O valor de COF para a API do Android ao longo de suas versões caiu de 0.13\% pa
 \centering
 \scalefont{.7}
 \input{tables/cof_apps.tex}
-\caption{\textit{Coupling Factor} nos aplicativos nativos}
+\caption{COF nos aplicativos nativos}
 \label{tab:cof_apps}
 \end{table}
 
@@ -382,7 +382,7 @@ A Tabela~\ref{tab:cof_apps} apresenta os valores de COF para os aplicativos. COF
 
 \citeonline{ferreira2009} apresenta como intervalos os valores de 0 a 0.02 (2\%) como bons , 0.02 a 0.14 (14\%) como regulares, e 0,14 em diante como valores ruins. Os valores para o sistema Android estão bem abaixo desses valores, sendo considerados então excelentes valores para o fator de acoplamento. Já os aplicativos se mantém nos valores bons quando passam a ter por volta de 200 classes, mas quando muito pequenos são classificados em sua maioria como regulares nessa escala. 
 
-Os intervalos aqui não são considerados em função de seus percentis, mas foram as seguintes observações:
+Os intervalos aqui não são considerados em função de seus percentis, mas foram feitas as seguintes observações:
 
 \begin{itemize}
 \item Espera-se que o valor de COF para o sistema diminua à medida que novas versões surgem;
@@ -406,13 +406,13 @@ Valores baixos de AMLOC são sempre preferíveis, pois métodos mais enxutos tem
 
 O resultados para a métrica ACCM, que é uma métrica bastante difundida e tem sua aplicabilidade bem clara, relacionados aos AMLOC, dão subsídio para reafirmar que os valores da métrica AMLOC devem ser os menores possíveis para uma boa arquitetura orientada a objetos.
 
-Entender a relação entre ACCM e AMLOC é importante também para pensar em possibilidade de refatoração de um código fonte alvo. Estão claras as consequências de se ter uma alta complexidade ciclomática, mas essa discussão nos leva rapidamente a ter a ideia de verificar os métodos da classe e avaliar se seu comportamento está tão enxuto como deveria ser, se algum método não está fazendo mais do que propõe. As vezes dividir o comportamento em tarefas menores possa ser uma solução viável. Dividir o comportamento de um método em 2 provavelmente vai acarretar no aumento da métrica RFC, mas mais uma vez ressalto que o valor de RFC não deve ser analisado por si só. É importante ficar de olho também em métricas como a LCOM4 quando fazendo esse tipo de refatoração, pois as vezes uma tarefa menor que foi extraída de um método não está coesa na classe onde está e muitas vezes até já esteja implementada em uma outra classe que tem responsabilidade mais congruente com essa tarefa. Remover esse tipo de código duplicado ajuda a reduzir a falta de coesão dentro de uma classe, e todas essas melhorias derivaram do simples fato de perceber uma alta complexidade ciclomática em uma classe.
+Entender a relação entre ACCM e AMLOC é importante também para pensar em possibilidade de refatoração de um código fonte alvo. Estão claras as consequências de se ter uma alta complexidade ciclomática, mas essa discussão nos leva rapidamente a ter a ideia de verificar os métodos da classe e avaliar se seu comportamento está tão enxuto como deveria ser, se algum método não está fazendo mais do que propõe. Dividir o comportamento em tarefas menores pode ser uma solução viável. Dividir o comportamento de um método em 2 provavelmente vai acarretar no aumento da métrica RFC. É importante ficar de olho também em métricas como a LCOM4 quando fazendo esse tipo de refatoração, pois às vezes uma tarefa menor que foi extraída de um método não está coesa na classe onde está e muitas vezes até já esteja implementada em uma outra classe que tem responsabilidade mais congruente com essa tarefa. Remover esse tipo de código duplicado ajuda a reduzir a falta de coesão dentro de uma classe, e todas essas melhorias derivaram do simples fato de perceber uma alta complexidade ciclomática em uma classe.
 
-O ideal em uma classe é obter métodos pequenos com tarefas atômicas e bem definidas, que correspondam às responsabilidades dessa classe. A métrica RFC está diretamente relacionada a \textit{Number Of Methods} (NOM), uma vez que um aumento neste ultimo implica necessariamente em um aumento em RFC. Uma classe que tenha alto RFC e muitos métodos (valor alto de NOM) pode indicar que está fazendo mais tarefas do que é sua responsabilidade fazer, necessitando talvez rever a sua implementação para aumentar sua coesão. Da mesma forma, um valor alto de RFC e valor baixo de NOM indica que uma classe está fazendo muito o uso de métodos de terceiros, podendo-se inferir que alguns métodos possam ser extraídos para essas classes que estão sendo tanto chamadas, com o objetivo de diminuir o acoplamento entre essas classes.
+O ideal em uma classe é obter métodos pequenos com tarefas atômicas e bem definidas, que correspondam às responsabilidades dessa classe. A métrica RFC está diretamente relacionada a \textit{Number Of Methods} (NOM), uma vez que um aumento neste último implica necessariamente em um aumento em RFC. Uma classe que tenha alto RFC e muitos métodos (valor alto de NOM) pode indicar que está fazendo mais tarefas do que é sua responsabilidade fazer, necessitando talvez rever a sua implementação para aumentar sua coesão. Da mesma forma, um valor alto de RFC e valor baixo de NOM indica que uma classe está fazendo muito o uso de métodos de terceiros, podendo-se inferir que alguns métodos possam ser extraídos para essas classes que estão sendo tanto chamadas, com o objetivo de diminuir o acoplamento entre essas classes.
 
 Alto valor de profundidade de árvore de herança em uma classe auxilia no aumento da métrica RFC, uma vez que todos os comportamentos são herdados. Entretanto não é uma correlação direta significativa entre as duas, visto que a profundidade de herança raramente é alta para o sistema Android. Embora valor alto de DIT possa significar maior valor de RFC, valores muito altos de RFC tendem a indicar mais a falta de coesão e alto acoplamento, aumentando assim a complexidade estrutural da classe, e não uma profundidade de herança preocupante.
 
-LCOM4 juntamente com RFC são bons indicadores da organização interna de uma classe, pois ambas as métricas dão subsídios para avaliar coesão. Essencialmente, métricas de coesão e acoplamento estão sempre relacionadas e são as métricas mais indicadas para avaliar a complexidade estrutural de uma classe. A ferramenta Analizo, por exemplo, calcula a métrica Structural Complexity (SC) como produto entre LCOM4 e CBO.
+LCOM4 juntamente com RFC são bons indicadores da organização interna de uma classe, pois ambas as métricas dão subsídios para avaliar coesão. Essencialmente, métricas de coesão e acoplamento estão sempre relacionadas e são as métricas mais indicadas para avaliar a complexidade estrutural de uma classe. A ferramenta Analizo, por exemplo, calcula a métrica \textit{Structural Complexity} (SC) como produto entre LCOM4 e CBO.
 
 %As Tabelas~\ref{tab:cbo_android} e~\ref{tab:cbo_apps} demonstram que os valores encontrados para CBO na API e nos aplicativos são absurdamente grandes. Não foi encontrado um motivo para tal, podendo então haver algum tipo de problema na ferramenta de captura. O estudo conduzido por \citeonline{meirelles2013} utiliza a mesma ferramenta e não chegou a esses valores aqui encontrados em nenhum projeto, nem mesmo na análise do código fonte completo do sistema Android. Por não conseguirmos identificar exatamente o motivo dessa discrepância de valores, serão consideradas as métricas ACC e COF para acoplamento.
 
@@ -420,11 +420,11 @@ Dentro do escopo de um projeto, pela própria definição da métrica, o valor l
 
 \section{Validação dos intervalos de referência}
 
-Após a obtenção e analise de distribuição dos dados de métricas OO nas diferentes versões do Android e em aplicativos nativos, foram feitos alguns estudos para validar os intervalos de referência definidos na primeira seção deste capítulo. Também tinham o propósito de utilizar os dados obtidos para auxiliar desenvolvedores a não necessitarem de uma análise manual, assim como na proposta de comparação de aplicativos com a API.
+Após a obtenção e análise de distribuição dos dados de métricas OO nas diferentes versões do Android e em aplicativos nativos, foram feitos alguns estudos para validar os intervalos de referência definidos na primeira seção deste capítulo. Também tinham o propósito de utilizar os dados obtidos para auxiliar desenvolvedores a não necessitarem de uma análise manual, assim como na proposta de comparação de aplicativos com a API.
 
 Análise de regressão é um processo estatístico para ver o impacto de variáveis independentes em alguma variável dependente, tentando descrever a relação entre essas variáveis por equações matemáticas. Pensamos na criação um modelo de regressão que conseguisse predizer o valor ideal de uma métrica OO a partir de uma variável independente de tamanho que representasse a escala do projeto, de forma a obter um valor proporcional daquela métrica. O desenvolvedor então poderia comparar esse valor com o valor real da métrica que o código apresenta, e com os intervalos que foram definidos neste trabalho, e então verificar se mudanças estruturais devem ser feitas.
 
-Um modelo de regressão iria aprender os valores ideais para API com os próprios dados crus das métricas, e então sera possível comparar esses resultados com os valores definidos manualmente através dos percentis, discutidos na primeira seção deste capítulo.
+Um modelo de regressão iria aprender os valores ideais para a API com os próprios dados crus das métricas, e então será possível comparar esses resultados com os valores definidos manualmente através dos percentis, discutidos na primeira seção deste capítulo.
 
 %Após identificadas as limitações e problemáticas com essa abordagem de regressão, o trabalho seguiu um novo caminho em direção à uma comparação mais direta. A ideia vem da proposição de que, julgando a API como um bom exemplo de código, valores próximos aos da API podem ser considerados bons por consequência. 
 
@@ -432,7 +432,7 @@ Um modelo de regressão iria aprender os valores ideais para API com os próprio
 
 \subsection{Validação por regressão}
 
-A seguir métricas base que foram inicialmente idealizadas para relativização das métricas por regressão:
+A seguir estão listadas as métricas base que foram inicialmente idealizadas para relativização das métricas por regressão:
 
 \begin{enumerate}
 \item Número de classes, realizando uma regressão em escopo de software.
@@ -443,7 +443,7 @@ A seguir métricas base que foram inicialmente idealizadas para relativização 
 
 Não é possível idealizar esse resultado para métricas OO, mensuradas para cada classe, para entradas mais granularizadas como valores de métodos. A grande maioria das métricas tem seus valores para a classe como um todo, não podendo fazer distinção sobre a participação de cada método individualmente dentro daquele valor.
 
-Nenhuma das formas propostas foi realmente implementada, apenas foi realizado uma discussão das possibilidades com as métricas que estavam disponíveis. Métricas de tamanho foram o alvo da regressão como variáveis independentes porque seriam uma forma de abstrair os resultados para projetos de diferentes escalas. Essencialmente os intervalos de valores anteriormente definidos seriam validados se a métrica estivesse de acordo com os mesmos para os parâmetros específicos do projeto sendo analisado, fazendo uma comparação entre o modelo de regressão e a análise manual subjetiva deste trabalho.
+Nenhuma das formas propostas foi realmente implementada, mas foi realizada uma discussão e verificação das possibilidades com as métricas que estavam disponíveis. Métricas de tamanho foram o alvo da regressão como variáveis independentes porque seriam uma forma de abstrair os resultados para projetos de diferentes escalas. Essencialmente os intervalos de valores anteriormente definidos seriam validados se a métrica estivesse de acordo com os mesmos para os parâmetros específicos do projeto sendo analisado, fazendo uma comparação entre o modelo de regressão e a análise manual subjetiva deste trabalho.
 
 \subsubsection{Regressão em escopo de software}
 
@@ -465,15 +465,15 @@ A primeira observação que se faz sobre a realização de regressão em escopo 
 
 Para que isso pudesse ser realmente feito, os dados das métricas OO devem ser relacionados com as métricas de tamanho, demonstrando seu valor como dependente do valor dessas métricas. Se os dados obedecem um certo padrão, um funcional pode ser traçado para representar o comportamento dos mesmos. 
 
-Na Figura~\ref{fig:metricasxclasses}, onde é traçado o percentil 75 em função do número de classes, vemos que as métricas DIT, NOC, ACC, LCOM4 e ACCM podem ser representadas por uma linha reta horizontal, enquanto RFC, plotada na Figura~\ref{fig:rfcxclasses}, tem dados mais dispersos mas ainda podem ser representados por uma reta horizontal sem perda significativa nos percentis 75 e 90, que correspondem a grande maioria dos dados. Nas tabelas e gráficos apresentados nas seção anterior confirmamos que dentro de cada percentil de cada métrica a variação é pequena. Não foram plotados os valores de outros percentis aqui por diferenciação de escala que exigiria uma grande quantidade de gráficos, além de não terem tanta representatividade quanto os valores muito frequentes apresentados no percentil 75.
+Na Figura~\ref{fig:metricasxclasses}, onde é traçado o percentil 75 em função do número de classes, vemos que as métricas DIT, NOC, ACC, LCOM4 e ACCM podem ser representadas por uma linha reta horizontal, enquanto RFC, plotada na Figura~\ref{fig:rfcxclasses}, tem dados mais dispersos mas ainda podem ser representados por uma reta horizontal sem perda significativa nos percentis 75 e 90, que correspondem à grande maioria dos dados. Nas tabelas e gráficos apresentados na seção anterior confirmamos que dentro de cada percentil de cada métrica a variação é pequena. Não foram plotados os valores de outros percentis aqui por diferenciação de escala que exigiria uma grande quantidade de gráficos, além de não terem tanta representatividade quanto os valores muito frequentes apresentados no percentil 75.
 
 Para algumas métricas essa regressão é plausível, isto é, um funcional realmente pode ser traçado que representa a variação dos valores das métricas com o número de classes do projeto. Entretanto, para a ínfima variação nos percentis mais significativos para métricas importantes como ACC, LCOM4, DIT, NOC, RFC, ACCM, que são as principais métricas aqui analisadas, argumentamos que um valor referência se mostra tão útil quanto essa regressão, tornando-a desnecessária.
 
 Além de poder utilizar um valor referência sem perda de valor semântico sobre o valor ideal da métrica, uma regressão em escopo de software da forma como foi proposta, pelo número de classes, não contém, com os dados aqui obtidos, um conjunto suficiente de dados para uma boa regressão.
 
-Como um pequeno problema adicional, os dados das métricas para os aplicativos se mostraram levemente diferentes para os dados da API do sistema, mesmo estando bem semelhantes, então argumentamos que utilizar apenas a API do sistema como insumo para o modelo de regressão resultaria em um modelo que não funciona tão bem para predizer valores de métricas de aplicativos. Os dados indicam que um funcional pode ser traçado apenas quando analisando diferentes versões do mesmo software, então, para os aplicativos, que são projetos distintos, os resultados são mais dispersos.
+Os dados das métricas para os aplicativos se mostraram levemente diferentes para os dados da API do sistema, mesmo estando semelhantes, então argumentamos que utilizar apenas a API do sistema como insumo para o modelo de regressão resultaria em um modelo que não funciona tão bem para predizer valores de métricas de aplicativos. Os dados indicam que um funcional pode ser traçado apenas quando analisando diferentes versões do mesmo software, então, para os aplicativos, que são projetos distintos, os resultados são mais dispersos.
 
-Para realização de um modelo de regressão polinomial a nível de software, não foi encontrada ao longo deste trabalho, dadas restrições de tempo e escopo, outra métrica que representasse bem o tamanho do projeto para relativização do resultado das métricas OO. 
+Para realização de um modelo de regressão polinomial a nível de software, não foi encontrada ao longo deste trabalho, dadas as restrições de tempo e escopo, outra métrica que representasse bem o tamanho do projeto para relativização do resultado das métricas OO. 
 
 \subsubsection{Regressão em escopo de classe}
 
@@ -544,29 +544,29 @@ Como foi comentado na seção anterior, as métricas OO não são dependentes de
 
 Entretanto, podemos abstrair um pouco os significados das métricas e avaliar o projeto como um todo fazendo uma comparação com o sistema. Valores para as métricas semelhantes aos do sistema podem ser considerados bons. Então, verificar o valor das métricas de forma relativa ao sistema ajuda a perceber se o valor está bom ou ruim sem necessariamente conhecer quais os valores bons ou ruins nesse contexto de desenvolvimento de aplicativos Android. 
 
-Utilizando os valores identificados no início desse capítulo, neste trabalho considerados bons para o contexto Android, propomos então um cálculo de aproximação de aplicativos à API em termos de métricas estáticas de código. Essa comparação não se da de forma direta com o valor de uma classe de um projeto, mas sim para o projeto como um todo. Para isso, assim como na primeira seção, utilizamos os percentis 75, 90 e 95 dos valores de cada métrica dentro do projeto, com o objetivo de levar em conta a distribuição de valores da métrica dentro do sistema, visto que a média e a mediana não são sempre representativas para as métricas utilizadas \cite{meirelles2013}. A proposta de cálculo de similaridade da API então verifica as diferenças entre cada percentil do app e cada percentil da API, normalizados, e então unifica as diferenças entre as métricas em um só valor. 
+Utilizando os valores identificados no início desse capítulo, neste trabalho considerados bons para o contexto Android, será proposto um cálculo de aproximação de aplicativos à API em termos de métricas estáticas de código. Essa comparação não se da de forma direta com o valor de uma classe de um projeto, mas sim em escopo de software. Para isso, assim como na primeira seção, utilizamos os percentis 75, 90 e 95 dos valores de cada métrica dentro do projeto, com o objetivo de levar em conta a distribuição de valores da métrica dentro do sistema, visto que a média e a mediana não são sempre representativas para as métricas utilizadas \cite{meirelles2013}. A proposta de cálculo de similaridade da API então verifica as diferenças entre cada percentil do app e cada percentil da API, normalizados, e então unifica as diferenças entre as métricas em um só valor. 
 
 \subsection{Normalização de valores}
 
-Obter um valor apenas de similaridade para a API não é efetivo se as métricas têm diferentes grandezas. Deve-se fazer um trabalho de normalização dos valores das métricas para deixá-las em mesmo \textit{range}, com uma certa equivalência, para calcular a similaridade de um aplicativo numa ideia semelhante ao que é feito com uma distancia euclidiana, onde todas as variáveis tem sua distancia unificada em um valor.
+Obter um valor apenas de similaridade para a API não é efetivo se as métricas têm diferentes grandezas. Deve-se fazer um trabalho de normalização dos valores das métricas para deixá-las em mesmo \textit{range}, com uma certa equivalência, para calcular a similaridade de um aplicativo numa ideia semelhante ao que é feito com uma distância euclidiana, onde todas as variáveis tem sua distância unificada em um valor.
 
 Normalizar métricas com valores sem um range específico pode ser bastante problemático. A métrica AMLOC, por exemplo, nada mais é do que a média de valores absolutos de tamanhos de métodos, que podem ser arbitrariamente grandes. Dessa forma, não há um valor limite superior para os valores, embora o valor mínimo seja 0 pela própria definição da métrica. Isso é válido para quase todas as métricas, com exceção de COF, que varia entre 0 e 1. Entretanto COF não tem uma abordagem de distribuição de valores por ser um valor único para o projeto, além de ser derivada de ACC, então não será utilizada no cálculo de similaridade.
 
 Para resolver este problema, extraímos os limites superiores das numerosas amostras obtidas na coleta de dados, com dados de mais de 100 mil classes. Inicialmente considerou-se, para todas as métricas, o maior valor que a métrica apresentou, sem importar a versão onde esse valor apareceu. Como mostra a tabela~\ref{tab:acc_android}, por exemplo, foi considerado para a métrica ACC um limite superior igual a 4180. Esse limite superior é considerado então como valor 1, e os valores menores como uma porcentagem desse valor, obtido a partir de uma divisão do valor por esse limite superior. Essa mesma forma de normalização pode ser aplicada em todas as métricas. 
 
-Entretanto essa abordagem é problemática em algumas métricas. Para DIT, por exemplo, o valor máximo foi 9 para todas as mais de 100 mil amostras. Essa métrica tem uma variação muito pequena dentro dos percentis utilizados (de 1 a 4), fazendo com que a variação de 1 para 4 resulte em uma distancia de 0,33. Para a métrica ACCM, que geralmente tem grandezas semelhantes nesses percentis, como apresentam os valores da Tabela~\ref{tab:accm_android}, variar de 2 à 6 resulta em uma distancia de 0,025. Dessa forma a normalização não iria deixar valores equivalentes para a distância de cada métrica, tornando enviesado o cálculo da similaridade total do projeto.
+Entretanto essa abordagem é problemática em algumas métricas. Para DIT, por exemplo, o valor máximo foi 9 para todas as mais de 100 mil amostras. Essa métrica tem uma variação muito pequena dentro dos percentis utilizados (de 1 a 4), fazendo com que a variação de 1 para 4 resulte em uma distância de 0,33. Para a métrica ACCM, que geralmente tem grandezas semelhantes nesses percentis, como apresentam os valores da Tabela~\ref{tab:accm_android}, variar de 2 à 6 resulta em uma distância de 0,025. Dessa forma a normalização não iria deixar valores equivalentes para a distância de cada métrica, tornando enviesado o cálculo da similaridade total do projeto.
 
-É importante observar que os valores das métricas raramente chegam próximos ao valor máximo, e estes então aparecem em uma quantidade ínfima de classes. Como esses valores então são significativamente maiores que a maioria dos valores dos percentis analisados, as distancias calculadas para cada métrica, com nada mais que uma subtração, são quase sempre valores muito pequenos. Entretanto, não é importante neste trabalho obter uma saída normalizada, pois os números finais não têm um valor semântico relativo a sua grandeza, não têm uma medida. Queremos apenas uma comparação entre distancias de diferentes aplicativos à API, bem como uma diferenciação entre positivo, neutro e negativo, para saber se os valores estão piores, semelhantes ou melhores, respectivamente. Dessa forma, a saída desse cálculo de semelhança será representado na forma de um \textit{score}.
+É importante observar que os valores das métricas raramente chegam próximos ao valor máximo, e estes então aparecem em uma quantidade ínfima de classes. Como esses valores então são significativamente maiores que a maioria dos valores dos percentis analisados, as distâncias calculadas para cada métrica, com nada mais que uma subtração, são quase sempre valores muito pequenos. Entretanto, não é importante neste trabalho obter uma saída normalizada, pois os números finais não têm um valor semântico relativo a sua grandeza, não têm uma medida. Queremos apenas uma comparação entre distâncias de diferentes aplicativos à API, bem como uma diferenciação entre positivo, neutro e negativo, para saber se os valores estão piores, semelhantes ou melhores, respectivamente. Dessa forma, a saída desse cálculo de semelhança será representado na forma de um \textit{score}.
 
 Na verdade uma normalização nada mais é do que a relativização da métrica em relação a um valor válido em sua escala, então, como não nos importamos com a grandeza do valor, pode-se utilizar até mesmo o valor muito frequente de cada métrica, representado pelo percentil 75, como referência. Valores de aplicativos que superem esse limite terão sua representação ``normalizada'' sendo maiores que 1, mas isso não tem impacto no resultado, pois, como já comentamos, a grandeza não tem significado. Um problema dessa utilização é que a métrica NOC contém um valor 0 no percentil 75, e então em sua normalização ocorreria divisões por 0. Entretanto, como já estamos utilizando uma métrica que reflete complexidade da árvore de herança, a métrica DIT, removemos NOC desse cálculo sem muitas perdas.
 
-Assim, as distancias serão calculadas em termos de quantas vezes o valor do percentil 75 de referência para cada métrica foi incrementado em um determinado valor de métrica. Por exemplo, um valor igual a 6 para a métrica ACCM, referência para percentil 95, seria ``normalizado'' para 3 com esse cálculo, sendo interpretado então como 3 vezes o valor muito frequente da API. Da mesma forma, o valor 4 de DIT, que é a referência do Android para o percentil 95, seria 4. As grandezas estão mais equivalentes quando calculadas dessa forma.
+Assim, as distâncias serão calculadas em termos de quantas vezes o valor do percentil 75 de referência para cada métrica foi incrementado em um determinado valor de métrica. Por exemplo, um valor igual a 6 para a métrica ACCM, referência para percentil 95, seria ``normalizado'' para 3 com esse cálculo, sendo interpretado então como 3 vezes o valor muito frequente da API. Da mesma forma, o valor 4 de DIT, que é a referência do Android para o percentil 95, seria 4. As grandezas estão mais equivalentes quando calculadas dessa forma.
 
 \subsection{Cálculo de similaridade}
 
-Inicialmente pensou-se em calcular distancias de forma modular, isto é, uma mesmo valor para uma variação positiva ou negativa. Optou-se por não o fazer porque aplicativos com valores teóricos bem menores que os do sistema eram ``mascarados'' por estarem distantes da API e erroneamente considerados como aplicativos de qualidade ruim.  Calculando similaridade como sendo positiva ou negativa, podemos perceber se o valor está menor ou maior que o do sistema, fazendo uma comparação entre ambos. É importante ressaltar que uma métrica com distância positiva mascara uma variação negativa de outra métrica com grandeza similar. Entretanto o objetivo aqui é encontrar similaridade para o \textit{app} como um todo, e não métricas isoladas, e geralmente um valor positivo ou negativo se sobressai sobre o oposto, pois boas arquiteturas tem valores bons em várias métricas, ficando com score negativo, e arquiteturas ruins tem valores ruins em algumas ou várias métricas, tendendo o valor para lado positivo. 
+Inicialmente pensou-se em calcular distâncias de forma modular, isto é, uma mesmo valor para uma variação positiva ou negativa. Optou-se por não o fazer porque aplicativos com valores teóricos melhores que os do sistema eram ``mascarados'' por estarem distantes da API e erroneamente considerados como aplicativos de qualidade ruim.  Calculando similaridade como sendo positiva ou negativa, podemos perceber se o valor está menor ou maior que o do sistema, fazendo uma comparação entre ambos. É importante ressaltar que uma métrica com distância positiva mascara uma variação negativa de outra métrica com grandeza similar. Entretanto o objetivo aqui é encontrar similaridade para o \textit{app} como um todo, e não métricas isoladas, e geralmente um valor positivo ou negativo se sobressai sobre o oposto, pois boas arquiteturas tem valores bons em várias métricas, ficando com score negativo, e arquiteturas ruins tem valores ruins em algumas ou várias métricas, tendendo o valor para lado positivo. 
 
-Para o cálculo das distancias, tentou-se utilizar pesos em relação a importância das métricas, semelhante ao realizado em \citeonline{oliveira2013} para a configuração do Kalibro. Assim, métricas mais importantes teriam mais impacto para informar que um valor está melhor ou pior em relação a API. Assim como no trabalho citado, manteve-se equivalência de pesos entre métricas de complexidade e tamanho, e métrica de acoplamento e coesão são evidenciadas com peso maior por terem mais impacto na qualidade do software. Essencialmente, quase todas as métricas trabalham com complexidade, acoplamento ou coesão, então apenas métricas que trabalham com arvore de herança ficaram com peso 1, e o restante tem peso 2. AMLOC ganhou peso 2 para criar equivalência com ACCM.
+Para o cálculo das distâncias, tentou-se utilizar pesos em relação a importância das métricas, semelhante ao realizado em \citeonline{oliveira2013} para a configuração do Kalibro. Assim, métricas mais importantes teriam mais impacto para informar que um valor está melhor ou pior em relação a API. Assim como no trabalho citado, manteve-se equivalência de pesos entre métricas de complexidade e tamanho, e métrica de acoplamento e coesão são evidenciadas com peso maior por terem mais impacto na qualidade do software. Essencialmente, quase todas as métricas trabalham com complexidade, acoplamento ou coesão, então apenas métricas que trabalham com arvore de herança ficaram com peso 1, e o restante tem peso 2. AMLOC ganhou peso 2 para criar equivalência com ACCM.
 
 Os valores para comparação com o sistema são os valores indicados na Tabela~\ref{tab:final_table_android}. Para ACCM, por exemplo, os valores de comparação são 2, 4 e 6, para os percentis 75, 90 e 95, respectivamente. 
 
@@ -589,7 +589,7 @@ Onde:
 \item $Mapp_{75}$ é o valor da métrica para o \textit{app} no percentil 75, utilizado para ``normalização'';
 \end{itemize}
 
-E o valor da distancia total do aplicativo em relação a API é dado por:
+E o valor da distância total do aplicativo em relação a API é dado por:
 
 \begin{center}
 \scalefont{1.2}
@@ -601,7 +601,7 @@ E o valor da distancia total do aplicativo em relação a API é dado por:
 Onde:
 \begin{itemize}
 \item \textit{i} varia entre as métricas;
-\item $d_i$ é a distancia da métrica i calculada na Equação~\ref{eq:distancia_metrica};
+\item $d_i$ é a distância da métrica i calculada na Equação~\ref{eq:distancia_metrica};
 \item $W_i$ é o peso da métrica i;
 \item $\sum_{i}^{n} W_i$ é a soma dos pesos das métricas.
 \end{itemize}

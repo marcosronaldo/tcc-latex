@@ -7,7 +7,7 @@ Foram conceituadas e aplicadas várias métricas na API de desenvolvimento de ap
 
 Foi verificado neste trabalho que a API e aplicativos desenvolvidos para o Android tem muitas semelhanças no que diz respeito a métricas OO, o que reforça a afirmação de alguns trabalhos aqui citados no sentido de existir um alto acoplamento entre eles. Os valores de métricas encontrados para os aplicativos estão muito semelhantes com os do sistema, refletindo um estilo arquitetural intrínseco da plataforma.
 
-O cálculo de similaridade proposto tinha o objetivo principal de verificar se um aplicativo se aproximava da API Android, com o intuito de avaliar sua qualidade com esse referencial. O resultado mostrou que \textit{scores} negativos se mostram valores melhores que os da API, e \textit{scores} positivos são preocupantes. Assim como o objetivo propôs, o \textit{score} calculado pode ser utilizado como um indicador de problemas arquiteturais, caso supere o valor 0, que são os valores da API, em mais que algumas dezenas. Esse indicador de qualidade de código em comparação com a API parte da premissa de que a API tem uma boa arquitetura, e portanto terá sua validade enquanto essa premissa for verdadeira.
+O cálculo de similaridade proposto tinha o objetivo principal de verificar se um aplicativo se aproximava da API Android, com o intuito de avaliar sua qualidade com esse referencial. O resultado mostrou que \textit{scores} negativos se mostram valores melhores que os da API, e \textit{scores} positivos são preocupantes. Assim como o objetivo propôs, o \textit{score} calculado pode ser utilizado como um indicador de problemas arquiteturais, caso supere o valor 0, que são os valores da API. Esse indicador de qualidade de código em comparação com a API parte da premissa de que a API tem uma boa arquitetura, que foi confirmada neste trabalho, e portanto terá sua validade enquanto essa premissa for verdadeira.
 
 Em relação à questão de pesquisa e às hipóteses levantadas no Capítulo~\ref{cap:metodologia}, temos as seguintes observações:
 
@@ -30,10 +30,10 @@ H2 é uma hipótese que também é avaliada a partir do acoplamento entre a API 
 H3 se torna verdadeira a medida que encontramos excelentes valores de métricas para a API Android na análise no Capítulo~\ref{cap:analise_exploratoria}. Se aproximar, em termos de métricas de código fonte, de uma arquitetura consolidada e que contém ótimos valores de métricas, sem dúvidas pode ser utilizado como um indicador de qualidade de produto de software para ser utilizado em aplicativos.
 
 \begin{itemize}
-\item \textit{H4 - As decisões arquiteturais teóricas aplicadas no estudo de caso e-lastic estão relacionadas com decisões arquiteturais baseadas em métricas.}
+\item \textit{H4 - As decisões arquiteturais aplicadas no estudo de caso e-lastic têm resultados equivalentes à decisões arquiteturais baseadas em métricas.}
 \end{itemize}
 
-Foi observado que as decisões tomadas ao longo do desenvolvimento com base em padrões de projeto estão relacionadas às decisões tomadas com base em métricas, uma vez que decisões tomadas baseadas em métricas tentariam levar os valores para os menores possíveis, tentando alcançar valores em intervalos ótimos, como os que foram encontrados no aplicativo parcial ``e-lastic'' desenvolvido durante as etapas iniciais deste trabalho. Foram tomadas decisões arquiteturais com base em padrões de projeto e princípios de design levando em conta experiência de programação com a plataforma, e o \textit{score} encontrado utilizando o indicador de similaridade proposto reforça a ideia de que isso resultou em uma boa arquitetura.
+Foi observado que as decisões tomadas ao longo do desenvolvimento com base em padrões de projeto estão relacionadas às decisões tomadas com base em métricas, uma vez que decisões tomadas baseadas em métricas tentariam levar os valores para os menores possíveis, tentando alcançar valores em intervalos ótimos, como os que foram encontrados no aplicativo parcial ``e-lastic'' desenvolvido neste trabalho. Foram tomadas decisões arquiteturais com base em padrões de projeto e princípios de design levando em conta experiência de programação com a plataforma, e o \textit{score} encontrado utilizando o indicador de similaridade proposto reforça a ideia de que isso resultou em uma boa arquitetura.
 
 \begin{itemize}
 \item \textit{QP - É possível monitorar métricas estáticas de código fonte de aplicativos Android de acordo com a análise de intervalos e aproximação do código do sistema?}
@@ -45,11 +45,11 @@ Por fim, este trabalho mostrou que a semelhança entre os dois faz com que os va
 
 Uma limitação encontrada ao longo do trabalho foi a quantidade de dados utilizados para análise. Poucas versões do sistema Android puderam ser analisadas devido ao tempo que cada análise leva para ser concluída. Dados de poucas versões dificultam a generalização dos resultados para toda a plataforma, além de dificultar detecção de padrões nos valores de métricas na evolução do sistema.
 
-Outra possível limitação foram as métricas selecionadas. Embora tenham sido utilizadas métricas consolidadas para arquiteturas OO, um possível argumento contra este trabalho é que as métricas aqui trabalhadas podem não ser suficientes para avaliar a qualidade da arquitetura, visto que diversos estudos utilizam um conjunto diferente de métricas. Várias métricas não foram usadas devido ao escopo reduzido deste trabalho, além do que seria necessária a utilização de mais de uma ferramenta de coleta.
+Outra possível limitação foram as métricas selecionadas. Embora tenham sido utilizadas métricas consolidadas para arquiteturas OO, um possível argumento contra este trabalho é que as métricas aqui trabalhadas podem não ser suficientes para avaliar a qualidade da arquitetura, visto que diversos estudos utilizam um conjunto diferente de métricas. Várias métricas não foram usadas devido ao escopo reduzido deste trabalho, além de que seria necessária a utilização de mais de uma ferramenta de coleta.
 
 Um fator que pode ameaçar a validade de alguns resultados deste trabalho foi a forma de normalização dos dados para o cálculo de similaridade proposto no Capítulo~\ref{cap:analise_exploratoria}. Foi feita uma relativização dos valores com relação a uma referência frequente dentro da própria métrica, porém podem ser encontradas outras formas melhores de equivalência entre os valores das métricas.
 
-A respeito do cálculo de similaridade, alguns valores aqui utilizados, como os pesos aplicados no cálculo, embora tenham algum fundamento matemático, são arbitrários e podem ser substituídos por um estudo mais detalhado e focado nesse propósito.
+A respeito do cálculo de similaridade, alguns valores aqui utilizados, como os pesos aplicados no cálculo, embora tenham algum fundamento matemático, são subjetivos e podem ser substituídos por um estudo mais detalhado e focado nesse propósito.
 
 \section{Trabalhos Futuros}
 
