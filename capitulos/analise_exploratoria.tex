@@ -3,7 +3,9 @@
 
 Na primeira seção deste capítulo serão discutidos os resultados da análise de distribuição dos dados coletados, definindo para a API Android valores de referência em cada métrica. Na seção seguinte, é feito um trabalho de comparação de aplicativos com a API em função dos valores de referência definidos para a API em cada métrica. A primeira seção juntamente com a proposta de cálculo de similaridade da segunda seção reúnem as principais contribuições deste trabalho.
 
-Na terceira seção, são apresentadas discussões sobre a possibilidade de validação dos valores de referência definidos no início deste capítulo através de regressão estatística.
+Na terceira seção, são apresentadas discussões sobre a possibilidade de validação dos valores de referência definidos no início deste capítulo através de regressão estatística. 
+
+A conceituação dos recursos utilizados neste trabalho está sendo feita a medida que os resultados são apresentados.
 
 \section{Análise de Distribuição}
 
@@ -418,7 +420,7 @@ LCOM4 juntamente com RFC são bons indicadores da organização interna de uma c
 
 Dentro do escopo de um projeto, pela própria definição da métrica, o valor limite para ACC é o próprio número de classes. Embora o valor seja limitado pelo número de classes, não é possível perceber uma relação direta entre o crescimento do número de classes e o valor de ACC, sendo que essa métrica é mais relacionada à forma como o sistema foi pensado e desenhado do que com o seu tamanho. Entretanto, para análise longitudinal em um mesmo projeto, a relação entre número de classes e COF se mostra válida.
 
-\section{Validação dos intervalos de referência}
+\section{Análise dos intervalos de referência}
 
 Após a obtenção e análise de distribuição dos dados de métricas OO nas diferentes versões do Android e em aplicativos nativos, foram feitos alguns estudos para validar os intervalos de referência definidos na primeira seção deste capítulo. Também tinham o propósito de utilizar os dados obtidos para auxiliar desenvolvedores a não necessitarem de uma análise manual, assim como na proposta de comparação de aplicativos com a API.
 
@@ -430,7 +432,7 @@ Um modelo de regressão iria aprender os valores ideais para a API com os própr
 
 %O passo seguinte foi então avaliar a qualidade um aplicativo a partir da distancia da API no que diz respeito a métricas estáticas de código.
 
-\subsection{Validação por regressão}
+\subsection{Análise de regressão}
 
 A seguir estão listadas as métricas base que foram inicialmente idealizadas para relativização das métricas por regressão:
 
