@@ -40,7 +40,7 @@ Esta seção é focada na análise dos dados, tentando explicar seu comportament
 
 \subsection{Distribuição dos dados}
 
-Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Em todos os casos a probabilidade cumulativa, representada pelos percentis, apresenta um aumento significativo de valor apenas nos últimos percentis, demonstrando valores bem discrepantes em relação aos demais. Entretanto, devido ao aumento acontecer a partir do percentil 95, esses 5\% podem ser descartados como um ruído estatístico. 
+Os gráficos na Figura~\ref{fig:android510dist} apresentam as distribuições dos dados para as métricas LCOM4, ACC, ACCM e RFC. Em todos os casos, a probabilidade cumulativa, representada pelos percentis, apresenta um aumento significativo de valor apenas nos últimos percentis, demonstrando valores bem discrepantes em relação aos demais. Entretanto, devido ao aumento acontecer a partir do percentil 95, esses 5\% podem ser descartados como um ruído estatístico. 
 
 Nas tabelas que serão discutidas nas seções seguintes, a mediana, no percentil 50, não representa de forma alguma os dados como faria numa distribuição normal. Para muitas métricas esse percentil apresenta nada mais que o ideal teórico que na prática não é comum, como nas métricas ACCM, NOC, LCOM4 e ACC. Assim, serão utilizados percentis 75, 90 e 95 para análise de cada métrica, assim como feito por \citeonline{meirelles2013}.
 
@@ -252,7 +252,7 @@ A Tabela~\ref{tab:noc_android} apresenta os valores da métrica NOC para o siste
 \label{tab:noc_apps}
 \end{table}
 
-A tabela~\ref{tab:noc_apps} mostra que os mesmos valores de NOC discutidos para a API do Android são válidos para os aplicativos nativos da plataforma. 
+A Tabela~\ref{tab:noc_apps} mostra que os mesmos valores de NOC discutidos para a API do Android são válidos para os aplicativos nativos da plataforma. 
 
 De forma geral, a complexidade da API android com relação à árvore de herança é relativamente baixa, e isso é refletido nos seus aplicativos, que pelo seu tamanho tem complexidade de herança ainda menor. Os valores de DIT e NOC são muito bons tanto para a API do sistema quanto para os aplicativo desenvolvidos para o mesmo. Vale ressaltar que ambas as métricas são calculadas apenas para linguagem OO, sendo que para C o valor é sempre 0. Como C representa cerca de 2\% das amostras, os resultados não são afetados de forma significativa.
 
@@ -368,7 +368,7 @@ Consideramos então os seguintes intervalos para o Android:
 
 %TODO atualizar valores quando obtiver mais versões
 
-COF é uma métrica MOOD proposta por \citeonline{abreu1994object}, e é nada mais é que uma relativização do valor de ACC explicado na seção anterior para escopo de software. ACC calcula as conexões que uma classe tem, enquanto COF soma todas essas conexões de todas as classes e divide pelo total de conexões possíveis, resultando e um valor que varia de 0 a 1. O acoplamento ideal para um projeto qualquer é que o valor de COF esteja tão próximo de zero quanto possível, indicando que as classes são mais independentes e desacopladas.
+COF é uma métrica MOOD proposta por \citeonline{abreu1994object}, e nada mais é que uma relativização do valor de ACC explicado na seção anterior para escopo de software. ACC calcula as conexões que uma classe tem, enquanto COF soma todas essas conexões de todas as classes e divide pelo total de conexões possíveis, resultando e um valor que varia de 0 a 1. O acoplamento ideal para um projeto qualquer é que o valor de COF esteja tão próximo de zero quanto possível, indicando que as classes são mais independentes e desacopladas.
 
 O valor de COF para a API do Android ao longo de suas versões caiu de 0.13\% para 0.057\%, como apresenta a Figura~\ref{fig:cof_android} e a Tabela~\ref{tab:cof_android}. O valor de ACC permanece relativamente constante enquanto o número de classes aumenta significativamente a cada versão, acarretando no aumento de COF. Essencialmente, o sistema como um todo está cada vez mais desacoplado e consequentemente manutenível. 
 
